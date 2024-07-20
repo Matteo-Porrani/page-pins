@@ -1,11 +1,10 @@
 <script setup>
-import {ref} from 'vue';
+
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {categories} from "@/mock/mock-categories";
 
 const pinHtml = "&#128205;";
 
-const searchString = ref("");
 
 
 console.log(categories)
@@ -32,14 +31,6 @@ console.log(categories)
 		</template>
 
 		<template #content>
-
-			<div class="search flex justify-center pb-10">
-				<input
-					type="text"
-					v-model="searchString"
-					class="rounded-lg accent-zinc-300 w-1/3 p-2"
-				>
-			</div>
 
 			<section class="grid grid-cols-4 gap-12">
 				<router-link

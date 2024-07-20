@@ -42,7 +42,13 @@ header {
 
 main {
     display: grid;
-    grid-template-columns: 24fr 1fr;
+    grid-template-columns: 1fr 80px;
+}
+
+aside {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 }
 
 /*

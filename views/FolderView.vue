@@ -17,30 +17,26 @@ import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 				color="#a1a1aa"
 			/>
 		</router-link>
-		<h2 class="text-2xl font-bold">Category</h2>
+		<h2 class="text-2xl font-bold">Folder</h2>
 	</template>
 
 	<template #content>
-		<ul class="flex flex-col gap-8">
+		<ul class="flex flex-col gap-4">
+
 			<li
-				v-for="n in 5"
+				v-for="n in 6"
 				:key="n"
 			>
 
 				<router-link
-					:to="`/folder/${n}`"
-					class="folder-wrapper bg-white w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-200 ease-in p-6"
+					to="/"
+					class="folder-wrapper bg-white w-[30%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-200 ease-in py-4 px-8"
 				>
-					<box-icon
-						name="folder"
-						color="#a1a1aa"
-					/>
-
-					<p>Folder {{ n }}</p>
+					<p class="text-sm">Culpa cupiditate delectus eligendi eum, impedit inventore laboriosam molestiae {{ n }}</p>
 
 					<box-icon
 						class="ml-auto"
-						name="chevron-right"
+						name="link-external"
 						color="#a1a1aa"
 					/>
 				</router-link>

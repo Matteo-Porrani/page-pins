@@ -22,6 +22,12 @@ const routes = [
 		component: () => import(/* webpackChunkName: "category" */ "../views/CategoryView.vue")
 	},
 
+	{
+		path: "/folder/:id",
+		name: "folder",
+		component: () => import(/* webpackChunkName: "folder" */ "../views/FolderView.vue")
+	},
+
 ];
 
 const router = createRouter({
