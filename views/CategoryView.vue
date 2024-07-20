@@ -7,10 +7,17 @@ import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 <ScreenLayout>
 
 	<template #header>
-		<router-link to="/">
-			<box-icon name='left-arrow-alt'></box-icon>
+		<router-link
+			to="/"
+			class="rounded-lg flex items-center hover:bg-zinc-100 transition duration-100 ease-in mr-3"
+		>
+			<box-icon
+				name="left-arrow-alt"
+				size="lg"
+				color="#a1a1aa"
+			/>
 		</router-link>
-		<h2>Category</h2>
+		<h2 class="text-2xl font-bold">Category</h2>
 	</template>
 
 	<template #content>
