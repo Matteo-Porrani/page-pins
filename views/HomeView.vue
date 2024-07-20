@@ -48,20 +48,14 @@ console.log(categories)
 					:key="cat.id"
 					class="bg-white rounded-lg border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-200 ease-in p-4"
 				>
-					<article class="grid">
+					<article class="flex justify-between items-center py-6">
 
-						<div class="categ-content">
-							<h3 class="text-2xl text-zinc-700 font-bold">{{ cat.name }}</h3>
-							<p class="text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-						</div>
-						<div class="categ-link flex items-center">
-							<box-icon
-								name="chevron-right"
-								size="md"
-								color="#a1a1aa"
-							></box-icon>
-						</div>
-
+						<h3 class="text-xl text-zinc-700 font-bold">{{ cat.name }}</h3>
+						<box-icon
+							name="chevron-right"
+							size="md"
+							color="#a1a1aa"
+						/>
 
 					</article>
 				</router-link>
@@ -73,7 +67,4 @@ console.log(categories)
 </template>
 
 <style>
-article {
-	grid-template-columns: 11fr 1fr;
-}
 </style>

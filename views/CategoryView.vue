@@ -25,9 +25,26 @@ import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 			<li
 				v-for="n in 7"
 				:key="n"
-				class="bg-white w-[50%] rounded-lg p-4"
+
 			>
-				<p>Folder {{ n }}</p>
+
+				<router-link
+					to="/folder"
+					class="folder-wrapper bg-white w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-200 ease-in p-4"
+				>
+					<box-icon
+						name="folder"
+						color="#a1a1aa"
+					/>
+
+					<p>Folder {{ n }}</p>
+
+					<box-icon
+						class="ml-auto"
+						name="chevron-right"
+						color="#a1a1aa"
+					/>
+				</router-link>
 			</li>
 		</ul>
 	</template>
