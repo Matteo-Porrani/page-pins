@@ -1,5 +1,9 @@
 <script setup>
 
+const a = 25
+
+
+
 </script>
 
 <template>
