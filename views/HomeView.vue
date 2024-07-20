@@ -1,9 +1,69 @@
 <script setup>
 
+import ScreenLayout from "@/components/layout/ScreenLayout.vue";
+import {categories} from "@/mock/mock-categories";
+
+const pinHtml = "&#128205;";
+
+
+console.log(categories)
 </script>
 
 <template>
 
-	<h2>Home View</h2>
+	<ScreenLayout>
+		<template #header>
+			<h1 class="text-zinc-700 text-3xl font-extrabold flex gap-2 items-center">
+<!--				<box-icon-->
+<!--					type='solid'-->
+<!--					name='map-pin'-->
+<!--					size="md"-->
+<!--					color="#dc2626"-->
+<!--				/>-->
+				<box-icon
+					name='book-bookmark'
+					size="md"
+					color="#dc2626"
+				/>
+				<span>Page Pins</span>
+			</h1>
+		</template>
+
+		<template #content>
+
+			<section class="grid grid-cols-4 gap-12">
+				<router-link
+					:to="`/category/${cat.id}`"
+					v-for="cat in categories"
+					:key="cat.id"
+					class="bg-white rounded-lg border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-200 ease-in p-4"
+				>
+					<article class="grid">
+
+						<div class="categ-content">
+							<h3 class="text-2xl text-zinc-700 font-bold">{{ cat.name }}</h3>
+							<p class="text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+						</div>
+						<div class="categ-link flex items-center">
+							<box-icon
+								name="chevron-right"
+								size="md"
+								color="#a1a1aa"
+							></box-icon>
+						</div>
+
+
+					</article>
+				</router-link>
+			</section>
+
+		</template>
+	</ScreenLayout>
 
 </template>
+
+<style>
+article {
+	grid-template-columns: 11fr 1fr;
+}
+</style>

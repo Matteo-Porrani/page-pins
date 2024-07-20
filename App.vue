@@ -1,9 +1,5 @@
 <template>
-	<main class="bg-zinc-100">
-
-		<router-view/>
-
-	</main>
+	<router-view/>
 </template>
 
 <script setup>

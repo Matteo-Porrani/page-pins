@@ -20,12 +20,45 @@ so I try to avoid that now.
 I do sometimes add it to sections of microcopy though.
 */
 body {
-    min-height: 100vh;
+    height: 100vh; /* fixed height */
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
 }
 
-main {
-    min-height: 100vh;
+#app {
+    height: 100vh;
+
+    display: grid;
+    grid-template-rows: 1fr 11fr;
 }
+
+header {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 24fr 1fr;
+}
+
+/*
+
+<box-icon
+    type="regular|solid|logo"
+    name="adjust|alarms|etc...."
+    color="blue|red|etc..."
+    size="xs|sm|md|lg|cssSize"
+    rotate="90|180|270"
+    flip="horizontal|vertical"
+    border="square|circle"
+    animation="spin|tada|etc..."
+    animation="spin|tada|etc..."
+    pull = "left|right"
+></box-icon>
+
+
+*/
+
+
