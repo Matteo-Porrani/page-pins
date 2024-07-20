@@ -2,3 +2,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+Set core body defaults
+
+It’s useful for the <body> to fill the viewport, even when empty,
+so I do that by setting the min-height to 100vh.
+I also like smooth anchor scrolling, so I set scroll-behavior: smooth, too.
+
+I only set two text styles.
+I set the line-height to be 1.5 because the default 1.2 just isn’t big enough
+to have accessible, readable text.
+I also set text-rendering to optimizeSpeed.
+Using optimizeLegibility makes your text look nicer,
+but can have serious performance issues such as 30 second loading delays,
+so I try to avoid that now.
+I do sometimes add it to sections of microcopy though.
+*/
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+main {
+    min-height: 100vh;
+}

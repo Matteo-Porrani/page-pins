@@ -1,5 +1,5 @@
 <template>
-	<main>
+	<main class="bg-zinc-100">
 
 		<router-view/>
 
