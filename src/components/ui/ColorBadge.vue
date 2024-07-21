@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, computed} from "vue";
 
 const $p = defineProps({
 	color: {
@@ -8,8 +8,9 @@ const $p = defineProps({
 	}
 });
 
-
-const colorClass = "bg-" + $p.color + "-400";
+const colorClass = computed(() => {
+	return "bg-" + $p.color + "-400";
+});
 
 onMounted(() => {
 	console.log($p.color);
@@ -17,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="pp-color-badge w-6 h-10 rounded-lg"
+	<div class="pp-color-badge w-5 h-12 rounded-lg"
 			 :class="colorClass"
 	/>
 </template>
