@@ -14,7 +14,7 @@ const searchString = ref("");
 
 	<main>
 
-		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 py-4 px-8 overflow-hidden">
+		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 p-8 overflow-hidden">
 
 			<!-- TOOLBAR -->
 <!--			<div class="main-toolbar relative flex justify-center items-center pb-10">-->

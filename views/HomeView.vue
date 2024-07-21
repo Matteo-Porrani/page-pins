@@ -79,7 +79,7 @@ const toggleCategory = id => {
 					<article
 						v-for="cat in categories"
 						:key="cat.id"
-						class="bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 my-4 transition duration-300"
+						class="bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 						:class="{
 						'translate-x-[-10rem] opacity-25' : (Object.values(toggles).some(v => v) && !toggles[cat.id]),
 					}"

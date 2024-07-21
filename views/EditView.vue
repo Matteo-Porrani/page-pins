@@ -58,6 +58,36 @@ const removeEntity = () => {
 	objInForm.value = {};
 }
 
+const downloadJson = () => {
+	// The JSON object to download
+	// const data = { id: 'download1', lat: 999, long: 13 };
+	const data = { ...localData.value };
+
+	const str = JSON.stringify(data, null, 2);
+
+	// Create a blob object representing the data as a text file
+	const blob = new Blob([str], { type: 'text/plain' });
+
+	// Create a link element
+	const link = document.createElement('a');
+
+	// Set the href and download. When the user clicks this link, it will download the data
+	link.href = URL.createObjectURL(blob);
+	const now = new Date().getTime();
+	link.download = "data_backup_" + now + ".txt"; // the file name
+
+	// Add the link to the DOM
+	document.body.appendChild(link);
+
+	// Simulate click to start the download process
+	link.click();
+
+	// Remove the link from the DOM
+	document.body.removeChild(link);
+}
+
+
+
 </script>
 
 <template>
@@ -116,6 +146,13 @@ const removeEntity = () => {
 						@click.prevent="saveEntity"
 					>
 						OK
+					</button>
+
+					<button
+						class="block w-full bg-yellow-400 rounded-lg p-4 mt-10"
+						@click.prevent="downloadJson"
+					>
+						Download
 					</button>
 
 
