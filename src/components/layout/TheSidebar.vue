@@ -14,8 +14,11 @@ const icons = {
 <template>
 <section class="the-sidebar flex flex-col justify-between py-4">
 
+
+
 	<ul class="flex gap-4 flex-col justify-center items-center">
 
+		<router-link to="/edit/city">EDIT</router-link>
 		<li
 			v-for="i in Object.entries(icons)"
 			:key="i[0]"
