@@ -1,11 +1,11 @@
 const titles = [
-	["Développement", "red"],
-	["UX & Design", "orange"],
-	["Cinéma", "green"],
-	["Moto", "teal"],
-	["Livres", "blue"],
-	["Voyages", "yellow"],
-	["Misc", "amber"],
+	["Développement", "blue"],
+	["UX & Design", "purple"],
+	["Cinéma", "teal"],
+	["Moto", "yellow"],
+	["Livres", "orange"],
+	["Voyages", "red"],
+	["Misc", "lime"],
 ];
 
 export const categories = titles.map((t, i) => ({
