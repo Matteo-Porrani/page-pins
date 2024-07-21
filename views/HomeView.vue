@@ -4,8 +4,6 @@ import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {categories} from "@/mock/mock-categories";
 import ColorBadge from "@/components/ui/ColorBadge.vue";
 
-
-
 const pinHtml = "&#128205;";
 
 const toggles = reactive({})
@@ -28,6 +26,19 @@ const activeColor = computed(() => {
 	return "zinc";
 })
 
+const activeCateg = computed(() => {
+
+	if (Object.values(toggles).some(v => v)) { // one category selected
+		const activeId = Object.entries(toggles).filter(e => e[1])[0][0];
+		return categories.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
+	}
+
+	return null;
+})
+
+
+
+
 const toggleCategory = id => {
 	console.log("%c/toggleCategory/", "background: orange");
 	console.log("click on", id);
@@ -45,34 +56,36 @@ const toggleCategory = id => {
 	<ScreenLayout>
 		<template #header>
 			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
-				<!--				<box-icon-->
-				<!--					type='solid'-->
-				<!--					name='map-pin'-->
-				<!--					size="md"-->
-				<!--					color="#dc2626"-->
-				<!--				/>-->
+
+<!--				<box-icon-->
+<!--					name='book-bookmark'-->
+<!--					size="md"-->
+<!--					color="#dc2626"-->
+<!--				/>-->
+				<span>Page</span>
 				<box-icon
-					name='book-bookmark'
+					type='solid'
+					name='map-pin'
 					size="md"
 					color="#dc2626"
 				/>
-				<span>Page Pins</span>
+				<span>Pins</span>
 			</h1>
 		</template>
 
 		<template #content>
-			<div class="home-content-wrapper grid">
+			<div class="home-content-wrapper grid gap-4">
 				<section class="categories text-zinc-700">
 					<article
 						v-for="cat in categories"
 						:key="cat.id"
-						class="max-w-64 bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 my-4 transition duration-300"
+						class="bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 my-4 transition duration-300"
 						:class="{
 						'translate-x-[-10rem] opacity-25' : (Object.values(toggles).some(v => v) && !toggles[cat.id]),
 					}"
 						@click="toggleCategory(cat.id)"
 					>
-						<h3 class="font-bold">{{ cat.name }}</h3>
+						<h3 class="font-bold text-sm">{{ cat.name }}</h3>
 						<ColorBadge :color="cat.color"/>
 					</article>
 				</section>
@@ -80,42 +93,49 @@ const toggleCategory = id => {
 				<!-- CATEGORY CONTENT -->
 				<section class="category-content grid grid-cols-1 grid-rows-1">
 
-					<ul
-						class="category-content-ul bg-white rounded-lg flex flex-col gap-4 transition duration-500 p-4"
+					<div
+						class="category-content-drawer bg-white rounded-lg transition duration-500 p-4"
 						:class="{
 							'opacity-0 translate-y-1/2' : Object.values(toggles).every(v => !v),
 							'bg-white translate-y-0 opacity-1' : Object.values(toggles).some(v => v)
 						}"
 					>
-						<ColorBadge
-							class="absolute right-4 top-4"
-							:color="activeColor"
-						/>
 
-						<li
-							v-for="n in 5"
-							:key="n"
-						>
+						<div class="category-content-drawer-header flex justify-between items-center mb-4">
+							<h2 class="text-2xl font-bold py-2">{{ activeCateg?.name }}</h2>
+							<ColorBadge
+								class=""
+								:color="activeCateg?.color"
+							/>
+						</div>
 
-							<router-link
-								:to="`/folder/${n}`"
-								class="folder-wrapper bg-zinc-100 w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
+						<ul class="flex flex-col gap-4 ">
+							<li
+								v-for="n in 5"
+								:key="n"
 							>
-								<box-icon
-									name="folder"
-									color="#a1a1aa"
-								/>
 
-								<p>Folder {{ n }}</p>
+								<router-link
+									:to="`/folder/${n}`"
+									class="folder-wrapper bg-zinc-100 w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
+								>
+									<box-icon
+										name="folder"
+										color="#a1a1aa"
+									/>
 
-								<box-icon
-									class="ml-auto"
-									name="chevron-right"
-									color="#a1a1aa"
-								/>
-							</router-link>
-						</li>
-					</ul>
+									<p>Folder {{ n }}</p>
+
+									<box-icon
+										class="ml-auto"
+										name="chevron-right"
+										color="#a1a1aa"
+									/>
+								</router-link>
+							</li>
+						</ul>
+
+					</div>
 
 				</section>
 			</div>
@@ -131,7 +151,7 @@ const toggleCategory = id => {
 	grid-template-columns: 1fr 4fr;
 }
 
-/*.category-content-ul {
+/*.category-content-drawer {
 	transition-timing-function: cubic-bezier(0.4, 0, 0.39, 1.29);
 }*/
 

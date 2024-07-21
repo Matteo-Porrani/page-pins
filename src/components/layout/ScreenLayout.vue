@@ -8,7 +8,7 @@ const searchString = ref("");
 </script>
 
 <template>
-	<header class="p-4 bg-zinc-300">
+	<header class="py-4 px-12 bg-zinc-300">
 		<slot name="header"></slot>
 	</header>
 
