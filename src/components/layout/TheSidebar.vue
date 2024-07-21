@@ -52,5 +52,7 @@ const icons = {
 </template>
 
 <style scoped>
-
+section {
+	z-index: 9999;
+}
 </style>
