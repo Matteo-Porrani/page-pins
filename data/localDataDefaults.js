@@ -1,16 +1,8 @@
 export const localDataDefaults = {
-	category: [],
+	category: [
+		{ id: 1, name: "Development "},
+	],
 	folder: [],
 	link: [],
-	city: [
-		{
-			id: 1,
-			name: "Paris"
-		},
-		
-		{
-			id: 2,
-			name: "Lyon"
-		},
-	],
+	color: [],
 };

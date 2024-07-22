@@ -5,8 +5,9 @@ import {TW} from "../../../const/twConst";
 
 
 const icons = {
-	1: "search-alt-2",
-	2: "list-ul",
+	1: "grid-alt",
+	2: "search-alt-2",
+	3: "list-ul",
 }
 
 </script>
@@ -15,21 +16,23 @@ const icons = {
 <section class="the-sidebar flex flex-col justify-between py-4">
 
 
-
 	<ul class="flex gap-4 flex-col justify-center items-center">
 
-		<router-link to="/edit/city">EDIT</router-link>
 		<li
 			v-for="i in Object.entries(icons)"
 			:key="i[0]"
 			class="p-2 hover:bg-zinc-300 cursor-pointer flex justify-center items-center rounded-xl"
 			:class="TW.TRANS_1"
 		>
-			<box-icon
-				:name="i[1]"
-				size="md"
-				color="#71717a"
-			/>
+
+			<router-link to="/entities">
+				<box-icon
+					:name="i[1]"
+					size="md"
+					color="#71717a"
+				/>
+			</router-link>
+
 		</li>
 
 	</ul>

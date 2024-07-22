@@ -8,7 +8,13 @@ import {localDataDefaults} from "../data/localDataDefaults";
 const $route = useRoute();
 const $router = useRouter();
 
-const currEntityId = ref(0);
+const entityMapper = {
+	1: "category",
+	2: "folder",
+}
+
+const currEntityValue = ref(1);
+const currItemId = ref(0);
 const objInForm = ref({});
 
 // persist state in localStorage
@@ -17,14 +23,26 @@ const localData = useLocalStorage(
 	localDataDefaults //
 );
 
-const entitySelectOptions = computed(() => {
-	return localData.value[$route.params.entity].map(e => ({ id: e.id, name: e.name }));
+const currEntityName = computed(() => {
+	return entityMapper[currEntityValue.value];
 });
+const entitySelectOptions = computed(() => {
+
+
+	console.log("currEntityName", currEntityName.value)
+
+	return localData.value[currEntityName.value].map(e => ({ id: e.id, name: e.name }));
+});
+
+const selectEntityName = () => {
+	console.log("%c/selectEntityName/", "background: violet; padding: 4px");
+	console.log("currEntityName", selectEntityName);
+}
 
 const putEntityInForm = () => {
 	console.log("%c/putEntityInForm/", "background: gold; padding: 4px")
-	objInForm.value = localData.value[$route.params.entity]
-		.find(obj => parseInt(obj.id) === parseInt(currEntityId.value));
+	objInForm.value = localData.value[currEntityName.value]
+		.find(obj => parseInt(obj.id) === parseInt(currItemId.value));
 }
 
 const saveEntity = () => {
@@ -34,27 +52,30 @@ const saveEntity = () => {
 
 const addEntity = () => {
 	console.log("%c/addEntity/", "background: lime; padding: 4px")
-	const nextId = localData.value[$route.params.entity].length + 1;
+	const nextId = localData.value[currEntityName.value].length + 1;
 
 	// push new entity
-	localData.value[$route.params.entity].push({
+	localData.value[currEntityName.value].push({
 		id: nextId,
-		name: "new entity " + nextId
+		name: "new " + currEntityName.value + " " + nextId
 	});
 
-	currEntityId.value = nextId;
+	currItemId.value = nextId;
 	putEntityInForm();
 }
 
 const removeEntity = () => {
 	console.log("%c/removeEntity/", "background: lime; padding: 4px")
-	// console.log("...removing ID", objInForm.value.id);
-	const idx = localData.value[$route.params.entity].findIndex(obj => parseInt(obj.id) === parseInt(objInForm.value.id));
-	// console.log("...located at INDEX", idx);
+	console.log("...removing ID", objInForm.value.id);
 
-	localData.value[$route.params.entity].splice(idx, 1);
+	if (!objInForm.value.id) return;
+
+	const idx = localData.value[currEntityName.value].findIndex(obj => parseInt(obj.id) === parseInt(objInForm.value.id));
+	console.log("...located at INDEX", idx);
+
+	localData.value[currEntityName.value].splice(idx, 1);
 	// reset
-	currEntityId.value = 0;
+	currItemId.value = 0;
 	objInForm.value = {};
 }
 
@@ -90,6 +111,7 @@ const downloadJson = () => {
 
 </script>
 
+
 <template>
 	<ScreenLayout>
 		<template #header>
@@ -99,14 +121,25 @@ const downloadJson = () => {
 
 			<div class="screen-edit grid grid-cols-2">
 
-				<form class="text-2xl p-4">
+				<form class="text-xl p-4">
 
+					<!-- ENTITY -->
 					<select
-						v-model="currEntityId"
-						class="block w-full mb-5"
+						v-model="currEntityValue"
+						class="block w-full p-2 mb-5"
+						@change="selectEntityName"
+					>
+						<option value="1">Category</option>
+						<option value="2">Folder</option>
+					</select>
+
+					<!-- ITEM -->
+					<select
+						v-model="currItemId"
+						class="block w-full p-2 mb-5"
 						@change="putEntityInForm"
 					>
-						<option value="0">Select an object</option>
+						<option value="0">Select an item</option>
 						<option
 							v-for="opt in entitySelectOptions"
 							:value="opt.id"
@@ -116,7 +149,9 @@ const downloadJson = () => {
 					</select>
 
 
-					<label for="">Name</label>
+					<label class="block">id {{ objInForm.id }}</label>
+
+					<label>name</label>
 					<br>
 					<input
 						type="text"
@@ -160,7 +195,8 @@ const downloadJson = () => {
 
 
 				<div class="debug p-4">
-					<pre>currEntityId: {{ currEntityId }}</pre>
+					<pre>currEntityName: {{ currEntityName }}</pre>
+					<pre>currItemId: {{ currItemId }}</pre>
 					<pre>objInForm: {{ objInForm }}</pre>
 
 
@@ -168,16 +204,11 @@ const downloadJson = () => {
 					<pre>{{ localData }}</pre>
 				</div>
 
-
 			</div>
-
-
 
 		</template>
 	</ScreenLayout>
 </template>
-
-
 
 
 <style scoped>

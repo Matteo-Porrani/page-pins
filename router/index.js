@@ -34,6 +34,12 @@ const routes = [
 		component: () => import(/* webpackChunkName: "edit" */ "../views/EditView.vue")
 	},
 
+	{
+		path: "/entities",
+		name: "entities",
+		component: () => import(/* webpackChunkName: "entities" */ "../views/EditView.vue")
+	},
+
 ];
 
 const router = createRouter({
