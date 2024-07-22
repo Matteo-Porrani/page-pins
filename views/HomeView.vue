@@ -1,5 +1,7 @@
 <script setup>
 import {ref, computed, onMounted, reactive} from "vue";
+import {useLocalStorage} from "@vueuse/core/index";
+import {localDataDefaults} from "../data/localDataDefaults";
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {categories} from "@/mock/mock-categories";
 import ColorBadge from "@/components/ui/ColorBadge.vue";
@@ -13,6 +15,12 @@ onMounted(() => {
 		toggles[c.id] = false;
 	})
 });
+
+// access to localStorage
+const localData = useLocalStorage(
+	'storage_test_1',
+	localDataDefaults //
+);
 
 const activeColor = computed(() => {
 
@@ -56,12 +64,6 @@ const toggleCategory = id => {
 	<ScreenLayout>
 		<template #header>
 			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
-
-<!--				<box-icon-->
-<!--					name='book-bookmark'-->
-<!--					size="md"-->
-<!--					color="#dc2626"-->
-<!--				/>-->
 				<span>Page</span>
 				<box-icon
 					type='solid'
@@ -77,7 +79,7 @@ const toggleCategory = id => {
 			<div class="home-content-wrapper grid gap-4">
 				<section class="categories text-zinc-700">
 					<article
-						v-for="cat in categories"
+						v-for="cat in localData.category"
 						:key="cat.id"
 						class="bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 						:class="{
@@ -86,7 +88,7 @@ const toggleCategory = id => {
 						@click="toggleCategory(cat.id)"
 					>
 						<h3 class="font-bold text-sm">{{ cat.name }}</h3>
-						<ColorBadge :color="cat.color"/>
+						<ColorBadge color="red"/>
 					</article>
 				</section>
 
@@ -103,10 +105,7 @@ const toggleCategory = id => {
 
 						<div class="category-content-drawer-header flex justify-between items-center mb-4">
 							<h2 class="text-2xl font-bold py-2">{{ activeCateg?.name }}</h2>
-							<ColorBadge
-								class=""
-								:color="activeCateg?.color"
-							/>
+							<ColorBadge color="red"/>
 						</div>
 
 						<ul class="flex flex-col gap-4 ">

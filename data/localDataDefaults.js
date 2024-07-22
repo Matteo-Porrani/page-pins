@@ -3,6 +3,18 @@ export const localDataDefaults = {
 		{ id: 1, name: "Development "},
 	],
 	folder: [],
-	link: [],
-	color: [],
+	link: [
+		{
+			id: 1,
+			name: "Google",
+			url: "https://google.com",
+		}
+	],
+	tag: [
+		{
+			id: 1,
+			name: "favorite",
+			color: "red"
+		}
+	],
 };

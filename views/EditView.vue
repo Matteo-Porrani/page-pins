@@ -4,6 +4,7 @@ import {useLocalStorage} from "@vueuse/core/index";
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {useRoute, useRouter} from "vue-router";
 import {localDataDefaults} from "../data/localDataDefaults";
+import {modelDesc} from "../const/modelDesc";
 
 const $route = useRoute();
 const $router = useRouter();
@@ -11,13 +12,15 @@ const $router = useRouter();
 const entityMapper = {
 	1: "category",
 	2: "folder",
+	3: "link",
+	4: "tag",
 }
 
 const currEntityValue = ref(1);
 const currItemId = ref(0);
 const objInForm = ref({});
 
-// persist state in localStorage
+// access to localStorage
 const localData = useLocalStorage(
 	'storage_test_1',
 	localDataDefaults //
@@ -33,6 +36,8 @@ const entitySelectOptions = computed(() => {
 
 	return localData.value[currEntityName.value].map(e => ({ id: e.id, name: e.name }));
 });
+
+const getEntityDescription = computed(() => modelDesc[currEntityName.value]);
 
 const selectEntityName = () => {
 	console.log("%c/selectEntityName/", "background: violet; padding: 4px");
@@ -52,13 +57,24 @@ const saveEntity = () => {
 
 const addEntity = () => {
 	console.log("%c/addEntity/", "background: lime; padding: 4px")
-	const nextId = localData.value[currEntityName.value].length + 1;
+	const maxId = localData.value[currEntityName.value].map(item => item.id).sort().reverse()[0];
+	const nextId = maxId + 1;
 
-	// push new entity
-	localData.value[currEntityName.value].push({
+	const extraProps = Object.keys(getEntityDescription.value).filter(propName => !["id", "name"].includes(propName));
+	console.log("extraProps", extraProps);
+
+	// create new item with base properties
+	const newItem = {
 		id: nextId,
 		name: "new " + currEntityName.value + " " + nextId
-	});
+	}
+
+	if (extraProps.length > 0) {
+		extraProps.forEach(propName => newItem[propName] = "");
+	}
+
+	// push new entity
+	localData.value[currEntityName.value].push(newItem);
 
 	currItemId.value = nextId;
 	putEntityInForm();
@@ -119,18 +135,23 @@ const downloadJson = () => {
 		</template>
 		<template #content>
 
-			<div class="screen-edit grid grid-cols-2">
+			<div class="screen-edit grid gap-4 grid-cols-2">
 
-				<form class="text-xl p-4">
 
+				<section class="left">
 					<!-- ENTITY -->
 					<select
 						v-model="currEntityValue"
 						class="block w-full p-2 mb-5"
 						@change="selectEntityName"
 					>
-						<option value="1">Category</option>
-						<option value="2">Folder</option>
+						<option
+							v-for="opt in Object.entries(entityMapper)"
+							:key="opt[0]"
+							:value="opt[0]"
+						>
+							{{ opt[1] }}
+						</option>
 					</select>
 
 					<!-- ITEM -->
@@ -149,15 +170,34 @@ const downloadJson = () => {
 					</select>
 
 
-					<label class="block">id {{ objInForm.id }}</label>
+					<form class="text-xl p-4">
 
-					<label>name</label>
-					<br>
-					<input
-						type="text"
-						v-model="objInForm.name"
-						class="rounded-lg py-2 px-4"
-					>
+						<label class="block mb-4">#{{ objInForm.id }}</label>
+
+
+<!--						<label>name</label>-->
+<!--						<br>-->
+<!--						<input-->
+<!--							type="text"-->
+<!--							v-model="objInForm.name"-->
+<!--							class="rounded-lg py-2 px-4"-->
+<!--						>-->
+
+						<div
+							v-for="([fieldName, type], i) in Object.entries(getEntityDescription)"
+							:key="i"
+						>
+							<label class="block">{{ fieldName }}</label>
+							<input
+								:type="type"
+								v-model="objInForm[fieldName]"
+								class="block w-full rounded-lg py-2 px-4 mb-4"
+							>
+						</div>
+
+
+
+					</form>
 
 					<div class="grid grid-cols-2 gap-4">
 						<button
@@ -183,19 +223,22 @@ const downloadJson = () => {
 						OK
 					</button>
 
+
+				</section>
+
+
+
+
+				<div class="debug text-xs">
 					<button
-						class="block w-full bg-yellow-400 rounded-lg p-4 mt-10"
+						class="block w-32 bg-yellow-400 rounded-lg p-2 mb-4"
 						@click.prevent="downloadJson"
 					>
 						Download
 					</button>
 
-
-				</form>
-
-
-				<div class="debug p-4">
 					<pre>currEntityName: {{ currEntityName }}</pre>
+					<pre>getEntityDescription: {{ getEntityDescription }}</pre>
 					<pre>currItemId: {{ currItemId }}</pre>
 					<pre>objInForm: {{ objInForm }}</pre>
 
