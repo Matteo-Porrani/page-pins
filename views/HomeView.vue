@@ -38,13 +38,20 @@ const activeCateg = computed(() => {
 
 	if (Object.values(toggles).some(v => v)) { // one category selected
 		const activeId = Object.entries(toggles).filter(e => e[1])[0][0];
-		return categories.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
+		return localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
 	}
 
 	return null;
 })
 
+const getChildren = (childEntityName, parentEntityName, parentItemId) => {
+	console.log("c%/getChildren/", "background: cyan; padding: 4px");
 
+	const childEntityItems = localData.value[childEntityName].filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
+
+	console.log(childEntityItems);
+	return childEntityItems;
+}
 
 
 const toggleCategory = id => {
@@ -56,6 +63,11 @@ const toggleCategory = id => {
 		.filter(key => parseInt(key) !== parseInt(id))
 		.forEach(key => toggles[key] = false);
 }
+
+const categoryContentItems = computed(() => {
+	if (activeCateg.value) return getChildren("folder", "category", activeCateg.value.id);
+	return [];
+});
 
 </script>
 
@@ -110,12 +122,11 @@ const toggleCategory = id => {
 
 						<ul class="flex flex-col gap-4 ">
 							<li
-								v-for="n in 5"
-								:key="n"
+								v-for="folder in categoryContentItems"
+								:key="folder.id"
 							>
-
 								<router-link
-									:to="`/folder/${n}`"
+									:to="`/folder/${folder.id}`"
 									class="folder-wrapper bg-zinc-100 w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
 								>
 									<box-icon
@@ -123,7 +134,7 @@ const toggleCategory = id => {
 										color="#a1a1aa"
 									/>
 
-									<p>Folder {{ n }}</p>
+									<p>{{ folder.name }}</p>
 
 									<box-icon
 										class="ml-auto"

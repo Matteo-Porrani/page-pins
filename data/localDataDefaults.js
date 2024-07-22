@@ -2,7 +2,12 @@ export const localDataDefaults = {
 	category: [
 		{ id: 1, name: "Development "},
 	],
-	folder: [],
+	folder: [
+		{
+			id: 1,
+			name: "folder1"
+		}
+	],
 	link: [
 		{
 			id: 1,

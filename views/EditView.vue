@@ -4,7 +4,7 @@ import {useLocalStorage} from "@vueuse/core/index";
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {useRoute, useRouter} from "vue-router";
 import {localDataDefaults} from "../data/localDataDefaults";
-import {modelDesc} from "../const/modelDesc";
+import {modelDesc, listMapper} from "../const/modelDesc";
 
 const $route = useRoute();
 const $router = useRouter();
@@ -41,7 +41,11 @@ const getEntityDescription = computed(() => modelDesc[currEntityName.value]);
 
 const selectEntityName = () => {
 	console.log("%c/selectEntityName/", "background: violet; padding: 4px");
-	console.log("currEntityName", selectEntityName);
+
+	objInForm.value = {};
+	currItemId.value = 0;
+
+	console.log("currEntityName", currEntityName.value);
 }
 
 const putEntityInForm = () => {
@@ -124,6 +128,14 @@ const downloadJson = () => {
 }
 
 
+// folder.category
+const populateList = (entityAndField) => {
+
+	// 1. get the entity name to populate list
+	const [table, col] = entityAndField.split(".");
+	// 2. retrieve items from localData
+	return localData.value[col];
+}
 
 </script>
 
@@ -131,7 +143,16 @@ const downloadJson = () => {
 <template>
 	<ScreenLayout>
 		<template #header>
-			<h1>Edit screen</h1>
+			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
+				<span>Page</span>
+				<box-icon
+					type='solid'
+					name='map-pin'
+					size="md"
+					color="#dc2626"
+				/>
+				<span>Pins</span>
+			</h1>
 		</template>
 		<template #content>
 
@@ -142,7 +163,7 @@ const downloadJson = () => {
 					<!-- ENTITY -->
 					<select
 						v-model="currEntityValue"
-						class="block w-full p-2 mb-5"
+						class="block w-1/3 p-2 mb-5"
 						@change="selectEntityName"
 					>
 						<option
@@ -157,7 +178,7 @@ const downloadJson = () => {
 					<!-- ITEM -->
 					<select
 						v-model="currItemId"
-						class="block w-full p-2 mb-5"
+						class="block w-1/3 p-2 mb-5"
 						@change="putEntityInForm"
 					>
 						<option value="0">Select an item</option>
@@ -174,25 +195,37 @@ const downloadJson = () => {
 
 						<label class="block mb-4">#{{ objInForm.id }}</label>
 
-
-<!--						<label>name</label>-->
-<!--						<br>-->
-<!--						<input-->
-<!--							type="text"-->
-<!--							v-model="objInForm.name"-->
-<!--							class="rounded-lg py-2 px-4"-->
-<!--						>-->
-
 						<div
 							v-for="([fieldName, type], i) in Object.entries(getEntityDescription)"
 							:key="i"
 						>
-							<label class="block">{{ fieldName }}</label>
-							<input
-								:type="type"
-								v-model="objInForm[fieldName]"
-								class="block w-full rounded-lg py-2 px-4 mb-4"
-							>
+
+							<template v-if="type !== 'list'">
+								<label class="block">{{ fieldName }}</label>
+								<input
+									:type="type"
+									v-model="objInForm[fieldName]"
+									class="block w-full rounded-lg py-2 px-4 mb-4"
+								>
+							</template>
+
+							<template v-else>
+								<label class="block">{{ fieldName }}</label>
+
+								<select v-model="objInForm[fieldName]">
+									<option
+										v-for="opt in populateList(currEntityName + '.' + fieldName)"
+										:key="opt.id"
+										:value="opt.id"
+									>
+										{{ opt.id }} - {{ opt.name }}
+									</option>
+								</select>
+
+
+							</template>
+
+
 						</div>
 
 
@@ -244,7 +277,7 @@ const downloadJson = () => {
 
 
 					DATA
-					<pre>{{ localData }}</pre>
+<!--					<pre>{{ localData }}</pre>-->
 				</div>
 
 			</div>
