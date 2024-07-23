@@ -1,20 +1,25 @@
 <script setup>
 
 import {useMainStore} from "../../store/main";
+import {computed} from "vue";
 
 const $store = useMainStore();
 
-defineProps({
+const $p = defineProps({
 	folder: {
 		type: Object,
 		required: true,
 	}
 })
+
+
+const isSelectedFolder = computed(() => $p.folder.id === $store.activeFolderId);
 </script>
 
 <template>
 	<div
-		class="folder-wrapper bg-zinc-100 rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
+		class="folder-wrapper rounded-lg flex gap-2 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
+		:class="{'bg-zinc-100 text-zinc-500' : !isSelectedFolder, 'bg-zinc-300 text-zinc-800 font-bold' : isSelectedFolder, }"
 		@click="$store.activeFolderId=folder.id"
 	>
 		<box-icon
@@ -22,7 +27,7 @@ defineProps({
 			color="#a1a1aa"
 		/>
 
-		<p>{{ folder.name }}</p>
+		<p class="text-sm">{{ folder.name }}</p>
 
 		<box-icon
 			class="ml-auto"

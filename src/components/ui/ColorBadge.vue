@@ -18,7 +18,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="pp-color-badge w-4 h-12 rounded-md"
+	<div class="pp-color-badge w-2 h-10 rounded-md"
 			 :class="colorClass"
 	/>
 </template>

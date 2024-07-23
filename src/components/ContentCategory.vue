@@ -29,7 +29,7 @@ import EditButton from "@/components/ui/EditButton.vue";
 			<div class="drawer-header flex justify-between items-center mb-4">
 				<h2 class="text-2xl font-bold py-2">
 					<span v-if="$store.activeCateg">{{ $store.activeCateg.name }}</span>
-					<span v-if="$store.activeFolder"> / {{ $store.activeFolder.name }}</span>
+					<span v-if="$store.activeFolder"> &gt; {{ $store.activeFolder.name }}</span>
 				</h2>
 				<EditButton/>
 			</div>
@@ -75,6 +75,6 @@ import EditButton from "@/components/ui/EditButton.vue";
 	border: 1px solid gold;
 }*/
 .drawer-body {
-	grid-template-columns: 2fr 5fr;
+	grid-template-columns: 1fr 3fr;
 }
 </style>
