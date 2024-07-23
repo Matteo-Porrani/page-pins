@@ -6,7 +6,7 @@ const $s = useMainStore();
 
 <template>
 	<button
-		class="bg-white border-2 border-transparent cursor-pointer hover:border-zinc-400 rounded-lg transition-all duration-300 ease-in p-2"
+		class="w-12 aspect-square flex justify-center items-center border-2 border-transparent cursor-pointer hover:bg-zinc-200 rounded-lg transition-all duration-300 ease-in "
 		@click="$s.editEntity()"
 	>
 		<box-icon name="edit" size="md" />

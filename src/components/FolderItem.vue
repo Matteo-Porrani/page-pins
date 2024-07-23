@@ -19,7 +19,7 @@ const isSelectedFolder = computed(() => $p.folder.id === $store.activeFolderId);
 <template>
 	<div
 		class="folder-wrapper rounded-lg flex gap-2 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
-		:class="{'bg-zinc-100 text-zinc-500' : !isSelectedFolder, 'bg-zinc-300 text-zinc-800 font-bold' : isSelectedFolder, }"
+		:class="{'bg-zinc-100 text-zinc-500' : !isSelectedFolder, 'bg-zinc-300 text-zinc-800' : isSelectedFolder, }"
 		@click="$store.activeFolderId=folder.id"
 	>
 		<box-icon
