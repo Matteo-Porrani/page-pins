@@ -82,7 +82,7 @@ const activeColor = computed(() => {
 <style scoped>
 
 .home-content-wrapper {
-	grid-template-columns: 1fr 4fr;
+	grid-template-columns: 1fr 6fr;
 }
 
 /*.category-content-drawer {

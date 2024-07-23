@@ -8,33 +8,55 @@ const $p = defineProps({
 })
 
 import FolderItem from "@/components/FolderItem.vue";
+import LinkItem from "@/components/LinkItem.vue";
 </script>
 
 <template>
-	<!-- CATEGORY CONTENT -->
+	<!-- EXTERNAL WRAPPER -->
 	<section class="category-content grid grid-cols-1 grid-rows-1">
 
+		<!-- DRAWER -->
 		<div
-			class="category-content-drawer bg-white rounded-lg transition duration-500 p-4"
+			class="drawer bg-white rounded-lg transition duration-500 p-4"
 			:class="{
 							'opacity-0 translate-y-1/2' : Object.values($store.categoryToggles).every(v => !v),
 							'bg-white translate-y-0 opacity-1' : Object.values($store.categoryToggles).some(v => v)
 						}"
 		>
 
-			<div class="category-content-drawer-header flex justify-between items-center mb-4">
-				<h2 class="text-2xl font-bold py-2">{{ $store.activeCateg?.name }}</h2>
+			<!-- HEADER -->
+			<div class="drawer-header flex justify-between items-center mb-4">
+				<h2 class="text-2xl font-bold py-2">
+					<span v-if="$store.activeCateg">{{ $store.activeCateg.name }}</span>
+					<span v-if="$store.activeFolder"> / {{ $store.activeFolder.name }}</span>
+				</h2>
 				<pre>{{ $store.activeFolderId }}</pre>
 			</div>
 
-			<ul class="flex flex-col gap-4 ">
-				<li
-					v-for="folder in $store.categoryContentItems"
-					:key="folder.id"
-				>
-					<FolderItem :folder="folder"/>
-				</li>
-			</ul>
+
+			<div class="drawer-body grid gap-4">
+
+				<ul class="flex flex-col gap-4">
+					<li
+						v-for="folder in $store.categoryContentItems"
+						:key="folder.id"
+					>
+						<FolderItem :folder="folder"/>
+					</li>
+				</ul>
+
+				<div>
+					<ul class="flex flex-col gap-4">
+						<li
+							v-for="link in $store.folderContentItems"
+							:key="link.id"
+						>
+							<LinkItem :link="link"/>
+						</li>
+					</ul>
+				</div>
+
+			</div>
 
 		</div>
 
@@ -42,5 +64,16 @@ import FolderItem from "@/components/FolderItem.vue";
 </template>
 
 <style scoped>
-
+/*.drawer {
+	border: 2px solid cornflowerblue;
+}
+.drawer-header {
+	border: 2px solid crimson;
+}
+.drawer-body > * {
+	border: 1px solid gold;
+}*/
+.drawer-body {
+	grid-template-columns: 2fr 5fr;
+}
 </style>

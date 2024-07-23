@@ -34,7 +34,13 @@ export const useMainStore = defineStore('counter', () => {
 			return localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
 		}
 		return null;
-	})
+	});
+	
+	const activeFolder = computed(() => {
+		return activeFolderId.value ?
+			localData.value.folder.find(fol => parseInt(fol.id) === parseInt(activeFolderId.value))
+			: null;
+	});
 	
 	const categoryContentItems = computed(() => {
 		console.log("categoryContentItems", activeCateg.value);
@@ -45,6 +51,13 @@ export const useMainStore = defineStore('counter', () => {
 		;
 	});
 	
+	
+	const folderContentItems = computed(() => {
+		return activeFolder.value
+			? getChildren("link", "folder", activeFolder.value.id)
+			: []
+		;
+	});
 	
 	// ACTIONS
 	
@@ -85,7 +98,9 @@ export const useMainStore = defineStore('counter', () => {
 		
 		doubleCount,
 		activeCateg,
+		activeFolder,
 		categoryContentItems,
+		folderContentItems,
 		
 		increment,
 		initCategoryToggles,

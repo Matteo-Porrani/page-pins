@@ -14,7 +14,7 @@ defineProps({
 
 <template>
 	<div
-		class="folder-wrapper bg-zinc-100 w-[50%] rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
+		class="folder-wrapper bg-zinc-100 rounded-lg flex gap-4 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
 		@click="$store.activeFolderId=folder.id"
 	>
 		<box-icon
