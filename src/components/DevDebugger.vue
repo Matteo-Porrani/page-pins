@@ -11,6 +11,7 @@ const $s = useMainStore();
 	<pre>displayStep: {{ $s.displayStep }}</pre>
 	<pre>activeCateg: {{ $s.activeCateg }}</pre>
 	<pre>activeFolder: {{ $s.activeFolder }}</pre>
+	<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>
 </div>
 </template>
 

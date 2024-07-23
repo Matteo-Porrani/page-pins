@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import {ref, computed, reactive} from 'vue';
 import {useLocalStorage} from "@vueuse/core/index";
 import {localDataDefaults} from "../data/localDataDefaults";
+import {modelDesc} from "../const/modelDesc";
 
 export const useMainStore = defineStore('counter', () => {
 	
@@ -15,7 +16,6 @@ export const useMainStore = defineStore('counter', () => {
 	// STATE
 	const showModal = ref(false);
 	
-	
 	const categoryToggles = reactive({});
 	
 	const activeFolderId = ref(null);
@@ -26,6 +26,9 @@ export const useMainStore = defineStore('counter', () => {
 	const increment = () => {
 		count.value++;
 	}
+	
+	
+	const itemInForm = ref(null);
 	
 	
 	// GETTERS
@@ -63,13 +66,34 @@ export const useMainStore = defineStore('counter', () => {
 		;
 	});
 	
-	
 	const folderContentItems = computed(() => {
 		return activeFolder.value
 			? getChildren("link", "folder", activeFolder.value.id)
 			: []
 		;
 	});
+	
+	const creationCriteria = computed(() => {
+		return {
+			categoryId: activeCateg.value ? activeCateg.value.id : null,
+			folderId: activeFolder.value ? activeFolder.value.id : null,
+		}
+	});
+	
+	
+	
+	const entityInFormDescription = ref(null);
+	
+	// FIXME -- should be a computed !!!!!
+	// const entityInFormDescription = computed(() => {
+	// 	const entityName = {
+	// 		0: "category",
+	// 		1: "folder",
+	// 		2: "link",
+	// 	}[displayStep.value];
+	//
+	// 	return modelDesc[entityName];
+	// });
 	
 	// ACTIONS
 	
@@ -101,6 +125,78 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	
+	const addEntity = () => {
+		console.log("%c/addEntity/", "background: orange;")
+		
+		console.log(creationCriteria.value);
+		
+		const entityName = {
+			0: "category",
+			1: "folder",
+			2: "link",
+		}[displayStep.value];
+		
+		console.log("// => entityName //", entityName)
+		
+		console.log(localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse());
+
+		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
+		const nextId = maxId + 1;
+		
+		const entityDesc = modelDesc[entityName];
+		entityInFormDescription.value = modelDesc[entityName];
+		
+		const extraProps = Object.keys(entityDesc)
+			.filter(propName => !["id", "name"].includes(propName));
+		console.log("extraProps", extraProps);
+		
+		// create new item with base properties
+		const newItem = {
+			id: nextId,
+			name: "new " + entityName + " " + nextId
+		}
+		
+		// add default value to extra props
+		if (extraProps.length > 0) {
+			extraProps.forEach(propName => newItem[propName] = "");
+		}
+		
+		if (creationCriteria.value.categoryId) newItem.category = creationCriteria.value.categoryId;
+		if (creationCriteria.value.folderId) newItem.folder = creationCriteria.value.folderId;
+		
+		// push new entity
+		localData.value[entityName].push(newItem);
+		
+		itemInForm.value = newItem;
+		
+		showModal.value = true;
+	}
+	
+	const editEntity = () => {
+		console.log("%c/editEntity/", "background: #916; color: white");
+		
+		const entityName = {
+			1: "category",
+			2: "folder",
+		}[displayStep.value];
+		
+		console.log("a", entityName);
+		
+		entityInFormDescription.value = modelDesc[entityName];
+		
+		const idToEdit = {
+			1: activeCateg.value ? activeCateg.value.id : null,
+			2: activeFolder.value ? activeFolder.value.id : null,
+		}[displayStep.value];
+		
+		console.log("b", idToEdit);
+		
+		const entityToEdit = localData.value[entityName].find(item => parseInt(item.id) === parseInt(idToEdit));
+    itemInForm.value = entityToEdit;
+    showModal.value = true;
+		
+	}
+	
 	
 	return {
 		localData,
@@ -108,6 +204,7 @@ export const useMainStore = defineStore('counter', () => {
 		categoryToggles,
 		activeFolderId,
 		count,
+		itemInForm,
 		
 		doubleCount,
 		activeCateg,
@@ -115,10 +212,14 @@ export const useMainStore = defineStore('counter', () => {
 		displayStep,
 		categoryContentItems,
 		folderContentItems,
+		creationCriteria,
+		entityInFormDescription,
 		
 		increment,
 		initCategoryToggles,
 		toggleCategory,
 		getChildren,
+		addEntity,
+		editEntity,
 	}
 });

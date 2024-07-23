@@ -9,6 +9,7 @@ const $p = defineProps({
 
 import FolderItem from "@/components/FolderItem.vue";
 import LinkItem from "@/components/LinkItem.vue";
+import EditButton from "@/components/ui/EditButton.vue";
 </script>
 
 <template>
@@ -30,7 +31,7 @@ import LinkItem from "@/components/LinkItem.vue";
 					<span v-if="$store.activeCateg">{{ $store.activeCateg.name }}</span>
 					<span v-if="$store.activeFolder"> / {{ $store.activeFolder.name }}</span>
 				</h2>
-				<pre>{{ $store.activeFolderId }}</pre>
+				<EditButton/>
 			</div>
 
 
