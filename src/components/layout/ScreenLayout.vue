@@ -2,12 +2,22 @@
 import {ref} from 'vue';
 import TheSidebar from "@/components/layout/TheSidebar.vue";
 import {TW} from "../../../const/twConst";
+import TheModal from "@/components/ui/TheModal.vue";
+import {useMainStore} from "../../../store/main";
 
+const $s = useMainStore();
 
 const searchString = ref("");
 </script>
 
 <template>
+
+	<Teleport to="body">
+		<TheModal
+			:show="$s.showModal"
+		/>
+	</Teleport>
+
 	<header class="py-4 px-12 bg-zinc-300">
 		<slot name="header"></slot>
 	</header>

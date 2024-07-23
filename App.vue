@@ -1,3 +1,9 @@
+<script setup>
+import {useMainStore} from "./store/main";
+import DevDebugger from "@/components/DevDebugger.vue";
+const $s = useMainStore();
+</script>
+
 <template>
 
 	<Teleport to="body">
@@ -8,7 +14,10 @@
 		<div
 			class="add-btn flex justify-center items-center text-sm font-mono absolute bottom-10 left-10"
 		>
-			<button class="bg-white border-2 border-zinc-200 cursor-pointer hover:border-zinc-500 rounded-lg transition-all duration-200 p-2">
+			<button
+				class="bg-white border-2 border-zinc-200 cursor-pointer hover:border-zinc-500 rounded-lg transition-all duration-200 p-2"
+				@click="$s.showModal=true"
+			>
 				<box-icon name="plus" size="md" />
 			</button>
 		</div>
@@ -152,6 +161,4 @@
 
 </template>
 
-<script setup>
-import DevDebugger from "@/components/DevDebugger.vue";
-</script>
+

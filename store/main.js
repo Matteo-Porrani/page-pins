@@ -13,6 +13,8 @@ export const useMainStore = defineStore('counter', () => {
 	
 	
 	// STATE
+	const showModal = ref(false);
+	
 	
 	const categoryToggles = reactive({});
 	
@@ -102,6 +104,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	return {
 		localData,
+		showModal,
 		categoryToggles,
 		activeFolderId,
 		count,
