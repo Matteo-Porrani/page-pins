@@ -28,6 +28,16 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// GETTERS
 	
+	const displayStep = computed(() => {
+		if (activeCateg.value) {
+			if (activeFolderId.value) {
+				return 2;
+			}
+			return 1
+		}
+		return 0;
+	});
+	
 	const activeCateg = computed(() => {
 		if (Object.values(categoryToggles).some(v => v)) { // one category selected
 			const activeId = Object.entries(categoryToggles).filter(e => e[1])[0][0];
@@ -99,6 +109,7 @@ export const useMainStore = defineStore('counter', () => {
 		doubleCount,
 		activeCateg,
 		activeFolder,
+		displayStep,
 		categoryContentItems,
 		folderContentItems,
 		

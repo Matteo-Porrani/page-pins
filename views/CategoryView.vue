@@ -1,3 +1,8 @@
+<!--
+DEPRECATED
+-->
+
+
 <script setup>
 
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";

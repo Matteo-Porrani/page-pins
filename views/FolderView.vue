@@ -1,3 +1,9 @@
+<!--
+DEPRECATED
+-->
+
+
+
 <script setup>
 import {computed} from "vue";
 import {useRoute} from "vue-router";

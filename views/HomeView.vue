@@ -5,6 +5,7 @@ import {categories} from "@/mock/mock-categories";
 import ColorBadge from "@/components/ui/ColorBadge.vue";
 import {useMainStore} from "../store/main";
 import ContentCategory from "@/components/ContentCategory.vue";
+import DevDebugger from "@/components/DevDebugger.vue";
 
 const $store = useMainStore();
 
@@ -68,6 +69,7 @@ const activeColor = computed(() => {
 						<h3 class="font-bold text-sm">{{ cat.name }}</h3>
 						<ColorBadge color="zinc"/>
 					</article>
+
 				</section>
 
 				<ContentCategory/>

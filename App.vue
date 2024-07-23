@@ -1,4 +1,19 @@
 <template>
+
+	<Teleport to="body">
+		<DevDebugger/>
+	</Teleport>
+
+	<Teleport to="body">
+		<div
+			class="add-btn flex justify-center items-center text-sm font-mono absolute bottom-10 left-10"
+		>
+			<button class="bg-white border-2 border-zinc-200 cursor-pointer hover:border-zinc-500 rounded-lg transition-all duration-200 p-2">
+				<box-icon name="plus" size="md" />
+			</button>
+		</div>
+	</Teleport>
+
 	<router-view/>
 
 	<!--
@@ -138,4 +153,5 @@
 </template>
 
 <script setup>
+import DevDebugger from "@/components/DevDebugger.vue";
 </script>
