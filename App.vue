@@ -15,7 +15,7 @@ const $s = useMainStore();
 			class="add-btn flex justify-center items-center text-sm font-mono absolute bottom-10 left-10"
 		>
 			<button
-				class="bg-white border-2 border-transparent cursor-pointer hover:border-zinc-400 rounded-lg transition-all duration-300 ease-in p-2"
+				class="w-16 h-16 flex justify-center items-center bg-white border-2 border-transparent cursor-pointer hover:border-zinc-400 rounded-lg transition-all duration-300 ease-in p-2"
 				@click="$s.addEntity()"
 			>
 				<box-icon name="plus" size="md" />

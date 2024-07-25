@@ -104,7 +104,7 @@ export const useMainStore = defineStore('counter', () => {
 	};
 	
 	const toggleCategory = id => {
-		console.log("%c/toggleCategory/", "background: orange");
+		console.log("%c/toggleCategory/", "background: crimson");
 		categoryToggles[id] = !categoryToggles[id];
 		
 		Object.keys(categoryToggles)
@@ -115,7 +115,7 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
-		console.log("%c/getChildren/", "background: lime;");
+		console.log("%c/getChildren/", "background: teal;");
 		
 		console.log({ childEntityName, parentEntityName, parentItemId })
 		
@@ -126,7 +126,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	
 	const addEntity = () => {
-		console.log("%c/addEntity/", "background: orange;")
+		console.log("%c/addEntity/", "background: crimson;")
 		
 		console.log(creationCriteria.value);
 		
@@ -173,7 +173,7 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const editEntity = () => {
-		console.log("%c/editEntity/", "background: #916; color: white");
+		console.log("%c/editEntity/", "background: #916");
 		
 		const entityName = {
 			1: "category",

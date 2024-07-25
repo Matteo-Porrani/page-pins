@@ -15,7 +15,7 @@ const pinHtml = "&#128205;";
 const toggles = reactive({});
 
 onMounted(() => {
-	console.log("%c/MOUNTED HomeView.vue/", "background: lime");
+	console.log("%c/MOUNTED HomeView.vue/", "background: teal");
 	// initialize toggles to false
 	// $store.localData.category.forEach(c => toggles[c.id] = false);
 	$store.initCategoryToggles();
@@ -39,18 +39,7 @@ const activeColor = computed(() => {
 <template>
 
 	<ScreenLayout>
-		<template #header>
-			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
-				<span>Page</span>
-				<box-icon
-					type='solid'
-					name='map-pin'
-					size="md"
-					color="#dc2626"
-				/>
-				<span>Pins</span>
-			</h1>
-		</template>
+		<template #header></template>
 
 		<template #content>
 			<div class="home-content-wrapper grid gap-4">

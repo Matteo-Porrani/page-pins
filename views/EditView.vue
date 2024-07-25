@@ -60,7 +60,7 @@ const saveEntity = () => {
 }
 
 const addEntity = () => {
-	console.log("%c/addEntity/", "background: lime; padding: 4px")
+	console.log("%c/addEntity/", "background: teal; padding: 4px")
 	const maxId = localData.value[currEntityName.value].map(item => item.id).sort().reverse()[0];
 	const nextId = maxId + 1;
 
@@ -85,7 +85,7 @@ const addEntity = () => {
 }
 
 const removeEntity = () => {
-	console.log("%c/removeEntity/", "background: lime; padding: 4px")
+	console.log("%c/removeEntity/", "background: teal; padding: 4px")
 	console.log("...removing ID", objInForm.value.id);
 
 	if (!objInForm.value.id) return;

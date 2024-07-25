@@ -34,7 +34,7 @@ body {
     height: 100vh;
 
     display: grid;
-    grid-template-rows: 1fr 11fr;
+    grid-template-rows: auto 1fr;
 }
 
 header {
@@ -44,14 +44,16 @@ header {
 
 main {
     display: grid;
-    grid-template-columns: 1fr 80px;
+    grid-template-columns: 1fr;
 }
 
+/*
 aside {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 }
+*/
 
 .font-anton {
     font-family: "Anton", sans-serif;
