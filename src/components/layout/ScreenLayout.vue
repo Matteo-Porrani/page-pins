@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from 'vue';
-import TheSidebar from "@/components/layout/TheSidebar.vue";
-import {TW} from "../../../const/twConst";
+// import TheSidebar from "@/components/layout/TheSidebar.vue";
+// import {TW} from "../../../const/twConst";
 import TheModal from "@/components/ui/TheModal.vue";
 import {useMainStore} from "../../../store/main";
 import TheEditForm from "@/components/ui/TheEditForm.vue";
@@ -13,11 +13,11 @@ const searchString = ref("");
 import { onKeyStroke } from '@vueuse/core'
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 
-onKeyStroke(["@"], (e) => {
-	e.preventDefault();
-	console.log("key E");
-	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
-});
+// onKeyStroke(["@"], (e) => {
+// 	e.preventDefault();
+// 	console.log("key E");
+// 	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
+// });
 
 </script>
 
@@ -27,7 +27,7 @@ onKeyStroke(["@"], (e) => {
 		<TheModal
 			:show="$s.showModal"
 		>
-			<template #header>Ajouter</template>
+			<template #header>Add</template>
 			<template #body>
 				<TheEditForm/>
 			</template>
