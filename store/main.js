@@ -16,6 +16,8 @@ export const useMainStore = defineStore('counter', () => {
 	// STATE
 	const showModal = ref(false);
 	
+	const boardMode = ref("$view");
+	
 	const categoryToggles = reactive({});
 	
 	const activeFolderId = ref(null);
@@ -32,6 +34,8 @@ export const useMainStore = defineStore('counter', () => {
 	
 	
 	// GETTERS
+	
+	const editModeOn = computed(() => boardMode.value === "$edit");
 	
 	const displayStep = computed(() => {
 		if (activeCateg.value) {
@@ -104,6 +108,8 @@ export const useMainStore = defineStore('counter', () => {
 	};
 	
 	const toggleCategory = id => {
+		// no action if edit mode
+		if (editModeOn.value) return;
 		console.log("%c/toggleCategory/", "background: crimson");
 		categoryToggles[id] = !categoryToggles[id];
 		
@@ -125,8 +131,8 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	
-	const addEntity = () => {
-		console.log("%c/addEntity/", "background: crimson;")
+	const addItem = () => {
+		console.log("%c/addItem/", "background: crimson;")
 		
 		console.log(creationCriteria.value);
 		
@@ -172,41 +178,63 @@ export const useMainStore = defineStore('counter', () => {
 		showModal.value = true;
 	}
 	
-	const editEntity = () => {
-		console.log("%c/editEntity/", "background: #916");
-		
-		const entityName = {
-			1: "category",
-			2: "folder",
-		}[displayStep.value];
-		
-		console.log("a", entityName);
+	// FIXME -- DEPRECATED
+	// const editEntity = () => {
+	// 	console.log("%c/editEntity/", "background: #916");
+	//
+	// 	const entityName = {
+	// 		1: "category",
+	// 		2: "folder",
+	// 	}[displayStep.value];
+	//
+	// 	console.log("a", entityName);
+	//
+	// 	entityInFormDescription.value = modelDesc[entityName];
+	//
+	// 	const idToEdit = {
+	// 		1: activeCateg.value ? activeCateg.value.id : null,
+	// 		2: activeFolder.value ? activeFolder.value.id : null,
+	// 	}[displayStep.value];
+	//
+	// 	console.log("b", idToEdit);
+	//
+	// 	const entityToEdit = localData.value[entityName].find(item => parseInt(item.id) === parseInt(idToEdit));
+  //   itemInForm.value = entityToEdit;
+  //   showModal.value = true;
+	//
+	// }
+	
+	const editItem = (entityName, item) => {
+		console.log("%c/editItem/", "background: blue");
+		console.log(entityName, item);
 		
 		entityInFormDescription.value = modelDesc[entityName];
+		itemInForm.value = localData.value[entityName].find(el => parseInt(el.id) === parseInt(item.id));
+		showModal.value = true;
+	}
+	
+	const deleteItem = (entityName, item) => {
+		console.log("%c/deleteItem/", "background: blue");
+		console.log(entityName, item);
 		
-		const idToEdit = {
-			1: activeCateg.value ? activeCateg.value.id : null,
-			2: activeFolder.value ? activeFolder.value.id : null,
-		}[displayStep.value];
+		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
+		localData.value[entityName].splice(idxToRemove, 1);
 		
-		console.log("b", idToEdit);
-		
-		const entityToEdit = localData.value[entityName].find(item => parseInt(item.id) === parseInt(idToEdit));
-    itemInForm.value = entityToEdit;
-    showModal.value = true;
-		
+		console.log("REMOVED")
 	}
 	
 	
 	return {
 		localData,
 		showModal,
+		boardMode,
 		categoryToggles,
 		activeFolderId,
 		count,
 		itemInForm,
 		
 		doubleCount,
+		editModeOn,
 		activeCateg,
 		activeFolder,
 		displayStep,
@@ -219,7 +247,9 @@ export const useMainStore = defineStore('counter', () => {
 		initCategoryToggles,
 		toggleCategory,
 		getChildren,
-		addEntity,
-		editEntity,
+		addItem,
+		// editEntity,
+		editItem,
+		deleteItem,
 	}
 });

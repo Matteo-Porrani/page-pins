@@ -6,6 +6,7 @@ import ColorBadge from "@/components/ui/ColorBadge.vue";
 import {useMainStore} from "../store/main";
 import ContentCategory from "@/components/ContentCategory.vue";
 import DevDebugger from "@/components/DevDebugger.vue";
+import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 
 const $store = useMainStore();
 
@@ -49,12 +50,19 @@ const activeColor = computed(() => {
 					<article
 						v-for="cat in $store.localData.category"
 						:key="cat.id"
-						class="bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
+						class="relative bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 						:class="{
 							'translate-x-[-10rem] opacity-25' : (Object.values($store.categoryToggles).some(v => v) && !$store.categoryToggles[cat.id]),
 						}"
 						@click="$store.toggleCategory(cat.id)"
 					>
+
+						<ItemToolbar
+							v-if="$store.editModeOn"
+							entity="category"
+							:item="cat"
+						/>
+
 						<h3 class="font-bold text-sm">{{ cat.name }}</h3>
 						<ColorBadge color="zinc"/>
 					</article>

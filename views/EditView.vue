@@ -59,8 +59,8 @@ const saveEntity = () => {
 	$router.push("/");
 }
 
-const addEntity = () => {
-	console.log("%c/addEntity/", "background: teal; padding: 4px")
+const addItem = () => {
+	console.log("%c/addItem/", "background: teal; padding: 4px")
 	const maxId = localData.value[currEntityName.value].map(item => item.id).sort().reverse()[0];
 	const nextId = maxId + 1;
 
@@ -235,7 +235,7 @@ const populateList = (entityAndField) => {
 					<div class="grid grid-cols-2 gap-4">
 						<button
 							class="block bg-emerald-400 rounded-lg p-4 mt-10"
-							@click.prevent="addEntity"
+							@click.prevent="addItem"
 						>
 							Add
 						</button>

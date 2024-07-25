@@ -9,6 +9,15 @@ import TheEditForm from "@/components/ui/TheEditForm.vue";
 const $s = useMainStore();
 
 const searchString = ref("");
+
+import { onKeyStroke } from '@vueuse/core'
+
+onKeyStroke(["@"], (e) => {
+	e.preventDefault();
+	console.log("key E");
+	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
+});
+
 </script>
 
 <template>
@@ -43,7 +52,7 @@ const searchString = ref("");
 
 	<main>
 
-		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 pt-0 p-8 overflow-hidden">
+		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 pt-4 p-8 overflow-hidden">
 
 			<!-- TOOLBAR -->
 <!--						<div class="main-toolbar relative flex justify-center items-center pb-10">-->

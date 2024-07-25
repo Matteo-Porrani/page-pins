@@ -16,7 +16,7 @@ const $s = useMainStore();
 		>
 			<button
 				class="w-16 h-16 flex justify-center items-center bg-white border-2 border-transparent cursor-pointer hover:border-zinc-400 rounded-lg transition-all duration-300 ease-in p-2"
-				@click="$s.addEntity()"
+				@click="$s.addItem()"
 			>
 				<box-icon name="plus" size="md" />
 			</button>
@@ -27,6 +27,7 @@ const $s = useMainStore();
 
 	<!--
 		LIST HERE DYNAMIC CLASSES :
+
 		bg-yellow-100
 		bg-yellow-200
 		bg-yellow-300
@@ -36,6 +37,16 @@ const $s = useMainStore();
 		bg-yellow-700
 		bg-yellow-800
 		bg-yellow-900
+
+		hover:bg-yellow-100
+		hover:bg-yellow-200
+		hover:bg-yellow-300
+		hover:bg-yellow-400
+		hover:bg-yellow-500
+		hover:bg-yellow-600
+		hover:bg-yellow-700
+		hover:bg-yellow-800
+		hover:bg-yellow-900
 
 		bg-orange-100
 		bg-orange-200
@@ -56,6 +67,16 @@ const $s = useMainStore();
 		bg-red-700
 		bg-red-800
 		bg-red-900
+
+		hover:bg-red-100
+		hover:bg-red-200
+		hover:bg-red-300
+		hover:bg-red-400
+		hover:bg-red-500
+		hover:bg-red-600
+		hover:bg-red-700
+		hover:bg-red-800
+		hover:bg-red-900
 
 		bg-violet-100
 		bg-violet-200
@@ -97,6 +118,16 @@ const $s = useMainStore();
 		bg-blue-800
 		bg-blue-900
 
+		hover:bg-blue-100
+		hover:bg-blue-200
+		hover:bg-blue-300
+		hover:bg-blue-400
+		hover:bg-blue-500
+		hover:bg-blue-600
+		hover:bg-blue-700
+		hover:bg-blue-800
+		hover:bg-blue-900
+
 		bg-teal-100
 		bg-teal-200
 		bg-teal-300
@@ -136,6 +167,16 @@ const $s = useMainStore();
 		bg-emerald-700
 		bg-emerald-800
 		bg-emerald-900
+
+		hover:bg-emerald-100
+		hover:bg-emerald-200
+		hover:bg-emerald-300
+		hover:bg-emerald-400
+		hover:bg-emerald-500
+		hover:bg-emerald-600
+		hover:bg-emerald-700
+		hover:bg-emerald-800
+		hover:bg-emerald-900
 
 		bg-lime-100
 		bg-lime-200
