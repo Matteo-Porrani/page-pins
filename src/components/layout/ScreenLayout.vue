@@ -24,7 +24,7 @@ const searchString = ref("");
 		</TheModal>
 	</Teleport>
 
-	<header class="bg-zinc-100 py-4 px-12">
+	<header class="bg-zinc-100 py-4 px-8">
 		<slot name="header">
 
 			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
@@ -43,7 +43,7 @@ const searchString = ref("");
 
 	<main>
 
-		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 p-8 overflow-hidden">
+		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 pt-0 p-8 overflow-hidden">
 
 			<!-- TOOLBAR -->
 <!--						<div class="main-toolbar relative flex justify-center items-center pb-10">-->
