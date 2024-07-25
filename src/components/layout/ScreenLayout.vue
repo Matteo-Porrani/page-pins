@@ -11,6 +11,7 @@ const $s = useMainStore();
 const searchString = ref("");
 
 import { onKeyStroke } from '@vueuse/core'
+import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 
 onKeyStroke(["@"], (e) => {
 	e.preventDefault();
@@ -50,7 +51,9 @@ onKeyStroke(["@"], (e) => {
 		</slot>
 	</header>
 
-	<main>
+	<main class="relative">
+
+		<ModeToggleBar/>
 
 		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 pt-4 p-8 overflow-hidden">
 

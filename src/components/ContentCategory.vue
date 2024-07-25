@@ -11,26 +11,16 @@ import ContentFolder from "@/components/ContentFolder.vue";
 
 <template>
 	<!-- EXTERNAL WRAPPER -->
-	<section class="category-content grid grid-cols-1 grid-rows-1">
+	<section class="category-content grid overflow-y-hidden grid-rows-1">
 
 		<!-- DRAWER -->
 		<div
-			class="drawer bg-white rounded-lg transition duration-500 p-4"
+			class="drawer grid grid-rows-1 bg-white-100 rounded-lg transition duration-500 p-4"
 			:class="{
 							'opacity-0 translate-y-1/2' : Object.values($store.categoryToggles).every(v => !v),
 							'bg-white translate-y-0 opacity-1' : Object.values($store.categoryToggles).some(v => v)
 						}"
 		>
-
-			<!-- HEADER -->
-<!--			<div class="drawer-header flex justify-between items-center mb-4">-->
-<!--				<h2 class="text-2xl font-bold py-2">-->
-<!--					<span v-if="$store.activeCateg">{{ $store.activeCateg.name }}</span>-->
-<!--					<span v-if="$store.activeFolder"> &gt; {{ $store.activeFolder.name }}</span>-->
-<!--				</h2>-->
-<!--				<EditButton/>-->
-<!--			</div>-->
-
 
 			<div class="drawer-body grid gap-4">
 
@@ -57,8 +47,15 @@ import ContentFolder from "@/components/ContentFolder.vue";
 </template>
 
 <style scoped>
+
+.category-content {
+	height: 88vh;
+}
+
 .drawer-body {
+	/*border: 4px solid green;*/
 	grid-template-columns: 1fr 3fr;
+	grid-template-rows: 1fr;
 }
 
 .v-enter-active,

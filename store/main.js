@@ -133,28 +133,19 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const addItem = () => {
 		console.log("%c/addItem/", "background: crimson;")
-		
-		console.log(creationCriteria.value);
-		
 		const entityName = {
 			0: "category",
 			1: "folder",
 			2: "link",
 		}[displayStep.value];
-		
-		console.log("// => entityName //", entityName)
-		
-		console.log(localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse());
-
 		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
 		const nextId = maxId + 1;
-		
 		const entityDesc = modelDesc[entityName];
+
 		entityInFormDescription.value = modelDesc[entityName];
 		
 		const extraProps = Object.keys(entityDesc)
 			.filter(propName => !["id", "name"].includes(propName));
-		console.log("extraProps", extraProps);
 		
 		// create new item with base properties
 		const newItem = {
@@ -172,9 +163,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		// push new entity
 		localData.value[entityName].push(newItem);
-		
 		itemInForm.value = newItem;
-		
 		showModal.value = true;
 	}
 	
