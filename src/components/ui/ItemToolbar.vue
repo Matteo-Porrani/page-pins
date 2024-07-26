@@ -17,9 +17,6 @@ const $p = defineProps({
 });
 
 const itemHasChildren = computed(() => {
-
-	console.log("itemHasChildren");
-
 	const childrenEntity = {
 		category: "folder",
 		folder: "link",
@@ -34,9 +31,6 @@ const itemHasChildren = computed(() => {
 
 
 const activeBtns = computed(() => {
-
-	console.log("activeBtns", $p.entity, $p.item.id);
-
 	const btns = [
 		{
 			id: 1,
@@ -76,38 +70,6 @@ const activeBtns = computed(() => {
 	return btns;
 });
 
-const buttons = [
-	{
-		id: 1,
-		label: "Edit",
-		icon: "pencil",
-		color: "yellow",
-		callback: () => {
-			// console.log("EDIT", $p.item);
-			$s.editItem($p.entity, $p.item);
-		}
-	},
-	{
-		id: 2,
-		label: "Del",
-		icon: "trash-alt",
-		color: "red",
-		callback: () => {
-			// console.log("DEL", $p.item);
-			$s.deleteItem($p.entity, $p.item);
-		},
-	},
-	{
-		id: 3,
-		label: "Del",
-		icon: "list-ul",
-		color: "sky",
-		callback: () => {
-			console.log("REORDER", $p.entity);
-			// $s.deleteItem($p.entity, $p.item);
-		},
-	},
-]
 </script>
 
 <template>

@@ -22,7 +22,7 @@ const $s = useMainStore();
 						}"
 		>
 
-			<div class="drawer-body">
+			<div class="drawer-body overflow-y-scroll">
 				<!-- FOLDERS -->
 				<ul class="flex flex-col gap-4">
 					<li
@@ -45,8 +45,7 @@ const $s = useMainStore();
 }
 
 /*.drawer-body {
-	!*border: 4px solid green;*!
-	grid-template-columns: 1fr 3fr;
-	grid-template-rows: 1fr;
+	border: 4px solid green;
+	overflow-y: scroll;
 }*/
 </style>

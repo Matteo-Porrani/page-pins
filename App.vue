@@ -6,9 +6,9 @@ const $s = useMainStore();
 
 <template>
 
-	<Teleport to="body">
-		<DevDebugger/>
-	</Teleport>
+<!--	<Teleport to="body">-->
+<!--		<DevDebugger/>-->
+<!--	</Teleport>-->
 
 <!--	<Teleport to="body">-->
 <!--		<div-->

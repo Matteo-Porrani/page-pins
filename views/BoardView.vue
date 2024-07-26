@@ -6,9 +6,14 @@ import {categories} from "@/mock/mock-categories";
 import {useMainStore} from "../store/main";
 import TheSpaceGrid from "@/components/TheSpaceGrid.vue";
 import TheFolders from "@/components/TheFolders.vue";
+import {onMounted} from "vue";
 
 
 const $s = useMainStore();
+
+onMounted(() => {
+	$s.initOrders();
+});
 
 </script>
 

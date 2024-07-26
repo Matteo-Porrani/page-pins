@@ -25,6 +25,7 @@ export const useMainStore = defineStore('counter', () => {
 	const activeCategId = ref(null);
 	// const activeFolderId = ref(null);
 	
+	const orders = reactive({});
 
 	
 	const count = ref(10);
@@ -125,6 +126,29 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ACTIONS
 	
+	const initOrders = () => {
+		
+		if (localData.value.orders) return;
+		
+		// root
+		orders.root = localData.value.category.map(c => c.id);
+		// category
+		orders.category = localData.value.category.reduce((a, c) => {
+			const children = getChildren('folder', 'category', c.id);
+			a[c.id] = children.map(c => c.id);
+			return a;
+		}, {});
+		// folder
+		orders.folder = localData.value.folder.reduce((a, f) => {
+			const children = getChildren('link', 'folder', f.id);
+			a[f.id] = children.map(c => c.id);
+			return a;
+		}, {});
+		
+		console.log("orders", orders);
+		
+		localData.value.orders = orders;
+	}
 	
 	const initCategoryToggles = () => {
 		localData.value.category.forEach(c => categoryToggles[c.id] = false);
@@ -294,6 +318,7 @@ export const useMainStore = defineStore('counter', () => {
 		entityInFormDescription,
 		
 		increment,
+		initOrders,
 		initCategoryToggles,
 		initFolderToggles,
 		// toggleCategory,
