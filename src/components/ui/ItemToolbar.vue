@@ -35,28 +35,38 @@ const buttons = [
 		callback: () => {
 			// console.log("DEL", $p.item);
 			$s.deleteItem($p.entity, $p.item);
-		}
+		},
+	},
+	{
+		id: 3,
+		label: "Del",
+		icon: "list-ul",
+		color: "sky",
+		callback: () => {
+			console.log("REORDER", $p.entity);
+			// $s.deleteItem($p.entity, $p.item);
+		},
 	},
 ]
 </script>
 
 <template>
-<div class="absolute -top-2 -right-2 w-24 grid grid-cols-2 gap-4 item-toolbar rounded-lg">
+	<div class="absolute -top-2 -right-2 w-36 grid grid-cols-3 gap-2 item-toolbar rounded-lg">
 
-	<button
-		v-for="b in buttons"
-		:key="b.id"
-		class="grid justify-center items-center rounded-xl shadow-lg py-2"
-		:class="`bg-${b.color}-100 hover:bg-${b.color}-200`"
-		@click="b.callback"
-	>
-		<box-icon
-			:name="b.icon"
-			color="#71717a"
-		/>
-	</button>
+		<button
+			v-for="b in buttons"
+			:key="b.id"
+			class="grid justify-center items-center rounded-xl shadow-lg py-2"
+			:class="`bg-${b.color}-100 hover:bg-${b.color}-200`"
+			@click="b.callback"
+		>
+			<box-icon
+				:name="b.icon"
+				color="#71717a"
+			/>
+		</button>
 
-</div>
+	</div>
 </template>
 
 <style scoped>

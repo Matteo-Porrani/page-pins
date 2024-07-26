@@ -108,6 +108,26 @@ const $s = useMainStore();
 		bg-pink-800
 		bg-pink-900
 
+		bg-sky-100
+		bg-sky-200
+		bg-sky-300
+		bg-sky-400
+		bg-sky-500
+		bg-sky-600
+		bg-sky-700
+		bg-sky-800
+		bg-sky-900
+
+		hover:bg-sky-100
+		hover:bg-sky-200
+		hover:bg-sky-300
+		hover:bg-sky-400
+		hover:bg-sky-500
+		hover:bg-sky-600
+		hover:bg-sky-700
+		hover:bg-sky-800
+		hover:bg-sky-900
+
 		bg-blue-100
 		bg-blue-200
 		bg-blue-300

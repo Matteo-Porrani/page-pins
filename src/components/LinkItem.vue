@@ -26,7 +26,7 @@ defineProps({
 		/>
 
 		<div class="w-full">
-			<p class="text-sm font-bold mb-1">{{ link.name }}</p>
+			<p class="text-sm font-bold">{{ link.name }}</p>
 			<p class="url-paragraph font-mono text-xs text-purple-800">{{ link.url }}</p>
 		</div>
 
