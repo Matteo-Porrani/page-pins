@@ -36,7 +36,10 @@ onMounted(() => {
 				:item="fol"
 			/>
 
-			<h3 class="font-bold text-sm">{{ fol.name }}</h3>
+			<h3 class="font-bold text-sm">
+				<span>{{ fol.name }}</span>
+				<span class="ms-3 font-normal text-zinc-400 bg-zinc-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
+			</h3>
 
 			<ColorBadge color="zinc"/>
 		</article>

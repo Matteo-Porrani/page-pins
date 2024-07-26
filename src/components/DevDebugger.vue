@@ -21,7 +21,7 @@ const showContent = ref(false);
 	<div
 		:class="{'hidden': !showContent}"
 	>
-<!--		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
+		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>
 		<pre>displayStep: {{ $s.displayStep }}</pre>
 		<pre>activeCateg: {{ $s.activeCateg }}</pre>
 		<pre>activeFolder: {{ $s.activeFolder }}</pre>

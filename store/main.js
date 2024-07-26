@@ -23,8 +23,9 @@ export const useMainStore = defineStore('counter', () => {
 	const folderToggles = reactive({});
 	
 	const activeCategId = ref(null);
-	const activeFolderId = ref(null);
+	// const activeFolderId = ref(null);
 	
+
 	
 	const count = ref(10);
 	const doubleCount = computed(() => count.value * 2);
@@ -62,6 +63,20 @@ export const useMainStore = defineStore('counter', () => {
 		return activeCategId.value ?
 			localData.value.category.find(fol => parseInt(fol.id) === parseInt(activeCategId.value))
 			: null;
+	});
+	
+	const activeFolderId = computed(() => {
+		const entries = Object.entries(folderToggles);
+		
+		if (entries.length > 0) {
+			const active = entries.filter(e => e[1]);
+			
+			if (active.length > 0) {
+				return active[0][0];
+			}
+		}
+		
+		return null;
 	});
 	
 	const activeFolder = computed(() => {
@@ -120,18 +135,18 @@ export const useMainStore = defineStore('counter', () => {
 		localData.value.folder.forEach(f => folderToggles[f.id] = false);
 	};
 	
-	const toggleCategory = id => {
-		// no action if edit mode
-		if (editModeOn.value) return;
-		console.log("%c/toggleCategory/", "background: crimson");
-		categoryToggles[id] = !categoryToggles[id];
-		
-		Object.keys(categoryToggles)
-			.filter(key => parseInt(key) !== parseInt(id))
-			.forEach(key => categoryToggles[key] = false);
-		
-		activeFolderId.value = null;
-	}
+	// const toggleCategory = id => {
+	// 	// no action if edit mode
+	// 	if (editModeOn.value) return;
+	// 	console.log("%c/toggleCategory/", "background: crimson");
+	// 	categoryToggles[id] = !categoryToggles[id];
+	//
+	// 	Object.keys(categoryToggles)
+	// 		.filter(key => parseInt(key) !== parseInt(id))
+	// 		.forEach(key => categoryToggles[key] = false);
+	//
+	// 	activeFolderId.value = null;
+	// }
 	
 	const toggleFolder = id => {
 		// no action if edit mode
@@ -143,7 +158,7 @@ export const useMainStore = defineStore('counter', () => {
 			.filter(key => parseInt(key) !== parseInt(id))
 			.forEach(key => categoryToggles[key] = false);
 		
-		activeFolderId.value = id;
+		// activeFolderId.value = id;
 	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
@@ -154,6 +169,25 @@ export const useMainStore = defineStore('counter', () => {
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
 		return childEntityItems;
 	}
+	
+	
+	
+	// const itemHasChildren = (entityName, itemId) => {
+	// 	console.log("itemHasChildren");
+	//
+	// 	const childrenEntity = {
+	// 		category: "folder",
+	// 		folder: "link",
+	// 		link: null,
+	// 	}[entityName];
+	//
+	// 	if (!childrenEntity) return false;
+	//
+	// 	const children = getChildren(childrenEntity, entityName, itemId);
+	// 	return children.length > 0;
+	// }
+	
+
 	
 	
 	const addItem = () => {
@@ -262,9 +296,10 @@ export const useMainStore = defineStore('counter', () => {
 		increment,
 		initCategoryToggles,
 		initFolderToggles,
-		toggleCategory,
+		// toggleCategory,
 		toggleFolder,
 		getChildren,
+		// itemHasChildren,
 		addItem,
 		// editEntity,
 		editItem,

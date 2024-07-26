@@ -23,6 +23,9 @@ const enterCategory = id => {
 			class="relative bg-white hover:bg-zinc-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
 			@click="enterCategory(c.id)"
 		>
+			<p class="absolute text-sm text-zinc-400 bottom-0 right-0 py-2 px-3">
+				{{ $s.getChildren('folder', 'category', c.id).length > 0 ? $s.getChildren('folder', 'category', c.id).length : '' }}
+			</p>
 
 			<ItemToolbar
 				v-if="$s.editModeOn"

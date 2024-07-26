@@ -64,8 +64,8 @@ onKeyStroke(["a", "A"], (e) => {
 				class="ms-10"
 			>
 				<button
-					v-if="$s.displayStep === 1"
-					class="text-2xl aspect-square w-8 bg-zinc-200 rounded-lg flex justify-center items-center p-1"
+					v-if="$s.displayStep > 0"
+					class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"
 					@click="$s.activeCategId = null"
 				>
 					<box-icon
@@ -95,6 +95,7 @@ onKeyStroke(["a", "A"], (e) => {
 					<div :class="{'hidden': !showTodo}">
 						<pre>- prevent delete if children</pre>
 						<pre>- transfert to other parent</pre>
+						<pre>- handle favorites</pre>
 						<pre>- reorder</pre>
 						<pre>- smaller icons</pre>
 						<pre>- import/export office .txt</pre>
