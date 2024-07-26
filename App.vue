@@ -7,7 +7,7 @@ const $s = useMainStore();
 <template>
 
 	<Teleport to="body">
-<!--		<DevDebugger/>-->
+		<DevDebugger/>
 	</Teleport>
 
 <!--	<Teleport to="body">-->

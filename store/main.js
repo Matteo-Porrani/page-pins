@@ -20,6 +20,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const categoryToggles = reactive({});
 	
+	const activeCategId = ref(null);
 	const activeFolderId = ref(null);
 	
 	
@@ -47,12 +48,18 @@ export const useMainStore = defineStore('counter', () => {
 		return 0;
 	});
 	
+	// const activeCateg = computed(() => {
+	// 	if (Object.values(categoryToggles).some(v => v)) { // one category selected
+	// 		const activeId = Object.entries(categoryToggles).filter(e => e[1])[0][0];
+	// 		return localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
+	// 	}
+	// 	return null;
+	// });
+	
 	const activeCateg = computed(() => {
-		if (Object.values(categoryToggles).some(v => v)) { // one category selected
-			const activeId = Object.entries(categoryToggles).filter(e => e[1])[0][0];
-			return localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeId)); // return the whole category object
-		}
-		return null;
+		return activeCategId.value ?
+			localData.value.category.find(fol => parseInt(fol.id) === parseInt(activeCategId.value))
+			: null;
 	});
 	
 	const activeFolder = computed(() => {
@@ -218,6 +225,7 @@ export const useMainStore = defineStore('counter', () => {
 		showModal,
 		boardMode,
 		categoryToggles,
+		activeCategId,
 		activeFolderId,
 		count,
 		itemInForm,
