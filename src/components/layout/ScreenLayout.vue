@@ -17,12 +17,18 @@ import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
 
-// handler on key stroke
+// handler on key stroke EDIT
 onKeyStroke(["e", "E"], (e) => {
 	if (!ctrlPressed.value) return;
 	e.preventDefault();
-	console.log("key E");
 	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
+});
+
+// handler on key stroke ADD ITEM
+onKeyStroke(["a", "A"], (e) => {
+	if (!ctrlPressed.value) return;
+	e.preventDefault();
+	$s.addItem();
 });
 
 </script>
@@ -54,6 +60,24 @@ onKeyStroke(["e", "E"], (e) => {
 				<span>Pins</span>
 			</h1>
 
+			<div
+				class="ms-10"
+			>
+				<button
+					v-if="$s.displayStep === 1"
+					class="text-2xl aspect-square w-8 bg-zinc-200 rounded-lg flex justify-center items-center p-1"
+					@click="$s.activeCategId = null"
+				>
+					<box-icon
+						name="grid-alt"
+						color="#3f3f46"
+					/>
+				</button>
+			</div>
+
+
+
+
 
 
 			<!-- TODO -->
@@ -69,12 +93,9 @@ onKeyStroke(["e", "E"], (e) => {
 					</label>
 
 					<div :class="{'hidden': !showTodo}">
-						<pre>- new UI SPACES & FOLDERS</pre>
-						<pre>- edit with switch</pre>
-						<pre>- disable navigation if href is null</pre>
 						<pre>- prevent delete if children</pre>
+						<pre>- transfert to other parent</pre>
 						<pre>- reorder</pre>
-						<pre>- copy or visit for links</pre>
 						<pre>- smaller icons</pre>
 						<pre>- import/export office .txt</pre>
 						<pre>- tags</pre>

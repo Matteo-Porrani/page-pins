@@ -18,12 +18,6 @@ onMounted(() => {
 <template>
 <div class="the-folders grid gap-6 relative">
 
-	<button
-		class="absolute end-0 text-2xl p-2"
-		@click="$s.activeCategId = null"
-	>X</button>
-
-
 	<section class="text-zinc-700">
 		<!-- FOLDER BAR -->
 		<article
