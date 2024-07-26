@@ -4,7 +4,7 @@ import {useMainStore} from "../../store/main";
 
 const $s = useMainStore();
 
-const showContent = ref(true);
+const showContent = ref(false);
 </script>
 
 <template>
@@ -21,8 +21,7 @@ const showContent = ref(true);
 	<div
 		:class="{'hidden': !showContent}"
 	>
-		<pre>boardMode: {{ $s.boardMode }}</pre>
-		<pre>editModeOn: {{ $s.editModeOn }}</pre>
+<!--		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
 		<pre>displayStep: {{ $s.displayStep }}</pre>
 		<pre>activeCateg: {{ $s.activeCateg }}</pre>
 		<pre>activeFolder: {{ $s.activeFolder }}</pre>

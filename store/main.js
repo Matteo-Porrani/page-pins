@@ -20,6 +20,8 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const categoryToggles = reactive({});
 	
+	const folderToggles = reactive({});
+	
 	const activeCategId = ref(null);
 	const activeFolderId = ref(null);
 	
@@ -39,7 +41,7 @@ export const useMainStore = defineStore('counter', () => {
 	const editModeOn = computed(() => boardMode.value === "$edit");
 	
 	const displayStep = computed(() => {
-		if (activeCateg.value) {
+		if (activeCategId.value) {
 			if (activeFolderId.value) {
 				return 2;
 			}
@@ -114,6 +116,10 @@ export const useMainStore = defineStore('counter', () => {
 		console.log(categoryToggles);
 	};
 	
+	const initFolderToggles = () => {
+		localData.value.folder.forEach(f => folderToggles[f.id] = false);
+	};
+	
 	const toggleCategory = id => {
 		// no action if edit mode
 		if (editModeOn.value) return;
@@ -127,10 +133,22 @@ export const useMainStore = defineStore('counter', () => {
 		activeFolderId.value = null;
 	}
 	
-	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
-		console.log("%c/getChildren/", "background: teal;");
+	const toggleFolder = id => {
+		// no action if edit mode
+		if (editModeOn.value) return;
+		console.log("%c/toggleFolder/", "background: crimson");
+		folderToggles[id] = !folderToggles[id];
 		
-		console.log({ childEntityName, parentEntityName, parentItemId })
+		Object.keys(folderToggles)
+			.filter(key => parseInt(key) !== parseInt(id))
+			.forEach(key => categoryToggles[key] = false);
+		
+		activeFolderId.value = id;
+	}
+	
+	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
+		// console.log("%c/getChildren/", "background: teal;");
+		// console.log({ childEntityName, parentEntityName, parentItemId })
 		
 		const childEntityItems = localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
@@ -225,6 +243,7 @@ export const useMainStore = defineStore('counter', () => {
 		showModal,
 		boardMode,
 		categoryToggles,
+		folderToggles,
 		activeCategId,
 		activeFolderId,
 		count,
@@ -242,7 +261,9 @@ export const useMainStore = defineStore('counter', () => {
 		
 		increment,
 		initCategoryToggles,
+		initFolderToggles,
 		toggleCategory,
+		toggleFolder,
 		getChildren,
 		addItem,
 		// editEntity,

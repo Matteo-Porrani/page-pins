@@ -1,27 +1,36 @@
 <script setup>
 import {categories} from "@/mock/mock-categories";
 import {useMainStore} from "../../store/main";
+import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 
 
 const $s = useMainStore();
 
 const enterCategory = id => {
+	if ($s.editModeOn) return;
 	$s.activeCategId = id;
 }
 </script>
 
 <template>
-	<div class="board-view grid grid-cols-3 grid-rows-4 gap-10">
+	<div class="board-view grid grid-cols-5 grid-rows-5 gap-10">
 		<!-- Your content here -->
 
 		<!-- SPACES -->
 		<article
-			v-for="c in categories"
+			v-for="c in $s.localData.category"
 			:key="c.id"
-			class="bg-white hover:bg-zinc-800 hover:text-zinc-100 text-lg hover:text-2xl rounded-2xl flex justify-center items-center cursor-pointer transition duration-300 p-4"
+			class="relative bg-white hover:bg-zinc-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
 			@click="enterCategory(c.id)"
 		>
-			<p class="">{{ c.name }}</p>
+
+			<ItemToolbar
+				v-if="$s.editModeOn"
+				:item="c"
+				entity="category"
+			/>
+
+			<p class="transition duration-200">{{ c.name }}</p>
 		</article>
 
 		<!-- ADD BUTTON -->
@@ -43,5 +52,8 @@ const enterCategory = id => {
 </template>
 
 <style scoped>
-
+article:hover p {
+	transform: scale(1.1);
+	color: white;
+}
 </style>

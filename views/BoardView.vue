@@ -5,6 +5,7 @@ import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 import {categories} from "@/mock/mock-categories";
 import {useMainStore} from "../store/main";
 import TheSpaceGrid from "@/components/TheSpaceGrid.vue";
+import TheFolders from "@/components/TheFolders.vue";
 
 
 const $s = useMainStore();
@@ -16,7 +17,10 @@ const $s = useMainStore();
 
 	<template #content>
 
-		<TheSpaceGrid/>
+		<Transition mode="out-in">
+			<TheSpaceGrid v-if="!$s.activeCategId"/>
+			<TheFolders v-else/>
+		</Transition>
 
 	</template>
 
@@ -24,5 +28,13 @@ const $s = useMainStore();
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
 
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
 </style>
