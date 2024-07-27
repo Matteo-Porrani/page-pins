@@ -23,7 +23,7 @@ const items = [
 <template>
 
 
-	<div class="mode-toggle-bar absolute bottom-12 flex gap-2">
+	<div class="mode-toggle-bar fixed bottom-[5vh] flex gap-2">
 		<div class="w-40 grid grid-cols-2 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
 
 			<button

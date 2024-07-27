@@ -61,16 +61,7 @@ onKeyStroke(["a", "A"], (e) => {
 				<span>Pins</span>
 			</h1>
 
-
-
 				<TheBreadcrumb/>
-
-
-
-
-
-
-
 
 			<!-- TODO -->
 <!--			<Teleport to="body">-->
@@ -101,7 +92,9 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<main class="relative">
 
-		<ModeToggleBar/>
+		<ModeToggleBar
+			v-if="!$s.showActionSpace"
+		/>
 
 		<div class="content grid grid-cols-1 grid-rows-1 bg-slate-100 pt-4 p-8 overflow-hidden">
 

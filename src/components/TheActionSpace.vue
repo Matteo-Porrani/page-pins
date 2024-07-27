@@ -59,7 +59,7 @@ const actionTitle = computed(() => {
 				{{ actionTitle }}
 			</h2>
 
-			<div class="row-span-10 rounded-lg p-2">
+			<div class="action-space-wrapper overflow-y-auto row-span-10 rounded-lg p-2">
 
 				<!-- content here changes for REORDER or TRANSFER -->
 
