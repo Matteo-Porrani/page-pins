@@ -5,7 +5,8 @@ export const localDataDefaults = {
 	folder: [
 		{
 			id: 1,
-			name: "folder1"
+			name: "folder1",
+			category: 1
 		}
 	],
 	link: [
@@ -13,6 +14,7 @@ export const localDataDefaults = {
 			id: 1,
 			name: "Google",
 			url: "https://google.com",
+			folder: 1
 		}
 	],
 	tag: [

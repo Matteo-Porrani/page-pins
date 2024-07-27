@@ -21,7 +21,7 @@ onMounted(() => {
 	<section class="text-zinc-700">
 		<!-- FOLDER BAR -->
 		<article
-			v-for="fol in $s.getChildren('folder', 'category', $s.activeCategId)"
+			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
 			:key="fol.id"
 			class="relative bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 			:class="{
@@ -37,6 +37,7 @@ onMounted(() => {
 			/>
 
 			<h3 class="font-bold text-sm">
+				<span>{{ fol.id }} - </span>
 				<span>{{ fol.name }}</span>
 				<span class="ms-3 font-normal text-zinc-400 bg-zinc-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>

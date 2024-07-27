@@ -12,9 +12,9 @@ const colorClass = computed(() => {
 	return "bg-" + $p.color + "-400";
 });
 
-onMounted(() => {
-	console.log($p.color);
-})
+// onMounted(() => {
+// 	console.log($p.color);
+// })
 </script>
 
 <template>

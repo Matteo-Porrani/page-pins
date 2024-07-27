@@ -9,7 +9,7 @@ const showContent = ref(true);
 
 <template>
 <div
-	class="debug bg-red-400 text-sm font-mono absolute bottom-10 right-10 rounded-lg p-2"
+	class="debug bg-red-400 text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg p-2"
 >
 
 	<label class="inline-flex items-center cursor-pointer">
@@ -22,11 +22,13 @@ const showContent = ref(true);
 		:class="{'hidden': !showContent}"
 	>
 		<pre>showReorder: {{ $s.showReorder }}</pre>
-		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>
-		<pre>displayStep: {{ $s.displayStep }}</pre>
-		<pre>activeCateg: {{ $s.activeCateg }}</pre>
-		<pre>activeFolder: {{ $s.activeFolder }}</pre>
-		<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>
+		<pre>currentOrder: {{ $s.reorderData.currentOrder }}</pre>
+		<pre v-if="$s.reorderData.itemsToReorder">currentOrder: {{ $s.reorderData.itemsToReorder.map(i => i.name) }}</pre>
+<!--		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
+<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
+<!--		<pre>activeCateg: {{ $s.activeCateg }}</pre>-->
+<!--		<pre>activeFolder: {{ $s.activeFolder }}</pre>-->
+<!--		<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>-->
 	</div>
 </div>
 </template>

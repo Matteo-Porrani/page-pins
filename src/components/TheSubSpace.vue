@@ -26,7 +26,7 @@ const $s = useMainStore();
 				<!-- FOLDERS -->
 				<ul class="flex flex-col gap-4">
 					<li
-						v-for="l in $s.getChildren('link', 'folder', $s.activeFolderId)"
+						v-for="l in $s.getOrderedChildren('link', 'folder', $s.activeFolderId)"
 						:key="l.id"
 					>
 						<LinkItem :link="l" />

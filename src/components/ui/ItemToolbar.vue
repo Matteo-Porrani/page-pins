@@ -48,7 +48,12 @@ const activeBtns = computed(() => {
 			icon: "list-ul",
 			color: "sky",
 			callback: () => {
-				console.log("REORDER", $p.entity);
+				console.log("REORDER", $p.entity,$p.item);
+
+															// 'link'
+				$s.reorderTriggeredBy($p.entity, {...$p.item});
+
+
 				$s.showReorder = true;
 			},
 		},

@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import {categories} from "@/mock/mock-categories";
 import {useMainStore} from "../../store/main";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
@@ -10,6 +11,15 @@ const enterCategory = id => {
 	if ($s.editModeOn) return;
 	$s.activeCategId = id;
 }
+
+
+const orderedCategories = computed(() => {
+	return $s.localData.category.sort((a, b) => {
+		return $s.localData.orders.root.indexOf(a.id) - $s.localData.orders.root.indexOf(b.id);
+	})
+})
+
+
 </script>
 
 <template>
@@ -18,7 +28,7 @@ const enterCategory = id => {
 
 		<!-- SPACES -->
 		<article
-			v-for="c in $s.localData.category"
+			v-for="c in orderedCategories"
 			:key="c.id"
 			class="relative bg-white hover:bg-zinc-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
 			@click="enterCategory(c.id)"

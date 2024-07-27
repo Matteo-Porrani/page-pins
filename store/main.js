@@ -15,7 +15,14 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// STATE
 	const showModal = ref(false);
-	const showReorder = ref(true);
+	const showReorder = ref(false);
+	
+	const reorderData = reactive({
+		currentOrder: null,
+		itemsToReorder: null,
+		parentEntityName: null,
+		parentItemId: null,
+	});
 	
 	const boardMode = ref("$view");
 	
@@ -113,6 +120,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	
 	const entityInFormDescription = ref(null);
+
 	
 	// FIXME -- should be a computed !!!!!
 	// const entityInFormDescription = computed(() => {
@@ -127,6 +135,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ACTIONS
 	
+	// init the 'orders' key in localData if NEVER DONE BEFORE
 	const initOrders = () => {
 		
 		if (localData.value.orders) return;
@@ -196,6 +205,31 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	
+	const getOrderedChildren = (childEntityName, parentEntityName, parentItemId) => {
+		// console.log("%c/getOrderedChildren/", "background: salmon;");
+		// console.log({ childEntityName, parentEntityName, parentItemId })
+		
+		if (!parentItemId) {
+			console.log("NO PARENT ID");
+			return;
+		}
+		
+		const childEntityItems = localData.value[childEntityName]
+			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
+		
+		// console.log("🟠", localData.value.orders[parentEntityName][parentItemId])
+		
+		const currentOrder = [...localData.value.orders[parentEntityName][parentItemId]];
+		console.log("currentOrder", currentOrder);
+		
+		childEntityItems.sort(function(a, b) {
+			return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
+		});
+		
+		return childEntityItems;
+	}
+	
+	
 	
 	// const itemHasChildren = (entityName, itemId) => {
 	// 	console.log("itemHasChildren");
@@ -217,11 +251,14 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const addItem = () => {
 		console.log("%c/addItem/", "background: crimson;")
+
 		const entityName = {
 			0: "category",
 			1: "folder",
 			2: "link",
 		}[displayStep.value];
+
+
 		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
 		const nextId = maxId + 1;
 		const entityDesc = modelDesc[entityName];
@@ -247,6 +284,38 @@ export const useMainStore = defineStore('counter', () => {
 		
 		// push new entity
 		localData.value[entityName].push(newItem);
+		
+		// push new entity id in the 'orders' prop of localData
+		
+		const entities = [null, "category", "folder", "link"];
+		const childEntityIdx = entities.findIndex(e => e === entityName);
+		const parentEntityName = entities[childEntityIdx - 1];
+		
+		if (entityName === "category") {
+			// we are creating a category
+			console.log("creating a CATEGORY");
+			console.log("pushing ID", newItem.id);
+			// push id at root level
+			localData.value.orders.root.push(newItem.id);
+			// create order key for folders in this category
+			localData.value.orders.category[newItem.id] = []; // no children so far
+			
+		} else if (entityName === "folder") {
+			// we are adding a folder
+			console.log("creating a FOLDER");
+			console.log("pushing ID", newItem.id);
+			localData.value.orders.category[newItem.category].push(newItem.id);
+			// create order key for links in this folder
+			localData.value.orders.folder[newItem.id] = []; // no children so far
+			
+		} else if (entityName === "link") {
+			// we are creating a link
+			console.log("creating a LINK");
+			console.log("pushing ID", newItem.id);
+			localData.value.orders.folder[newItem.folder].push(newItem.id);
+			
+		}
+		
 		itemInForm.value = newItem;
 		showModal.value = true;
 	}
@@ -290,10 +359,133 @@ export const useMainStore = defineStore('counter', () => {
 		console.log("%c/deleteItem/", "background: blue");
 		console.log(entityName, item);
 		
+		
+		// removing corresponding orders key
+		
+		if (entityName === "category") {
+
+			const parentCollection = localData.value.orders.root;
+			console.log("DELETING category", "parent collection is", parentCollection);
+			if (parentCollection) {
+				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				parentCollection.splice(idxToRemove, 1);
+			}
+			
+			
+		} else if (entityName === "folder") {
+			// find parent key
+			const parentCollection = localData.value.orders.category[item.category];
+			console.log("DELETING folder", "parent collection is", parentCollection);
+			if (parentCollection) {
+				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				parentCollection.splice(idxToRemove, 1);
+			}
+		
+		} else if (entityName === "link") {
+			// find parent key
+			const parentCollection = localData.value.orders.folder[item.folder];
+			console.log("DELETING link", "parent collection is", parentCollection);
+			if (parentCollection) {
+				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				parentCollection.splice(idxToRemove, 1);
+			}
+		
+		}
+		
+		
 		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
 		localData.value[entityName].splice(idxToRemove, 1);
+
+		
+		
+		
+		
 		
 		console.log("REMOVED")
+	}
+	
+	
+	const reorderTriggeredBy = (entityName, item) => {
+		
+		console.log("%c/reorderTriggeredBy/", "color: teal, font-weight: 900");
+		console.log({entityName, item});
+		
+		const entities = [null, "category", "folder", "link"];
+		const childEntityIdx = entities.findIndex(e => e === entityName);
+		const parentEntityName = entities[childEntityIdx - 1];
+		
+		console.log("parentEntityName", parentEntityName);
+		
+		if (parentEntityName) {
+			// FOLDERS or LINKS
+			
+			const parentItemId = item[parentEntityName];
+			console.log("parentItemId", parentItemId);
+			
+			// find the current order
+			const currentOrder = [...localData.value.orders[parentEntityName][parentItemId]]
+			console.log("currentOrder", currentOrder);
+			
+			// find all the items
+			const itemsToReorder = [...getChildren(entityName, parentEntityName, parentItemId)];
+			console.log("itemsToReorder", itemsToReorder)
+			
+			// sort 'itemsToReorder' following currOrder
+			itemsToReorder.sort(function(a, b) {
+				return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
+			});
+			
+			// prepare data for sorting
+			reorderData.currentOrder = currentOrder;
+			reorderData.itemsToReorder = itemsToReorder;
+			reorderData.parentEntityName = parentEntityName;
+			reorderData.parentItemId = parentItemId;
+			
+		} else {
+			
+			// find the current order
+			const currentOrder = [...localData.value.orders.root];
+			console.log("currentOrder", currentOrder);
+			
+			// find all the items
+			const itemsToReorder = [...localData.value.category];
+			console.log("itemsToReorder", itemsToReorder)
+			
+			// sort 'itemsToReorder' following currOrder
+			itemsToReorder.sort(function(a, b) {
+				return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
+			});
+			
+			
+			// prepare data for sorting
+			reorderData.currentOrder = currentOrder;
+			reorderData.itemsToReorder = itemsToReorder;
+			reorderData.parentEntityName = parentEntityName;
+			reorderData.parentItemId = null;
+			
+		}
+		
+
+		
+		
+		
+		
+	};
+	
+	const updateOrder = () => {
+		console.log("%c/updateOrder/", "color: teal, font-weight: 900");
+		console.log(`updating for ${reorderData.parentEntityName} with ID ${reorderData.parentItemId}`);
+		
+		const newOrder = reorderData.itemsToReorder.map(it => it.id);
+		console.log("newOrder", newOrder);
+		
+		if (reorderData.parentItemId) {
+			// FOLDERS or LINKS
+			localData.value.orders[reorderData.parentEntityName][reorderData.parentItemId] = [...newOrder];
+		} else {
+			// CATEGORY
+			localData.value.orders.root = [...newOrder];
+		}
 	}
 	
 	
@@ -301,6 +493,7 @@ export const useMainStore = defineStore('counter', () => {
 		localData,
 		showModal,
 		showReorder,
+		reorderData,
 		boardMode,
 		categoryToggles,
 		folderToggles,
@@ -326,10 +519,13 @@ export const useMainStore = defineStore('counter', () => {
 		// toggleCategory,
 		toggleFolder,
 		getChildren,
+		getOrderedChildren,
 		// itemHasChildren,
 		addItem,
 		// editEntity,
 		editItem,
 		deleteItem,
+		reorderTriggeredBy,
+		updateOrder,
 	}
 });
