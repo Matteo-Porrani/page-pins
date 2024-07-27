@@ -363,45 +363,58 @@ export const useMainStore = defineStore('counter', () => {
 		// removing corresponding orders key
 		
 		if (entityName === "category") {
-
+			console.log("DELETING category");
+			
+			// delete from orders.category
+			console.log("DELETING localData.value.orders.category[", item.id, "]");
+			delete localData.value.orders.category[item.id];
+			
+			// delete from orders.root
 			const parentCollection = localData.value.orders.root;
-			console.log("DELETING category", "parent collection is", parentCollection);
 			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				console.log("parent collection", parentCollection);
+				
+				const idxToRemove = parentCollection.findIndex(el => el === item.id);
+				console.log("idx to remove =", idxToRemove);
+				
 				parentCollection.splice(idxToRemove, 1);
+				console.log("parent collection AFTER DELETE", parentCollection);
 			}
 			
-			
 		} else if (entityName === "folder") {
-			// find parent key
+			console.log("DELETING folder ID", item.id);
+			// delete from orders.folder
+			console.log("DELETING localData.value.orders.folder[", item.id, "]");
+			delete localData.value.orders.folder[item.id];
+			
+			// delete from orders.category
 			const parentCollection = localData.value.orders.category[item.category];
-			console.log("DELETING folder", "parent collection is", parentCollection);
+			console.log("parent collection is", parentCollection);
 			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				const idxToRemove = parentCollection.findIndex(el => el === item.id);
+				console.log("idx to remove =", idxToRemove);
 				parentCollection.splice(idxToRemove, 1);
 			}
 		
 		} else if (entityName === "link") {
+			console.log("DELETING link ID", item.id);
+			
 			// find parent key
 			const parentCollection = localData.value.orders.folder[item.folder];
-			console.log("DELETING link", "parent collection is", parentCollection);
+			console.log("parent collection is", parentCollection);
 			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el.id === item.id);
+				const idxToRemove = parentCollection.findIndex(el => el === item.id);
+				console.log("idx to remove =", idxToRemove);
 				parentCollection.splice(idxToRemove, 1);
 			}
 		
 		}
 		
-		
+		// DELETION OF ACTUAL ITEM OBJECT
 		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
 		localData.value[entityName].splice(idxToRemove, 1);
-
 		
-		
-		
-		
-		
-		console.log("REMOVED")
+		console.log(entityName, "with ID", item.id, "REMOVED")
 	}
 	
 	
