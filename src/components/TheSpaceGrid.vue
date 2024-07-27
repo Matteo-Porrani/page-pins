@@ -66,7 +66,7 @@ const orderedCategories = computed(() => {
 
 <style scoped>
 article:hover p {
-	transform: scale(1.1);
+	transform: scale(1.1) rotate(-5deg);
 	color: white;
 }
 </style>

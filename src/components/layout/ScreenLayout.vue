@@ -9,7 +9,7 @@ import TheEditForm from "@/components/ui/TheEditForm.vue";
 const $s = useMainStore();
 
 const searchString = ref("");
-const showTodo = ref(false);
+const showTodo = ref(true);
 
 import { onKeyStroke, useKeyModifier } from '@vueuse/core'
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
@@ -61,18 +61,46 @@ onKeyStroke(["a", "A"], (e) => {
 			</h1>
 
 			<div
-				class="ms-10"
+				v-if="$s.displayStep > 0"
+				class="ms-10 flex items-center gap-4 text-slate-500"
 			>
+
 				<button
-					v-if="$s.displayStep > 0"
 					class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"
 					@click="$s.activeCategId = null"
 				>
 					<box-icon
-						name="grid-alt"
-						color="#3f3f46"
+						name="home-alt"
+						color="#64748b"
 					/>
 				</button>
+
+				<div
+					v-if="$s.activeCategId"
+					class="flex gap-4"
+				>
+					<span> > </span>
+					<span>{{ $s.activeCateg.name }}</span>
+				</div>
+
+				<div
+					v-if="$s.activeFolderId"
+					class="flex gap-4"
+				>
+					<span> > </span>
+					<span>{{ $s.activeFolder.name }}</span>
+				</div>
+
+<!--				<button-->
+<!--					v-if="$s.displayStep > 0"-->
+<!--					class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"-->
+<!--					@click="$s.activeCategId = null"-->
+<!--				>-->
+<!--					<box-icon-->
+<!--						name="grid-alt"-->
+<!--						color="#3f3f46"-->
+<!--					/>-->
+<!--				</button>-->
 			</div>
 
 
@@ -81,29 +109,29 @@ onKeyStroke(["a", "A"], (e) => {
 
 
 			<!-- TODO -->
-<!--			<Teleport to="body">-->
-<!--				<div-->
-<!--					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"-->
-<!--				>-->
+			<Teleport to="body">
+				<div
+					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"
+				>
 
-<!--					<label class="inline-flex items-center cursor-pointer">-->
-<!--						<input type="checkbox" v-model="showTodo" class="sr-only peer">-->
-<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>-->
-<!--						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>-->
-<!--					</label>-->
+					<label class="inline-flex items-center cursor-pointer">
+						<input type="checkbox" v-model="showTodo" class="sr-only peer">
+						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>
+						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>
+					</label>
 
-<!--					<div :class="{'hidden': !showTodo}">-->
-<!--						<pre>- prevent delete if children</pre>-->
-<!--						<pre>- transfert to other parent</pre>-->
-<!--						<pre>- handle favorites</pre>-->
-<!--						<pre>- reorder</pre>-->
-<!--						<pre>- smaller icons</pre>-->
-<!--						<pre>- import/export office .txt</pre>-->
-<!--						<pre>- tags</pre>-->
-<!--					</div>-->
+					<div :class="{'hidden': !showTodo}">
+						<pre>- reorder ✅</pre>
+						<pre>- color tags</pre>
+						<pre>- import/export office .txt</pre>
+						<pre>---------------------</pre>
+						<pre>- transfert to other parent</pre>
+						<pre>- handle favorites</pre>
+						<pre>- smaller icons</pre>
+					</div>
 
-<!--				</div>-->
-<!--			</Teleport>-->
+				</div>
+			</Teleport>
 
 		</slot>
 	</header>

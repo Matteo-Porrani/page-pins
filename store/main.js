@@ -272,7 +272,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		// add default value to extra props
 		if (extraProps.length > 0) {
-			extraProps.forEach(propName => newItem[propName] = "");
+			extraProps.forEach(propName => newItem[propName] = propName === "url" ? "?" : "");
 		}
 		
 		if (creationCriteria.value.categoryId) newItem.category = creationCriteria.value.categoryId;

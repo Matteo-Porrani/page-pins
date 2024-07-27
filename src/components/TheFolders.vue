@@ -18,6 +18,7 @@ onMounted(() => {
 <template>
 <div class="the-folders relative grid gap-6">
 
+	<!-- LEFT 1/6 -->
 	<section class="text-zinc-700">
 
 		<p
@@ -52,6 +53,7 @@ onMounted(() => {
 		</article>
 	</section>
 
+	<!-- RIGHT 5/6 -->
 	<TheSubSpace/>
 
 </div>
