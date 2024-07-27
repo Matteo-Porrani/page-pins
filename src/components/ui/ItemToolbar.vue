@@ -38,7 +38,6 @@ const activeBtns = computed(() => {
 			icon: "pencil",
 			color: "yellow",
 			callback: () => {
-				// console.log("EDIT", $p.item);
 				$s.editItem($p.entity, $p.item);
 			}
 		},
@@ -48,7 +47,6 @@ const activeBtns = computed(() => {
 			icon: "list-ul",
 			color: "sky",
 			callback: () => {
-				console.log("REORDER", $p.entity,$p.item);
 				$s.reorderTriggeredBy($p.entity, {...$p.item});
 				$s.actionSpaceMode = "$reorder";
 				$s.showActionSpace = true;
@@ -57,13 +55,12 @@ const activeBtns = computed(() => {
 	];
 
 	if (!itemHasChildren.value) {
-		btns.push({
+		btns.unshift({
 			id: 2,
 			label: "Del",
 			icon: "trash-alt",
 			color: "red",
 			callback: () => {
-				// console.log("DEL", $p.item);
 				$s.deleteItem($p.entity, $p.item);
 			},
 		})
@@ -74,9 +71,8 @@ const activeBtns = computed(() => {
 			id: 4,
 			label: "Transfer",
 			icon: "arrow-to-right",
-			color: "purple",
+			color: "emerald",
 			callback: () => {
-				console.log("TRANSFER", $p.entity,$p.item);
 				$s.transferTriggeredBy($p.entity, {...$p.item});
 				$s.actionSpaceMode = "$transfer";
 				$s.showActionSpace = true;
@@ -90,12 +86,12 @@ const activeBtns = computed(() => {
 </script>
 
 <template>
-	<div class="absolute -top-2 -right-2 w-36 grid grid-cols-4 gap-2 item-toolbar rounded-lg">
+	<div class="toolbar absolute -top-2 -right-2 flex gap-2 item-toolbar rounded-lg">
 
 		<button
 			v-for="b in activeBtns"
 			:key="b.id"
-			class="grid justify-center items-center rounded-xl shadow-lg py-2"
+			class="w-12 flex justify-center items-center rounded-xl shadow-lg py-2"
 			:class="`bg-${b.color}-100 hover:bg-${b.color}-200`"
 			@click="b.callback"
 		>
@@ -109,7 +105,7 @@ const activeBtns = computed(() => {
 </template>
 
 <style scoped>
-svg {
+:deep(svg) {
 	height: 12px !important;
 	width: 12px !important;
 }

@@ -13,6 +13,7 @@ const showTodo = ref(true);
 
 import { onKeyStroke, useKeyModifier } from '@vueuse/core'
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
+import TheBreadcrumb from "@/components/ui/TheBreadcrumb.vue";
 
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
@@ -60,48 +61,11 @@ onKeyStroke(["a", "A"], (e) => {
 				<span>Pins</span>
 			</h1>
 
-			<div
-				v-if="$s.displayStep > 0"
-				class="ms-10 flex items-center gap-4 text-slate-500"
-			>
 
-				<button
-					class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"
-					@click="$s.activeCategId = null"
-				>
-					<box-icon
-						name="home-alt"
-						color="#64748b"
-					/>
-				</button>
 
-				<div
-					v-if="$s.activeCategId"
-					class="flex gap-4"
-				>
-					<span> > </span>
-					<span>{{ $s.activeCateg.name }}</span>
-				</div>
+				<TheBreadcrumb/>
 
-				<div
-					v-if="$s.activeFolderId"
-					class="flex gap-4"
-				>
-					<span> > </span>
-					<span>{{ $s.activeFolder.name }}</span>
-				</div>
 
-<!--				<button-->
-<!--					v-if="$s.displayStep > 0"-->
-<!--					class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"-->
-<!--					@click="$s.activeCategId = null"-->
-<!--				>-->
-<!--					<box-icon-->
-<!--						name="grid-alt"-->
-<!--						color="#3f3f46"-->
-<!--					/>-->
-<!--				</button>-->
-			</div>
 
 
 
