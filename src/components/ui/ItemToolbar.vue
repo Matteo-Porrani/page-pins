@@ -49,7 +49,7 @@ const activeBtns = computed(() => {
 			color: "sky",
 			callback: () => {
 				console.log("REORDER", $p.entity);
-				// $s.deleteItem($p.entity, $p.item);
+				$s.showReorder = true;
 			},
 		},
 	];

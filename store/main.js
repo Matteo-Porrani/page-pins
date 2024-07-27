@@ -15,6 +15,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// STATE
 	const showModal = ref(false);
+	const showReorder = ref(true);
 	
 	const boardMode = ref("$view");
 	
@@ -299,6 +300,7 @@ export const useMainStore = defineStore('counter', () => {
 	return {
 		localData,
 		showModal,
+		showReorder,
 		boardMode,
 		categoryToggles,
 		folderToggles,

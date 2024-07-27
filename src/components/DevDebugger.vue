@@ -4,7 +4,7 @@ import {useMainStore} from "../../store/main";
 
 const $s = useMainStore();
 
-const showContent = ref(false);
+const showContent = ref(true);
 </script>
 
 <template>
@@ -21,6 +21,7 @@ const showContent = ref(false);
 	<div
 		:class="{'hidden': !showContent}"
 	>
+		<pre>showReorder: {{ $s.showReorder }}</pre>
 		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>
 		<pre>displayStep: {{ $s.displayStep }}</pre>
 		<pre>activeCateg: {{ $s.activeCateg }}</pre>
