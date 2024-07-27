@@ -88,6 +88,16 @@ const $s = useMainStore();
 		bg-violet-800
 		bg-violet-900
 
+		bg-fuchsia-100
+		bg-fuchsia-200
+		bg-fuchsia-300
+		bg-fuchsia-400
+		bg-fuchsia-500
+		bg-fuchsia-600
+		bg-fuchsia-700
+		bg-fuchsia-800
+		bg-fuchsia-900
+
 		bg-purple-100
 		bg-purple-200
 		bg-purple-300

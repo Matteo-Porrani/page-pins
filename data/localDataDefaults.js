@@ -1,12 +1,13 @@
 export const localDataDefaults = {
 	category: [
-		{ id: 1, name: "Development "},
+		{ id: 1, name: "Development", color: 1 },
 	],
 	folder: [
 		{
 			id: 1,
-			name: "folder1",
-			category: 1
+			name: "Search",
+			category: 1,
+			color: 2,
 		}
 	],
 	link: [
@@ -14,14 +15,8 @@ export const localDataDefaults = {
 			id: 1,
 			name: "Google",
 			url: "https://google.com",
-			folder: 1
-		}
-	],
-	tag: [
-		{
-			id: 1,
-			name: "favorite",
-			color: "red"
+			folder: 1,
+			color: 0,
 		}
 	],
 };

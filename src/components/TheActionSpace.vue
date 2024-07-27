@@ -1,9 +1,10 @@
 <script setup>
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 import draggable from "vuedraggable";
 import {useMainStore} from "../../store/main";
 import ActionReorder from "@/components/action-space/ActionReorder.vue";
 import ActionTransfer from "@/components/action-space/ActionTransfer.vue";
+import TheColorPicker from "@/components/ui/TheColorPicker.vue";
 
 const $s = useMainStore();
 
@@ -28,6 +29,19 @@ const saveAndCloseActionModal = () => {
 	$s.actionSpaceMode = null;
 }
 
+
+const actionTitle = computed(() => {
+
+	return {
+		$reorder: "Reorder items",
+		$transfer: "Move to",
+		$colorize: "Pick color",
+	}[$s.actionSpaceMode];
+
+})
+
+
+
 </script>
 
 <template>
@@ -39,7 +53,9 @@ const saveAndCloseActionModal = () => {
 		<!--		</div>-->
 
 		<div class="bg-white w-1/2 h-[70vh] grid grid-rows-12 rounded-lg p-4">
-			<h2 class="text-center">Reorder items</h2>
+			<h2 class="text-center text-xl">
+				{{ actionTitle }}
+			</h2>
 
 			<div class="row-span-10 rounded-lg p-2">
 
@@ -47,6 +63,7 @@ const saveAndCloseActionModal = () => {
 
 				<ActionReorder v-if="$s.actionSpaceMode === '$reorder'"/>
 				<ActionTransfer v-if="$s.actionSpaceMode === '$transfer'"/>
+				<TheColorPicker v-if="$s.actionSpaceMode === '$colorize'"/>
 
 				<!--				<draggable-->
 				<!--					v-model="$s.reorderData.itemsToReorder"-->

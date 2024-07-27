@@ -16,12 +16,46 @@ onMounted(() => {
 	$s.initOrders();
 });
 
+
+const colors = [
+	"yellow",
+	"orange",
+	"red",
+	"fuchsia",
+	"purple",
+	"blue",
+	"sky",
+	"teal",
+	"green",
+	"lime",
+]
+
+
 </script>
 
 <template>
 <ScreenLayout>
 
 	<template #content>
+
+
+<!--		<div class="w-[30%] border border-zinc-800 flex flex-col gap-4 p-4">-->
+<!--			<div-->
+<!--				v-for="(c, i) in colors"-->
+<!--				:key="i"-->
+<!--				class="border w-[30%] mx-auto flex gap-4"-->
+<!--			>-->
+<!--				<div-->
+<!--					class="sample w-6 h-6 rounded-full"-->
+<!--					:class="`bg-${c}-400`"-->
+<!--				></div>-->
+<!--				<span class="text-slate-600">-->
+<!--					({{ i+1 }}) {{ c }}-->
+<!--				</span>-->
+<!--			</div>-->
+<!--		</div>-->
+
+
 
 		<Transition mode="out-in">
 			<TheSpaceGrid v-if="!$s.showActionSpace && !$s.activeCategId"/>

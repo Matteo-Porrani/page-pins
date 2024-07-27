@@ -52,6 +52,17 @@ const activeBtns = computed(() => {
 				$s.showActionSpace = true;
 			},
 		},
+		{
+			id: 5,
+			label: "Colorize",
+			icon: "purchase-tag",
+			color: "fuchsia",
+			callback: () => {
+				$s.colorizeItem($p.entity, {...$p.item});
+				$s.actionSpaceMode = "$colorize";
+				$s.showActionSpace = true;
+			},
+		},
 	];
 
 	if (!itemHasChildren.value) {

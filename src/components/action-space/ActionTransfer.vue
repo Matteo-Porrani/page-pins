@@ -3,14 +3,6 @@ import {useMainStore} from "../../../store/main";
 
 const $s = useMainStore();
 
-// const mockParents = [
-// 	{id: 1, name: "Movies"},
-// 	{id: 2, name: "Bikes"},
-// 	{id: 3, name: "Dev"},
-// ]
-//
-// const choice = ref(2);
-
 </script>
 
 <template>

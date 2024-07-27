@@ -34,6 +34,11 @@ export const useMainStore = defineStore('counter', () => {
 		itemToTransfer: null,
 		entityToTransferName: null
 	});
+	
+	const colorizeData = reactive({
+		itemToColorize: null
+	});
+	
 	const boardMode = ref("$view");
 	// const categoryToggles = reactive({});
 	const activeCategId = ref(null);
@@ -500,6 +505,11 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	
+	const colorizeItem = (entityName, item) => {
+		console.log("%c/colorizeItem/", "background: crimson");
+	}
+	
+	
 	// FIXME -- DEPRECATED
 	// const editEntity = () => {
 	// 	console.log("%c/editEntity/", "background: #916");
@@ -566,5 +576,6 @@ export const useMainStore = defineStore('counter', () => {
 		updateOrder,
 		transferTriggeredBy,
 		executeTransfer,
+		colorizeItem,
 	}
 });
