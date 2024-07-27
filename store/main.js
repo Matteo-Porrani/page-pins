@@ -233,12 +233,13 @@ export const useMainStore = defineStore('counter', () => {
 		entityInFormDescription.value = modelDesc[entityName];
 		
 		const extraProps = Object.keys(entityDesc)
-			.filter(propName => !["id", "name"].includes(propName));
+			.filter(propName => !["id", "name", "color"].includes(propName));
 		
 		// create new item with base properties
 		const newItem = {
 			id: nextId,
-			name: "new " + entityName + " " + nextId
+			name: "new " + entityName + " " + nextId,
+			color: 0
 		}
 		
 		// add default value to extra props
@@ -251,6 +252,9 @@ export const useMainStore = defineStore('counter', () => {
 		
 		// push new entity
 		localData.value[entityName].push(newItem);
+		
+		
+		console.log("CHECK after create", localData.value[entityName]);
 		
 		// push new entity id in the 'orders' prop of localData
 		
@@ -508,26 +512,27 @@ export const useMainStore = defineStore('counter', () => {
 	
 	
 	const prepareItemForColorize = (entityName, item) => {
-		console.log("%c/colorizeItem/", "background: blue");
+		// console.log("%c/prepareItemForColorize/", "background: blue");
+		// console.log(`######## item to colorize is ${entityName} with id ${item.id} and name ${item.name}`);
 		
 		colorizeData.itemEntityName = entityName;
 		colorizeData.itemToColorize = item;
-		// colorizeData.startColorId = item.color;
 		colorizeData.currColorId = item.color;
 	}
 	
 	const colorizeItem = () => {
-		console.log("%c/colorizeItem/", "background: crimson");
-		
+		// console.log("%c/colorizeItem/", "background: crimson");
 		const { itemEntityName, itemToColorize, currColorId } = colorizeData;
 		
 		// update 'color' prop
-		const idxToUpdate = localData.value[itemEntityName].findIndex(el => el.id = itemToColorize.id);
-		console.log("idxToUpdate", idxToUpdate);
+		const idxToUpdate = localData.value[itemEntityName].findIndex(el => el.id === itemToColorize.id);
+		// console.log("idxToUpdate", idxToUpdate);
 		
-		localData.value[itemEntityName][itemToColorize.id].color = currColorId;
-		console.log("color set to", currColorId);
+		localData.value[itemEntityName][idxToUpdate].color = currColorId;
+		// console.log("color set to", currColorId);
 		
+		// reset
+		Object.keys(colorizeData).forEach(k => colorizeData[k] = null);
 	}
 	
 	
