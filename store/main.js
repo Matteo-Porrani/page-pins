@@ -18,19 +18,26 @@ export const useMainStore = defineStore('counter', () => {
 	const orders = reactive({});
 	
 	const showModal = ref(false);
-	const showReorder = ref(false);
+	const showActionSpace = ref(false);
+	const actionSpaceMode = ref(null); // can be '$reorder' or '$transfer'
 	const reorderData = reactive({
 		currentOrder: null,
 		itemsToReorder: null,
 		parentEntityName: null,
 		parentItemId: null,
 	});
+	const transferData = reactive({
+		parentEntityName: null,
+		availableParents: null,
+		startParentId: null,
+		currentParentId: null,
+		itemToTransfer: null,
+		entityToTransferName: null
+	});
 	const boardMode = ref("$view");
 	// const categoryToggles = reactive({});
-	const folderToggles = reactive({});
-	
 	const activeCategId = ref(null);
-	// const activeFolderId = ref(null);
+	const folderToggles = reactive({});
 	
 	const itemInForm = ref(null);
 	
@@ -94,20 +101,19 @@ export const useMainStore = defineStore('counter', () => {
 		return activeCateg.value
 			? getChildren("folder", "category", activeCateg.value.id)
 			: []
-		;
+			;
 	});
 	
 	const folderContentItems = computed(() => {
 		return activeFolder.value
 			? getChildren("link", "folder", activeFolder.value.id)
 			: []
-		;
+			;
 	});
 	
 	// get description of item
 	const entityInFormDescription = ref(null);
-
-
+	
 	
 	// ACTIONS ###########################################################################################################
 	
@@ -166,7 +172,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		Object.keys(folderToggles)
 			.filter(key => parseInt(key) !== parseInt(id))
-			.forEach(key => categoryToggles[key] = false);
+			.forEach(key => folderToggles[key] = false);
 		
 		// activeFolderId.value = id;
 	}
@@ -193,7 +199,7 @@ export const useMainStore = defineStore('counter', () => {
 		// console.log("🟠", localData.value.orders[parentEntityName][parentItemId])
 		
 		const currentOrder = [...localData.value.orders[parentEntityName][parentItemId]];
-		childEntityItems.sort(function(a, b) {
+		childEntityItems.sort(function (a, b) {
 			return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
 		});
 		
@@ -205,18 +211,18 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const addItem = () => {
 		console.log("%c/addItem/", "background: crimson;")
-
+		
 		const entityName = {
 			0: "category",
 			1: "folder",
 			2: "link",
 		}[displayStep.value];
-
-
+		
+		
 		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
 		const nextId = maxId + 1;
 		const entityDesc = modelDesc[entityName];
-
+		
 		entityInFormDescription.value = modelDesc[entityName];
 		
 		const extraProps = Object.keys(entityDesc)
@@ -287,9 +293,7 @@ export const useMainStore = defineStore('counter', () => {
 		console.log("%c/deleteItem/", "background: blue");
 		console.log(entityName, item);
 		
-		
 		// removing corresponding orders key
-		
 		if (entityName === "category") {
 			console.log("DELETING category");
 			
@@ -323,7 +327,7 @@ export const useMainStore = defineStore('counter', () => {
 				console.log("idx to remove =", idxToRemove);
 				parentCollection.splice(idxToRemove, 1);
 			}
-		
+			
 		} else if (entityName === "link") {
 			console.log("DELETING link ID", item.id);
 			
@@ -335,8 +339,42 @@ export const useMainStore = defineStore('counter', () => {
 				console.log("idx to remove =", idxToRemove);
 				parentCollection.splice(idxToRemove, 1);
 			}
-		
+			
 		}
+		
+		// DELETION OF ACTUAL ITEM OBJECT
+		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
+		localData.value[entityName].splice(idxToRemove, 1);
+		
+		console.log(entityName, "with ID", item.id, "REMOVED")
+	}
+	
+	// FIXME -- same as deleteItem() mais more DRY
+	const removeItem = (entityName, item) => {
+		// get parent entity name
+		const entities = ["root", "category", "folder", "link"];
+		const childIdx = entities.findIndex(el => el === entityName);
+		const parentEntityName = entities[childIdx - 1];
+		let parentCollection;
+		
+		// DELETION IN 'orders'
+		if (["category", "folder"].includes(entityName)) {
+			// additional step
+			delete localData.value.orders[entityName][item.id];
+			// 						'category'
+			// 						'folder'
+		}
+		
+		// get parent collection
+		if (entityName === "category") {
+			parentCollection = localData.value.orders[parentEntityName];
+		} else {
+			parentCollection = localData.value.orders[parentEntityName][item[parentEntityName]];
+		}
+		
+		// remove item id from parent collection
+		const idxToRemoveInOrders = parentCollection.findIndex(el => el === item.id);
+		parentCollection.splice(idxToRemoveInOrders, 1);
 		
 		// DELETION OF ACTUAL ITEM OBJECT
 		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
@@ -348,8 +386,7 @@ export const useMainStore = defineStore('counter', () => {
 	// ----- REORDERING --------------------------------------------------------------------------------------------------
 	
 	const reorderTriggeredBy = (entityName, item) => {
-		
-		console.log("%c/reorderTriggeredBy/", "color: teal, font-weight: 900");
+		console.log("%c/reorderTriggeredBy/", "background: hotpink");
 		console.log({entityName, item});
 		
 		const entities = [null, "category", "folder", "link"];
@@ -360,23 +397,15 @@ export const useMainStore = defineStore('counter', () => {
 		
 		if (parentEntityName) {
 			// FOLDERS or LINKS
-			
 			const parentItemId = item[parentEntityName];
-			console.log("parentItemId", parentItemId);
-			
 			// find the current order
 			const currentOrder = [...localData.value.orders[parentEntityName][parentItemId]]
-			console.log("currentOrder", currentOrder);
-			
 			// find all the items
 			const itemsToReorder = [...getChildren(entityName, parentEntityName, parentItemId)];
-			console.log("itemsToReorder", itemsToReorder)
-			
 			// sort 'itemsToReorder' following currOrder
-			itemsToReorder.sort(function(a, b) {
+			itemsToReorder.sort(function (a, b) {
 				return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
 			});
-			
 			// prepare data for sorting
 			reorderData.currentOrder = currentOrder;
 			reorderData.itemsToReorder = itemsToReorder;
@@ -384,33 +413,20 @@ export const useMainStore = defineStore('counter', () => {
 			reorderData.parentItemId = parentItemId;
 			
 		} else {
-			
 			// find the current order
 			const currentOrder = [...localData.value.orders.root];
-			console.log("currentOrder", currentOrder);
-			
 			// find all the items
 			const itemsToReorder = [...localData.value.category];
-			console.log("itemsToReorder", itemsToReorder)
-			
 			// sort 'itemsToReorder' following currOrder
-			itemsToReorder.sort(function(a, b) {
+			itemsToReorder.sort(function (a, b) {
 				return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
 			});
-			
-			
 			// prepare data for sorting
 			reorderData.currentOrder = currentOrder;
 			reorderData.itemsToReorder = itemsToReorder;
 			reorderData.parentEntityName = parentEntityName;
 			reorderData.parentItemId = null;
-			
 		}
-		
-
-		
-		
-		
 		
 	};
 	
@@ -432,9 +448,57 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ----- TRANSFERT ---------------------------------------------------------------------------------------------------
 	
-	const transfertIdxToCollection = (entityName, item) => {
-	
+	const transferTriggeredBy = (entityName, item) => {
+		console.log("%c/transferTriggeredBy/", "background: purple");
+		
+		const entities = [null, "category", "folder", "link"];
+		const childEntityIdx = entities.findIndex(e => e === entityName);
+		const parentEntityName = entities[childEntityIdx - 1];
+		
+		console.log("parentEntityName", parentEntityName);
+		
+		// retrieve all items of parent entity
+		const availableParents = [...localData.value[parentEntityName]];
+		availableParents.sort((a, b) => a.name - b.name);
+		
+		transferData.availableParents = availableParents;
+		transferData.startParentId = item[parentEntityName];
+		transferData.currentParentId = item[parentEntityName];
+		transferData.parentEntityName = parentEntityName;
+		transferData.itemToTransfer = item;
+		transferData.entityToTransferName = entityName;
+		
 	}
+	
+	
+	const executeTransfer = () => {
+		// ONLY FOR FOLDERS & LINKS
+		console.log("%c/executeTransfer/", "background: crimson");
+		
+		const {startParentId, currentParentId, parentEntityName, itemToTransfer, entityToTransferName} = transferData;
+		
+		console.log({startParentId, currentParentId, parentEntityName, itemToTransfer, entityToTransferName});
+		
+		// remove id from startParent collection
+		const startParentCollection = localData.value.orders[parentEntityName][startParentId];
+		const idxToRemove = startParentCollection.findIndex(el => el === itemToTransfer.id);
+		console.log("idxToRemove", idxToRemove);
+		startParentCollection.splice(idxToRemove, 1);
+		
+		// push id to currentParent collection
+		const newParentCollection = localData.value.orders[parentEntityName][currentParentId];
+		newParentCollection.push(itemToTransfer.id);
+		
+		// change item ref to parent
+		const idxToUpdate = localData.value[entityToTransferName].findIndex(el => el.id === itemToTransfer.id);
+		
+		localData.value[entityToTransferName][idxToUpdate][parentEntityName] = currentParentId;
+		
+		console.log("updated object", localData.value[entityToTransferName][idxToUpdate]);
+		
+		console.log("...transfer DONE");
+	}
+	
 	
 	// FIXME -- DEPRECATED
 	// const editEntity = () => {
@@ -466,8 +530,10 @@ export const useMainStore = defineStore('counter', () => {
 	return {
 		localData,
 		showModal,
-		showReorder,
+		showActionSpace,
+		actionSpaceMode,
 		reorderData,
+		transferData,
 		boardMode,
 		// categoryToggles,
 		folderToggles,
@@ -498,5 +564,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		reorderTriggeredBy,
 		updateOrder,
+		transferTriggeredBy,
+		executeTransfer,
 	}
 });

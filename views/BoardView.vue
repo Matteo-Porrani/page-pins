@@ -7,7 +7,7 @@ import {useMainStore} from "../store/main";
 import TheSpaceGrid from "@/components/TheSpaceGrid.vue";
 import TheFolders from "@/components/TheFolders.vue";
 import {onMounted} from "vue";
-import TheReorder from "@/components/TheReorder.vue";
+import TheActionSpace from "@/components/TheActionSpace.vue";
 
 
 const $s = useMainStore();
@@ -24,9 +24,9 @@ onMounted(() => {
 	<template #content>
 
 		<Transition mode="out-in">
-			<TheSpaceGrid v-if="!$s.showReorder && !$s.activeCategId"/>
-			<TheFolders v-else-if="!$s.showReorder && $s.activeCategId"/>
-			<TheReorder v-else-if="$s.showReorder"/>
+			<TheSpaceGrid v-if="!$s.showActionSpace && !$s.activeCategId"/>
+			<TheFolders v-else-if="!$s.showActionSpace && $s.activeCategId"/>
+			<TheActionSpace v-else-if="$s.showActionSpace"/>
 		</Transition>
 
 	</template>

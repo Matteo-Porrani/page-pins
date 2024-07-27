@@ -109,29 +109,28 @@ onKeyStroke(["a", "A"], (e) => {
 
 
 			<!-- TODO -->
-			<Teleport to="body">
-				<div
-					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"
-				>
+<!--			<Teleport to="body">-->
+<!--				<div-->
+<!--					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"-->
+<!--				>-->
 
-					<label class="inline-flex items-center cursor-pointer">
-						<input type="checkbox" v-model="showTodo" class="sr-only peer">
-						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>
-						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>
-					</label>
+<!--					<label class="inline-flex items-center cursor-pointer">-->
+<!--						<input type="checkbox" v-model="showTodo" class="sr-only peer">-->
+<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>-->
+<!--						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>-->
+<!--					</label>-->
 
-					<div :class="{'hidden': !showTodo}">
-						<pre>- reorder ✅</pre>
-						<pre>- color tags</pre>
-						<pre>- import/export office .txt</pre>
-						<pre>---------------------</pre>
-						<pre>- transfert to other parent</pre>
-						<pre>- handle favorites</pre>
-						<pre>- smaller icons</pre>
-					</div>
+<!--					<div :class="{'hidden': !showTodo}">-->
+<!--						<pre>- color tags</pre>-->
+<!--						<pre>- import/export office .txt</pre>-->
+<!--						<pre>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</pre>-->
+<!--						<pre>- transfert to other parent</pre>-->
+<!--						<pre>- handle favorites</pre>-->
+<!--						<pre>- smaller icons</pre>-->
+<!--					</div>-->
 
-				</div>
-			</Teleport>
+<!--				</div>-->
+<!--			</Teleport>-->
 
 		</slot>
 	</header>

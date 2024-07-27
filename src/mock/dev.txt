@@ -1,5 +1,12 @@
 
 
+transfer is only for
+  folders
+  links
+
+
+
+
 
 orders
 
@@ -15,3 +22,7 @@ orders
   }
 
 }
+
+
+
+

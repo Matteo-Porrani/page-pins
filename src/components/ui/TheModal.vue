@@ -63,7 +63,7 @@ defineProps({
 }
 
 .modal-header {
-  color: cornflowerblue;
+  //color: cornflowerblue;
   margin-top: 0;
   text-align: center;
 }

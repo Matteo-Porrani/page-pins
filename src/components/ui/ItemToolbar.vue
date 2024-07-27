@@ -44,17 +44,14 @@ const activeBtns = computed(() => {
 		},
 		{
 			id: 3,
-			label: "Del",
+			label: "Reorder",
 			icon: "list-ul",
 			color: "sky",
 			callback: () => {
 				console.log("REORDER", $p.entity,$p.item);
-
-															// 'link'
 				$s.reorderTriggeredBy($p.entity, {...$p.item});
-
-
-				$s.showReorder = true;
+				$s.actionSpaceMode = "$reorder";
+				$s.showActionSpace = true;
 			},
 		},
 	];
@@ -72,13 +69,28 @@ const activeBtns = computed(() => {
 		})
 	}
 
+	if (["folder", "link"].includes($p.entity)) {
+		btns.push({
+			id: 4,
+			label: "Transfer",
+			icon: "arrow-to-right",
+			color: "purple",
+			callback: () => {
+				console.log("TRANSFER", $p.entity,$p.item);
+				$s.transferTriggeredBy($p.entity, {...$p.item});
+				$s.actionSpaceMode = "$transfer";
+				$s.showActionSpace = true;
+			},
+		});
+	}
+
 	return btns;
 });
 
 </script>
 
 <template>
-	<div class="absolute -top-2 -right-2 w-36 grid grid-cols-3 gap-2 item-toolbar rounded-lg">
+	<div class="absolute -top-2 -right-2 w-36 grid grid-cols-4 gap-2 item-toolbar rounded-lg">
 
 		<button
 			v-for="b in activeBtns"
