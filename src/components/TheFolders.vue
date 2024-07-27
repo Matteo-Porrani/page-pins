@@ -5,6 +5,8 @@ import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import ColorBadge from "@/components/ui/ColorBadge.vue";
 import {onMounted} from "vue";
 import TheSubSpace from "@/components/TheSubSpace.vue";
+import ColorTag from "@/components/ui/ColorTag.vue";
+import {getColorName} from "../../data/baseColors";
 
 const $s = useMainStore();
 
@@ -30,7 +32,7 @@ onMounted(() => {
 		<article
 			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
 			:key="fol.id"
-			class="relative bg-white flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
+			class="relative bg-white h-16 flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 			:class="{
 							'translate-x-[-10rem] opacity-25' : (Object.values($s.folderToggles).some(v => v) && !$s.folderToggles[fol.id]),
 						}"
@@ -49,7 +51,10 @@ onMounted(() => {
 				<span class="ms-3 font-normal text-zinc-400 bg-zinc-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>
 
-			<ColorBadge color="zinc"/>
+			<ColorTag
+				v-if="fol.color > 0"
+				:color="getColorName(fol.color)"
+			/>
 		</article>
 	</section>
 

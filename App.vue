@@ -28,6 +28,17 @@ const $s = useMainStore();
 	<!--
 		LIST HERE DYNAMIC CLASSES :
 
+		bg-slate-100
+		bg-slate-200
+		bg-slate-300
+		bg-slate-400
+		bg-slate-500
+		bg-slate-600
+		bg-slate-700
+		bg-slate-800
+		bg-slate-900
+
+
 		bg-yellow-100
 		bg-yellow-200
 		bg-yellow-300

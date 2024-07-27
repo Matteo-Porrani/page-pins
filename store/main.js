@@ -292,8 +292,8 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const editItem = (entityName, item) => {
-		console.log("%c/editItem/", "background: blue");
-		console.log(entityName, item);
+		// console.log("%c/editItem/", "background: blue");
+		// console.log(entityName, item);
 		
 		entityInFormDescription.value = modelDesc[entityName];
 		itemInForm.value = localData.value[entityName].find(el => parseInt(el.id) === parseInt(item.id));
@@ -442,11 +442,10 @@ export const useMainStore = defineStore('counter', () => {
 	};
 	
 	const updateOrder = () => {
-		console.log("%c/updateOrder/", "color: teal, font-weight: 900");
-		console.log(`updating for ${reorderData.parentEntityName} with ID ${reorderData.parentItemId}`);
+		// console.log("%c/updateOrder/", "color: teal, font-weight: 900");
+		// console.log(`updating for ${reorderData.parentEntityName} with ID ${reorderData.parentItemId}`);
 		
 		const newOrder = reorderData.itemsToReorder.map(it => it.id);
-		console.log("newOrder", newOrder);
 		
 		if (reorderData.parentItemId) {
 			// FOLDERS or LINKS

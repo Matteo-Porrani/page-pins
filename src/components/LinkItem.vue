@@ -1,6 +1,8 @@
 <script setup>
 import {useMainStore} from "../../store/main";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
+import {getColorName} from "../../data/baseColors";
+import ColorTag from "@/components/ui/ColorTag.vue";
 
 const $s = useMainStore();
 
@@ -34,6 +36,11 @@ defineProps({
 				<p class="url-paragraph font-mono text-xs text-purple-800">{{ link.url }}</p>
 			</div>
 
+			<ColorTag
+				v-if="link.color > 0"
+				:color="getColorName(link.color)"
+			/>
+
 			<box-icon
 				class=""
 				name="link-external"
@@ -52,17 +59,12 @@ defineProps({
 
 	</div>
 
-
-
-
-
-
 </template>
 
 <style scoped>
 
 .link-wrapper {
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
 	align-items: stretch
 }
 

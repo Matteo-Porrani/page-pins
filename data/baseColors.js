@@ -10,6 +10,7 @@ const colors = [
 	"teal",
 	"green",
 	"lime",
+	"slate",
 ];
 
 export const baseColors = colors.map((c, i) => {

@@ -9,15 +9,11 @@ const showContent = ref(false);
 
 <template>
 <div
-	class="debug bg-blue-200 text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg p-2"
+	class="debug bg-yellow-200 shadow-lg text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg py-2 px-4"
 >
-
-
-
 	<div
 		:class="{'hidden': !showContent}"
 	>
-
 		<pre>CTRL + E
 		toggle edit mode</pre>
 		<pre>CTRL + A
@@ -34,8 +30,9 @@ const showContent = ref(false);
 <!--		<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>-->
 	</div>
 
-
 	<div class="flex justify-end">
+
+		<!--	SWITCH	-->
 		<label class="flex items-center cursor-pointer">
 			<span class="me-2">
 				<box-icon
@@ -44,7 +41,11 @@ const showContent = ref(false);
 					class="pt-1"
 				/>
 			</span>
-			<input type="checkbox" v-model="showContent" class="sr-only peer">
+			<input
+				type="checkbox"
+				v-model="showContent"
+				class="sr-only peer"
+			>
 			<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>
 		</label>
 	</div>
@@ -53,6 +54,4 @@ const showContent = ref(false);
 </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
