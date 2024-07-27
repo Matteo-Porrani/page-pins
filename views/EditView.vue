@@ -143,7 +143,7 @@ const populateList = (entityAndField) => {
 <template>
 	<ScreenLayout>
 		<template #header>
-			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
+			<h1 class="text-slate-700 text-3xl font-bold flex gap-2 items-center">
 				<span>Page</span>
 				<box-icon
 					type='solid'

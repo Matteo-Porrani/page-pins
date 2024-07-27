@@ -21,7 +21,7 @@ const icons = {
 		<li
 			v-for="i in Object.entries(icons)"
 			:key="i[0]"
-			class="p-2 hover:bg-zinc-300 cursor-pointer flex justify-center items-center rounded-xl"
+			class="p-2 hover:bg-slate-200 cursor-pointer flex justify-center items-center rounded-xl"
 			:class="TW.TRANS_1"
 		>
 
@@ -39,7 +39,7 @@ const icons = {
 
 	<ul class="flex gap-4 flex-col justify-center items-center">
 		<li
-			class="p-2 hover:bg-zinc-300 cursor-pointer flex justify-center items-center rounded-xl"
+			class="p-2 hover:bg-slate-200 cursor-pointer flex justify-center items-center rounded-xl"
 			:class="TW.TRANS_1"
 		>
 			<box-icon

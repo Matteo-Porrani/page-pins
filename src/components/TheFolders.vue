@@ -12,8 +12,12 @@ const $s = useMainStore();
 
 onMounted(() => {
 	console.log("%c/MOUNTED TheFolders.vue/", "background: teal");
-	// initialize toggles to false
-	$s.initFolderToggles();
+
+	if (!$s.activeFolderIdMemory) {
+		// initialize toggles to false
+		$s.initFolderToggles();
+	}
+
 });
 </script>
 
@@ -21,7 +25,7 @@ onMounted(() => {
 <div class="the-folders relative grid gap-6">
 
 	<!-- LEFT 1/6 -->
-	<section class="text-zinc-700">
+	<section class="text-slate-700">
 
 		<p
 			v-if="$s.getOrderedChildren('folder', 'category', $s.activeCategId).length < 1"
@@ -48,7 +52,7 @@ onMounted(() => {
 			<h3 class="font-bold text-sm">
 <!--				<span>{{ fol.id }} - </span>-->
 				<span>{{ fol.name }}</span>
-				<span class="ms-3 font-normal text-zinc-400 bg-zinc-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
+				<span class="ms-3 font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>
 
 			<ColorTag

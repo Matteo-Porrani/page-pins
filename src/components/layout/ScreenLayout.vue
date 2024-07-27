@@ -47,10 +47,10 @@ onKeyStroke(["a", "A"], (e) => {
 		</TheModal>
 	</Teleport>
 
-	<header class="bg-zinc-100 py-4 px-8">
+	<header class="bg-slate-100 py-4 px-8">
 		<slot name="header">
 
-			<h1 class="text-zinc-700 text-3xl font-bold flex gap-2 items-center">
+			<h1 class="text-slate-700 text-3xl font-bold flex gap-2 items-center">
 				<span>Page</span>
 				<box-icon
 					type='solid'
@@ -80,7 +80,7 @@ onKeyStroke(["a", "A"], (e) => {
 
 <!--					<label class="inline-flex items-center cursor-pointer">-->
 <!--						<input type="checkbox" v-model="showTodo" class="sr-only peer">-->
-<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-zinc-800"></div>-->
+<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-800"></div>-->
 <!--						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>-->
 <!--					</label>-->
 
@@ -103,7 +103,7 @@ onKeyStroke(["a", "A"], (e) => {
 
 		<ModeToggleBar/>
 
-		<div class="content grid grid-cols-1 grid-rows-1 bg-zinc-100 pt-4 p-8 overflow-hidden">
+		<div class="content grid grid-cols-1 grid-rows-1 bg-slate-100 pt-4 p-8 overflow-hidden">
 
 			<!-- TOOLBAR -->
 <!--						<div class="main-toolbar relative flex justify-center items-center pb-10">-->
@@ -119,7 +119,7 @@ onKeyStroke(["a", "A"], (e) => {
 <!--							/>-->
 
 <!--							<button-->
-<!--								class="absolute top-0 right-0 border-2 border-zinc-200 hover:border-zinc-200 hover:bg-zinc-200 flex justify-center items-center rounded-lg p-2"-->
+<!--								class="absolute top-0 right-0 border-2 border-zinc-200 hover:border-zinc-200 hover:bg-slate-200 flex justify-center items-center rounded-lg p-2"-->
 <!--								:class="TW.TRANS_1"-->
 <!--							>-->
 <!--								<box-icon-->
@@ -132,7 +132,7 @@ onKeyStroke(["a", "A"], (e) => {
 			<slot name="content"></slot>
 		</div>
 
-<!--		<aside class="bg-zinc-200">-->
+<!--		<aside class="bg-slate-200">-->
 <!--			<TheSidebar/>-->
 <!--		</aside>-->
 

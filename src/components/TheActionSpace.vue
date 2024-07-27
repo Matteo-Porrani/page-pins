@@ -94,7 +94,7 @@ const actionTitle = computed(() => {
 
 			<div class="row-span-1 text-center">
 				<button
-					class="bg-zinc-800 text-white rounded-lg py-1 px-4"
+					class="bg-slate-800 text-white rounded-lg py-1 px-4"
 					@click="saveAndCloseActionModal"
 				>
 					OK

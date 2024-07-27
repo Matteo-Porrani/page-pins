@@ -44,7 +44,7 @@ const linksInFolder = computed(() => {
 	<template #header>
 		<router-link
 			to="/"
-			class="rounded-lg flex items-center hover:bg-zinc-100 transition duration-100 ease-in mr-3"
+			class="rounded-lg flex items-center hover:bg-slate-100 transition duration-100 ease-in mr-3"
 		>
 			<box-icon
 				name="left-arrow-alt"

@@ -49,7 +49,7 @@ defineProps({
 
 		</component>
 
-		<button class="bg-zinc-100 hover:bg-zinc-200 aspect-square rounded-lg">
+		<button class="bg-slate-100 hover:bg-slate-200 aspect-square rounded-lg">
 			<box-icon
 				class=""
 				name="copy"

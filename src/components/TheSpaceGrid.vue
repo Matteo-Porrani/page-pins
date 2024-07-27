@@ -32,17 +32,17 @@ const orderedCategories = computed(() => {
 		<article
 			v-for="c in orderedCategories"
 			:key="c.id"
-			class="relative bg-white hover:bg-zinc-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
+			class="relative bg-white hover:bg-slate-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
 			@click="enterCategory(c.id)"
 		>
-			<div class="absolute text-sm text-zinc-400 top-0 left-0 py-2 px-3">
+			<div class="absolute text-sm text-slate-400 top-0 left-0 py-2 px-3">
 				<ColorTag
 					v-if="c.color > 0"
 					:color="getColorName(c.color)"
 				/>
 			</div>
 
-			<p class="absolute text-sm text-zinc-400 bottom-0 right-0 py-2 px-3">
+			<p class="absolute text-sm text-slate-400 bottom-0 right-0 py-2 px-3">
 				{{ $s.getChildren('folder', 'category', c.id).length > 0 ? $s.getChildren('folder', 'category', c.id).length : '' }}
 			</p>
 

@@ -44,7 +44,7 @@ const activeColor = computed(() => {
 
 		<template #content>
 			<div class="home-content-wrapper grid gap-4">
-				<section class="categories text-zinc-700">
+				<section class="categories text-slate-700">
 
 					<!-- CATEGORY BAR -->
 					<article

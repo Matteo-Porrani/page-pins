@@ -19,6 +19,8 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const showModal = ref(false);
 	const showActionSpace = ref(false);
+	const activeFolderIdMemory = ref(null);
+	
 	const actionSpaceMode = ref(null); // can be '$reorder' or '$transfer'
 	const reorderData = reactive({
 		currentOrder: null,
@@ -300,6 +302,7 @@ export const useMainStore = defineStore('counter', () => {
 		showModal.value = true;
 	}
 	
+	// FIXME ****  use removeItem instead !!!!!!!
 	const deleteItem = (entityName, item) => {
 		console.log("%c/deleteItem/", "background: blue");
 		console.log(entityName, item);
@@ -398,7 +401,9 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const reorderTriggeredBy = (entityName, item) => {
 		console.log("%c/reorderTriggeredBy/", "background: hotpink");
-		console.log({entityName, item});
+		// console.log({entityName, item});
+		
+		activeFolderIdMemory.value = activeFolderId.value;
 		
 		const entities = [null, "category", "folder", "link"];
 		const childEntityIdx = entities.findIndex(e => e === entityName);
@@ -461,6 +466,8 @@ export const useMainStore = defineStore('counter', () => {
 	const transferTriggeredBy = (entityName, item) => {
 		console.log("%c/transferTriggeredBy/", "background: purple");
 		
+		activeFolderIdMemory.value = activeFolderId.value;
+		
 		const entities = [null, "category", "folder", "link"];
 		const childEntityIdx = entities.findIndex(e => e === entityName);
 		const parentEntityName = entities[childEntityIdx - 1];
@@ -509,10 +516,11 @@ export const useMainStore = defineStore('counter', () => {
 		console.log("...transfer DONE");
 	}
 	
-	
 	const prepareItemForColorize = (entityName, item) => {
 		// console.log("%c/prepareItemForColorize/", "background: blue");
 		// console.log(`######## item to colorize is ${entityName} with id ${item.id} and name ${item.name}`);
+		
+		activeFolderIdMemory.value = activeFolderId.value;
 		
 		colorizeData.itemEntityName = entityName;
 		colorizeData.itemToColorize = item;
@@ -580,6 +588,7 @@ export const useMainStore = defineStore('counter', () => {
 		editModeOn,
 		activeCateg,
 		activeFolder,
+		activeFolderIdMemory,
 		displayStep,
 		categoryContentItems,
 		folderContentItems,

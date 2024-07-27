@@ -26,7 +26,7 @@ const enterFolder = id => {
 <template>
 	<div
 		class="folder-wrapper relative rounded-lg flex gap-2 items-center border-2 border-transparent cursor-pointer hover:border-zinc-300 transition-all duration-300 ease-in p-2"
-		:class="{'bg-zinc-100 text-zinc-500' : !isSelectedFolder, 'bg-zinc-300 text-zinc-800' : isSelectedFolder, }"
+		:class="{'bg-slate-100 text-slate-500' : !isSelectedFolder, 'bg-slate-200 text-slate-800' : isSelectedFolder, }"
 		@click="enterFolder(folder.id)"
 	>
 
