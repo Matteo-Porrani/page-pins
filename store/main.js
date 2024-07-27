@@ -199,9 +199,8 @@ export const useMainStore = defineStore('counter', () => {
 		// console.log("%c/getChildren/", "background: teal;");
 		// console.log({ childEntityName, parentEntityName, parentItemId })
 		
-		const childEntityItems = localData.value[childEntityName]
+		return localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
-		return childEntityItems;
 	}
 	
 	
@@ -216,12 +215,9 @@ export const useMainStore = defineStore('counter', () => {
 		
 		const childEntityItems = localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
-		
 		// console.log("🟠", localData.value.orders[parentEntityName][parentItemId])
 		
 		const currentOrder = [...localData.value.orders[parentEntityName][parentItemId]];
-		console.log("currentOrder", currentOrder);
-		
 		childEntityItems.sort(function(a, b) {
 			return currentOrder.indexOf(a.id) - currentOrder.indexOf(b.id);
 		});

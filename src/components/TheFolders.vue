@@ -16,9 +16,15 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="the-folders grid gap-6 relative">
+<div class="the-folders relative grid gap-6">
 
 	<section class="text-zinc-700">
+
+		<p
+			v-if="$s.getOrderedChildren('folder', 'category', $s.activeCategId).length < 1"
+			class="absolute top-[50%] -translate-y-1/2 w-full text-center text-slate-400 text-xl"
+		>CTRL + A to add the first folder</p>
+
 		<!-- FOLDER BAR -->
 		<article
 			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
@@ -37,7 +43,7 @@ onMounted(() => {
 			/>
 
 			<h3 class="font-bold text-sm">
-				<span>{{ fol.id }} - </span>
+<!--				<span>{{ fol.id }} - </span>-->
 				<span>{{ fol.name }}</span>
 				<span class="ms-3 font-normal text-zinc-400 bg-zinc-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>
