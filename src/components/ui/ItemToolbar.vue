@@ -58,7 +58,7 @@ const activeBtns = computed(() => {
 			icon: "purchase-tag",
 			color: "fuchsia",
 			callback: () => {
-				$s.colorizeItem($p.entity, {...$p.item});
+				$s.prepareItemForColorize($p.entity, {...$p.item});
 				$s.actionSpaceMode = "$colorize";
 				$s.showActionSpace = true;
 			},

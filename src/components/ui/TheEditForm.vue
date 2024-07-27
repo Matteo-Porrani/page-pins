@@ -1,7 +1,16 @@
 <script setup>
 import {useMainStore} from "../../../store/main";
+import {onMounted} from "vue";
 
 const $s = useMainStore();
+
+
+onMounted(() => {
+
+	const inputRef = document.getElementById("input_name");
+	inputRef.focus();
+
+});
 
 
 </script>
@@ -16,13 +25,23 @@ const $s = useMainStore();
 			:key="i"
 		>
 
-			<template v-if="type !== 'list'">
-				<label class="block">{{ fieldName }}</label>
+			<template
+				v-if="type !== 'list' && fieldName !== 'color'"
+			>
+
+				<label
+					class="block"
+				>
+					{{ fieldName }}
+				</label>
+
 				<input
 					:type="type"
+					:id="`input_${fieldName}`"
 					v-model="$s.itemInForm[fieldName]"
 					class="block w-full rounded-lg py-2 px-4 mb-4"
 				>
+
 			</template>
 
 			<!--	HIDDEN FOR NOW		-->

@@ -36,7 +36,9 @@ export const useMainStore = defineStore('counter', () => {
 	});
 	
 	const colorizeData = reactive({
-		itemToColorize: null
+		itemToColorize: null,
+		itemEntityName: null,
+		currColorId: null
 	});
 	
 	const boardMode = ref("$view");
@@ -505,8 +507,27 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	
-	const colorizeItem = (entityName, item) => {
+	const prepareItemForColorize = (entityName, item) => {
+		console.log("%c/colorizeItem/", "background: blue");
+		
+		colorizeData.itemEntityName = entityName;
+		colorizeData.itemToColorize = item;
+		// colorizeData.startColorId = item.color;
+		colorizeData.currColorId = item.color;
+	}
+	
+	const colorizeItem = () => {
 		console.log("%c/colorizeItem/", "background: crimson");
+		
+		const { itemEntityName, itemToColorize, currColorId } = colorizeData;
+		
+		// update 'color' prop
+		const idxToUpdate = localData.value[itemEntityName].findIndex(el => el.id = itemToColorize.id);
+		console.log("idxToUpdate", idxToUpdate);
+		
+		localData.value[itemEntityName][itemToColorize.id].color = currColorId;
+		console.log("color set to", currColorId);
+		
 	}
 	
 	
@@ -544,6 +565,7 @@ export const useMainStore = defineStore('counter', () => {
 		actionSpaceMode,
 		reorderData,
 		transferData,
+		colorizeData,
 		boardMode,
 		// categoryToggles,
 		folderToggles,
@@ -576,6 +598,7 @@ export const useMainStore = defineStore('counter', () => {
 		updateOrder,
 		transferTriggeredBy,
 		executeTransfer,
+		prepareItemForColorize,
 		colorizeItem,
 	}
 });

@@ -22,6 +22,8 @@ const saveAndCloseActionModal = () => {
 		$s.updateOrder();
 	} else if ($s.actionSpaceMode === "$transfer") {
 		$s.executeTransfer();
+	} else if ($s.actionSpaceMode === "$colorize") {
+		$s.colorizeItem();
 	}
 
 	$s.boardMode = "$view";
