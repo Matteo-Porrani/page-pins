@@ -43,19 +43,16 @@ export const useMainStore = defineStore('counter', () => {
 	});
 	
 	const transferData = reactive({
-		parentEntityName: null, // OK
-		availableParents: null, // OK
-		
+		parentEntityName: null,
+		availableParents: null,
 		startParentId: null,
 		currentParentId: null,
 		itemToTransfer: null,
-
-		entityToTransferName: null // FIXME -- to be removed
 	});
 	
 	const colorizeData = reactive({
-		itemToColorize: null,
 		itemEntityName: null,
+		itemToColorize: null,
 		currColorId: null
 	});
 	
@@ -81,7 +78,7 @@ export const useMainStore = defineStore('counter', () => {
 	// returns active category object
 	const activeCategory = computed(() => {
 		return activeCategId.value ?
-			localData.value.category.find(fol => parseInt(fol.id) === parseInt(activeCategId.value))
+			localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeCategId.value))
 			: null;
 	});
 	
@@ -115,15 +112,13 @@ export const useMainStore = defineStore('counter', () => {
 		}
 	});
 	
-	// FIXME ???? same functionality as getOrderedChildren() ????
-	const categoryContentItems = computed(() => {
-		console.log("categoryContentItems", activeCategory.value);
-		
-		return activeCategory.value
-			? getChildren("folder", "category", activeCategory.value.id)
-			: []
-			;
-	});
+	// FIXME -- used in DEPRECATED component ContentCategory.vue
+	// const categoryContentItems = computed(() => {
+	// 	return activeCategory.value
+	// 		? getChildren("folder", "category", activeCategory.value.id)
+	// 		: []
+	// 	;
+	// });
 	
 	const folderContentItems = computed(() => {
 		return activeFolder.value
