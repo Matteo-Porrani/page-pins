@@ -24,7 +24,7 @@ onMounted(() => {
 				v-if="type !== 'list' && fieldName !== 'color'"
 			>
 				<label
-					class="block"
+					class="block text-sm text-slate-500 mb-2"
 				>
 					{{ fieldName }}
 				</label>

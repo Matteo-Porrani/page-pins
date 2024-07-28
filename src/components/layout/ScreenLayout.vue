@@ -40,7 +40,9 @@ onKeyStroke(["a", "A"], (e) => {
 		<TheModal
 			:show="$s.showModal"
 		>
-			<template #header>Add</template>
+			<template #header>
+				<span></span><!--	EMPTY HEADER-->
+			</template>
 			<template #body>
 				<TheEditForm/>
 			</template>
