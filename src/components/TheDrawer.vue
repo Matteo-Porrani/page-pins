@@ -35,7 +35,7 @@ const orderedChildren = computed(() => {
 
 			<div class="drawer-body overflow-y-scroll">
 				<!-- LINKS -->
-				<ul class="flex flex-col gap-4">
+				<ul class="flex flex-col gap-4 pt-2">
 					<li
 						v-for="l in $s.getOrderedChildren('link', 'folder', $s.activeFolderId)"
 						:key="l.id"

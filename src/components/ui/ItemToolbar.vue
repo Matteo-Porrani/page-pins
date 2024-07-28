@@ -97,18 +97,19 @@ const activeBtns = computed(() => {
 </script>
 
 <template>
-	<div class="toolbar absolute -top-2 -right-2 flex gap-2 item-toolbar rounded-lg">
+	<div class="toolbar absolute -top-1 -right-1 flex gap-2 item-toolbar rounded-lg">
 
 		<button
 			v-for="b in activeBtns"
 			:key="b.id"
-			class="w-12 flex justify-center items-center rounded-xl shadow-lg py-2"
+			class="w-8 flex justify-center items-center rounded-lg shadow-lg border border-slate-400 py-1"
 			:class="`bg-${b.color}-100 hover:bg-${b.color}-200`"
 			@click="b.callback"
 		>
 			<box-icon
 				:name="b.icon"
 				color="#71717a"
+				custom-size
 			/>
 		</button>
 
@@ -119,5 +120,10 @@ const activeBtns = computed(() => {
 :deep(svg) {
 	height: 12px !important;
 	width: 12px !important;
+}
+
+:deep([custom-size]) {
+	width: 20px;
+	height: 20px;
 }
 </style>

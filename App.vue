@@ -109,6 +109,16 @@ const $s = useMainStore();
 		bg-fuchsia-800
 		bg-fuchsia-900
 
+		hover:bg-fuchsia-100
+		hover:bg-fuchsia-200
+		hover:bg-fuchsia-300
+		hover:bg-fuchsia-400
+		hover:bg-fuchsia-500
+		hover:bg-fuchsia-600
+		hover:bg-fuchsia-700
+		hover:bg-fuchsia-800
+		hover:bg-fuchsia-900
+
 		bg-purple-100
 		bg-purple-200
 		bg-purple-300

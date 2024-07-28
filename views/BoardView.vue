@@ -8,6 +8,7 @@ import TheSpaceGrid from "@/components/TheSpaceGrid.vue";
 import TheFolders from "@/components/TheFolders.vue";
 import {onMounted} from "vue";
 import TheActionSpace from "@/components/TheActionSpace.vue";
+import FolderItem from "@/components/FolderItem.vue";
 
 
 const $s = useMainStore();
@@ -31,6 +32,15 @@ const colors = [
 ]
 
 
+
+const f = {
+	id: 19,
+	name: "Hello",
+	category: 1,
+	color: 3,
+}
+
+
 </script>
 
 <template>
@@ -38,6 +48,10 @@ const colors = [
 
 	<template #content>
 
+
+<!--		<div class="w-[500px] h-24 bg-white p-8">-->
+<!--			<FolderItem :folder="f"/>-->
+<!--		</div>-->
 
 <!--		<div class="w-[30%] border border-zinc-800 flex flex-col gap-4 p-4">-->
 <!--			<div-->
@@ -68,7 +82,17 @@ const colors = [
 </ScreenLayout>
 </template>
 
+
+<style>
+/*#icon {
+	border: 2px solid red;
+}*/
+</style>
+
 <style scoped>
+
+
+
 .v-enter-active,
 .v-leave-active {
 	transition: opacity 0.5s ease;

@@ -26,7 +26,7 @@ defineProps({
           <slot name="footer">
 
 						<button
-							class="bg-slate-700 text-white  rounded-lg py-2 px-6"
+							class="bg-slate-800 text-white rounded-lg min-w-24 py-2 px-6"
 							@click="$s.showModal=false"
 						>
 							OK
