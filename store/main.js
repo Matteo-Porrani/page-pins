@@ -28,11 +28,11 @@ export const useMainStore = defineStore('counter', () => {
 	const activeCategId = ref(null);
 	const folderToggles = reactive({});
 	const lastActiveFolderId = ref(null);
-	
+
+
+	// ----- computational state
 	const itemInForm = ref(null);
 	const entityInFormDescription = ref(null);
-	
-	// ----- computational state
 	
 	// reorder / transfer / colorize
 	const reorderData = reactive({
@@ -112,21 +112,6 @@ export const useMainStore = defineStore('counter', () => {
 		}
 	});
 	
-	// FIXME -- used in DEPRECATED component ContentCategory.vue
-	// const categoryContentItems = computed(() => {
-	// 	return activeCategory.value
-	// 		? getChildren("folder", "category", activeCategory.value.id)
-	// 		: []
-	// 	;
-	// });
-	
-	// FIXME -- used in DEPRECATED component ContentFolder.vue
-	// const folderContentItems = computed(() => {
-	// 	return activeFolder.value
-	// 		? getChildren("link", "folder", activeFolder.value.id)
-	// 		: []
-	// 		;
-	// });
 	
 
 	

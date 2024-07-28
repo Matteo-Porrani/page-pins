@@ -1,12 +1,11 @@
 <script setup>
-
-import {useMainStore} from "../../store/main";
-import ItemToolbar from "@/components/ui/ItemToolbar.vue";
-import ColorBadge from "@/components/ui/ColorBadge.vue";
 import {onMounted} from "vue";
-import TheSubSpace from "@/components/TheSubSpace.vue";
-import ColorTag from "@/components/ui/ColorTag.vue";
+import {useMainStore} from "../../store/main";
 import {getColorName} from "../../data/baseColors";
+
+import ItemToolbar from "@/components/ui/ItemToolbar.vue";
+import TheDrawer from "@/components/TheDrawer.vue";
+import ColorTag from "@/components/ui/ColorTag.vue";
 
 const $s = useMainStore();
 
@@ -63,7 +62,7 @@ onMounted(() => {
 	</section>
 
 	<!-- RIGHT 5/6 -->
-	<TheSubSpace/>
+	<TheDrawer/>
 
 </div>
 </template>

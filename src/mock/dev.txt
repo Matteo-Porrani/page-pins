@@ -1,12 +1,48 @@
 
+[components]
+  [action-space]
+    ActionReorder.vue
+    ActionTransfer.vue
+  [layout]
+    ScreenLayout.vue
+    TheSidebar.vue
+  [ui]
+    ColorBadge.vue
+    ColorTag.vue
+    EditButton.vue
+    ItemToolbar.vue
+    ModeToggleBar.vue
+    TheBreadcrumb.vue
+    TheColorPicker.vue
+    TheEditForm.vue
+    TheModal.vue
 
-transfer is only for
-  folders
-  links
+  ContentCategory.vue // DEPRECATED
+  ContentFolder.vue // DEPRECATED
+
+  DevDebugger.vue
+
+  FolderItem.vue
+  LinkItem.vue
+
+  TheSpaceGrid.vue
+  TheFolders.vue
+  TheDrawer.vue
+  TheActionSpace.vue
+
+
+[views]
+  AboutView.vue
+  BoardView.vue
+  CategoryView.vue
+  EditView.vue
+  FolderView.vue
+  HomeView.vue
 
 
 
 
+----------------------------------------------------------------
 
 orders
 

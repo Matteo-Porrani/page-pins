@@ -1,11 +1,7 @@
 <script setup>
-
-
-import {useMainStore} from "../../store/main";
-import ContentFolder from "@/components/ContentFolder.vue";
-import FolderItem from "@/components/FolderItem.vue";
-import LinkItem from "@/components/LinkItem.vue";
 import {computed} from "vue";
+import {useMainStore} from "../../store/main";
+import LinkItem from "@/components/LinkItem.vue";
 
 const $s = useMainStore();
 
@@ -28,6 +24,8 @@ const orderedChildren = computed(() => {
 							'bg-white translate-y-0 opacity-1' : Object.values($s.folderToggles).some(v => v)
 						}"
 		>
+
+			<!-- message if no content -->
 			<p
 				v-if="!orderedChildren || orderedChildren.length < 1"
 				class="absolute top-[50%] -translate-y-1/2 w-full text-center text-slate-400 text-xl"
@@ -36,7 +34,7 @@ const orderedChildren = computed(() => {
 			</p>
 
 			<div class="drawer-body overflow-y-scroll">
-				<!-- FOLDERS -->
+				<!-- LINKS -->
 				<ul class="flex flex-col gap-4">
 					<li
 						v-for="l in $s.getOrderedChildren('link', 'folder', $s.activeFolderId)"
