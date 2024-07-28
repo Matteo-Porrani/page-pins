@@ -30,7 +30,7 @@ export const useMainStore = defineStore('counter', () => {
 	const lastActiveFolderId = ref(null);
 	
 	const itemInForm = ref(null);
-	
+	const entityInFormDescription = ref(null);
 	
 	// ----- computational state
 	
@@ -120,15 +120,15 @@ export const useMainStore = defineStore('counter', () => {
 	// 	;
 	// });
 	
-	const folderContentItems = computed(() => {
-		return activeFolder.value
-			? getChildren("link", "folder", activeFolder.value.id)
-			: []
-			;
-	});
+	// FIXME -- used in DEPRECATED component ContentFolder.vue
+	// const folderContentItems = computed(() => {
+	// 	return activeFolder.value
+	// 		? getChildren("link", "folder", activeFolder.value.id)
+	// 		: []
+	// 		;
+	// });
 	
-	// get description of item
-	const entityInFormDescription = ref(null);
+
 	
 	
 	// ACTIONS ###########################################################################################################
@@ -588,8 +588,8 @@ export const useMainStore = defineStore('counter', () => {
 		activeFolder,
 		lastActiveFolderId,
 		displayStep,
-		categoryContentItems,
-		folderContentItems,
+		// categoryContentItems,
+		// folderContentItems,
 		creationCriteria,
 		entityInFormDescription,
 		
