@@ -224,14 +224,18 @@ export const useMainStore = defineStore('counter', () => {
 	const addItem = () => {
 		console.log("%c/addItem/", "background: crimson;")
 		
+		// get entity name based on display step
 		const entityName = {
 			0: "category",
 			1: "folder",
 			2: "link",
 		}[displayStep.value];
 		
+		// FIXME **** make incrementation global
 		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
 		const nextId = maxId + 1;
+		
+		// get entity description
 		const entityDesc = modelDesc[entityName];
 		
 		entityInFormDescription.value = modelDesc[entityName];
@@ -242,7 +246,7 @@ export const useMainStore = defineStore('counter', () => {
 		// create new item with base properties
 		const newItem = {
 			id: nextId,
-			name: "new " + entityName + " " + nextId,
+			name: `${entityName}-${nextId}`,
 			color: 0
 		}
 		
@@ -251,7 +255,9 @@ export const useMainStore = defineStore('counter', () => {
 			extraProps.forEach(propName => newItem[propName] = propName === "url" ? "?" : "");
 		}
 		
+		// create 'category' key
 		if (creationCriteria.value.categoryId) newItem.category = creationCriteria.value.categoryId;
+		// create 'folder' key
 		if (creationCriteria.value.folderId) newItem.folder = creationCriteria.value.folderId;
 		
 		// push new entity

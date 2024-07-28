@@ -4,21 +4,16 @@ import {onMounted} from "vue";
 
 const $s = useMainStore();
 
-
 onMounted(() => {
-
 	const inputRef = document.getElementById("input_name");
 	inputRef.focus();
-
 });
-
-
 </script>
 
 <template>
 	<form class="text-xl p-4">
 
-		<label class="block mb-4">#{{ $s.itemInForm.id }}</label>
+<!--		<label class="block mb-4">#{{ $s.itemInForm.id }}</label>-->
 
 		<div
 			v-for="([fieldName, type], i) in Object.entries($s.entityInFormDescription)"
@@ -28,20 +23,17 @@ onMounted(() => {
 			<template
 				v-if="type !== 'list' && fieldName !== 'color'"
 			>
-
 				<label
 					class="block"
 				>
 					{{ fieldName }}
 				</label>
-
 				<input
 					:type="type"
 					:id="`input_${fieldName}`"
 					v-model="$s.itemInForm[fieldName]"
 					class="block w-full rounded-lg py-2 px-4 mb-4"
 				>
-
 			</template>
 
 			<!--	HIDDEN FOR NOW		-->
@@ -60,12 +52,7 @@ onMounted(() => {
 <!--			</template>-->
 
 		</div>
-
-
-
 	</form>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
