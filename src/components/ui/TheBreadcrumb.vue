@@ -1,18 +1,18 @@
 <script setup>
-
 import {useMainStore} from "../../../store/main";
-
 const $s = useMainStore();
 </script>
 
 <template>
 	<div
 		v-if="$s.displayStep > 0"
-		class="ms-10 flex items-center gap-4 text-slate-500"
+		class="flex items-center gap-4 text-slate-500 ms-10"
 	>
+
+		<!-- HOME BUTTON -->
 		<button
 			class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"
-			@click="$s.activeCategId = null"
+			@click="$s.resetSelection(true, true)"
 		>
 			<box-icon
 				name="home-alt"
@@ -20,6 +20,7 @@ const $s = useMainStore();
 			/>
 		</button>
 
+		<!-- CATEGORY -->
 		<div
 			v-if="$s.activeCategId"
 			class="flex gap-4"
@@ -27,10 +28,13 @@ const $s = useMainStore();
 			<span> > </span>
 			<span
 				class="cursor-pointer"
-				@click="$s.initFolderToggles()"
-			>{{ $s.activeCateg.name }}</span>
+				@click="$s.resetSelection(false, true)"
+			>
+				{{ $s.activeCategory.name }}
+			</span>
 		</div>
 
+		<!-- FOLDER -->
 		<div
 			v-if="$s.activeFolderId"
 			class="flex gap-4"
@@ -41,6 +45,4 @@ const $s = useMainStore();
 	</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

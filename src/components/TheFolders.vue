@@ -13,7 +13,7 @@ const $s = useMainStore();
 onMounted(() => {
 	console.log("%c/MOUNTED TheFolders.vue/", "background: teal");
 
-	if (!$s.activeFolderIdMemory) {
+	if (!$s.lastActiveFolderId) {
 		// initialize toggles to false
 		$s.initFolderToggles();
 	}

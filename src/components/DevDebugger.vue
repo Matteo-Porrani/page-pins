@@ -25,7 +25,7 @@ const showContent = ref(false);
 <!--		<pre v-if="$s.reorderData.itemsToReorder">currentOrder: {{ $s.reorderData.itemsToReorder.map(i => i.name) }}</pre>-->
 <!--		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
 <!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
-<!--		<pre>activeCateg: {{ $s.activeCateg }}</pre>-->
+<!--		<pre>activeCategory: {{ $s.activeCategory }}</pre>-->
 <!--		<pre>activeFolder: {{ $s.activeFolder }}</pre>-->
 <!--		<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>-->
 	</div>

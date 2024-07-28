@@ -1,40 +1,56 @@
 import {defineStore} from "pinia";
 import {ref, computed, reactive} from 'vue';
 import {useLocalStorage} from "@vueuse/core/index";
+// data defaults and description
 import {localDataDefaults} from "../data/localDataDefaults";
 import {modelDesc} from "../const/modelDesc";
+import {getLinkedEntityName} from "@/utils/utils";
 
 export const useMainStore = defineStore('counter', () => {
 	
-	// access to localStorage
+	// mapping to localStorage
 	const localData = useLocalStorage(
-		'storage_test_1',
+		'pp_data',
 		localDataDefaults //
 	);
 	
 	// STATE #############################################################################################################
 	
 	// initialization of localData.orders
-	const orders = reactive({});
+	// const orders = reactive({});
 	
+	// ----- UI state
 	const showModal = ref(false);
+	const boardMode = ref("$view");
 	const showActionSpace = ref(false);
-	const activeFolderIdMemory = ref(null);
+	const actionSpaceMode = ref(null); // '$reorder' | '$transfer' | '$colorize'
 	
-	const actionSpaceMode = ref(null); // can be '$reorder' or '$transfer'
+	const activeCategId = ref(null);
+	const folderToggles = reactive({});
+	const lastActiveFolderId = ref(null);
+	
+	const itemInForm = ref(null);
+	
+	
+	// ----- computational state
+	
+	// reorder / transfer / colorize
 	const reorderData = reactive({
 		currentOrder: null,
 		itemsToReorder: null,
 		parentEntityName: null,
 		parentItemId: null,
 	});
+	
 	const transferData = reactive({
-		parentEntityName: null,
-		availableParents: null,
+		parentEntityName: null, // OK
+		availableParents: null, // OK
+		
 		startParentId: null,
 		currentParentId: null,
 		itemToTransfer: null,
-		entityToTransferName: null
+
+		entityToTransferName: null // FIXME -- to be removed
 	});
 	
 	const colorizeData = reactive({
@@ -43,12 +59,7 @@ export const useMainStore = defineStore('counter', () => {
 		currColorId: null
 	});
 	
-	const boardMode = ref("$view");
-	// const categoryToggles = reactive({});
-	const activeCategId = ref(null);
-	const folderToggles = reactive({});
-	
-	const itemInForm = ref(null);
+
 	
 	
 	// GETTERS ###########################################################################################################
@@ -68,9 +79,16 @@ export const useMainStore = defineStore('counter', () => {
 	});
 	
 	// returns active category object
-	const activeCateg = computed(() => {
+	const activeCategory = computed(() => {
 		return activeCategId.value ?
 			localData.value.category.find(fol => parseInt(fol.id) === parseInt(activeCategId.value))
+			: null;
+	});
+	
+	// returns active folder object (based on folderToggles)
+	const activeFolder = computed(() => {
+		return activeFolderId.value ?
+			localData.value.folder.find(fol => parseInt(fol.id) === parseInt(activeFolderId.value))
 			: null;
 	});
 	
@@ -88,27 +106,21 @@ export const useMainStore = defineStore('counter', () => {
 		
 		return null;
 	});
-	// returns active folder object (based on folderToggles)
-	const activeFolder = computed(() => {
-		return activeFolderId.value ?
-			localData.value.folder.find(fol => parseInt(fol.id) === parseInt(activeFolderId.value))
-			: null;
-	});
 	
 	// criteria to know what item we are creating
 	const creationCriteria = computed(() => {
 		return {
-			categoryId: activeCateg.value ? activeCateg.value.id : null,
+			categoryId: activeCategory.value ? activeCategory.value.id : null,
 			folderId: activeFolder.value ? activeFolder.value.id : null,
 		}
 	});
 	
-	// FIXME ????
+	// FIXME ???? same functionality as getOrderedChildren() ????
 	const categoryContentItems = computed(() => {
-		console.log("categoryContentItems", activeCateg.value);
+		console.log("categoryContentItems", activeCategory.value);
 		
-		return activeCateg.value
-			? getChildren("folder", "category", activeCateg.value.id)
+		return activeCategory.value
+			? getChildren("folder", "category", activeCategory.value.id)
 			: []
 			;
 	});
@@ -128,8 +140,10 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// init the 'orders' key in localData if NEVER DONE BEFORE
 	const initOrders = () => {
-		
+		// if 'orders' key already exists, no action
 		if (localData.value.orders) return;
+		
+		const orders = {};
 		
 		// root
 		orders.root = localData.value.category.map(c => c.id);
@@ -146,28 +160,19 @@ export const useMainStore = defineStore('counter', () => {
 			return a;
 		}, {});
 		
-		console.log("orders", orders);
-		
 		localData.value.orders = orders;
 	}
 	
-	// const initCategoryToggles = () => {
-	// 	localData.value.category.forEach(c => categoryToggles[c.id] = false);
-	// 	console.log(categoryToggles);
-	// };
-	
-	// const toggleCategory = id => {
-	// 	// no action if edit mode
-	// 	if (editModeOn.value) return;
-	// 	console.log("%c/toggleCategory/", "background: crimson");
-	// 	categoryToggles[id] = !categoryToggles[id];
-	//
-	// 	Object.keys(categoryToggles)
-	// 		.filter(key => parseInt(key) !== parseInt(id))
-	// 		.forEach(key => categoryToggles[key] = false);
-	//
-	// 	activeFolderId.value = null;
-	// }
+	/**
+	 * @param { Boolean } category
+	 * @param { Boolean } folder
+	 */
+	const resetSelection = (category, folder) => {
+		console.log("%c/resetSelection/", "background: purple");
+		
+		if (category) activeCategId.value = null;
+		if (folder) initFolderToggles();
+	};
 	
 	const initFolderToggles = () => {
 		localData.value.folder.forEach(f => folderToggles[f.id] = false);
@@ -182,8 +187,6 @@ export const useMainStore = defineStore('counter', () => {
 		Object.keys(folderToggles)
 			.filter(key => parseInt(key) !== parseInt(id))
 			.forEach(key => folderToggles[key] = false);
-		
-		// activeFolderId.value = id;
 	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
@@ -227,7 +230,6 @@ export const useMainStore = defineStore('counter', () => {
 			2: "link",
 		}[displayStep.value];
 		
-		
 		const maxId = localData.value[entityName].map(item => item.id).sort((a, b) => a - b).reverse()[0];
 		const nextId = maxId + 1;
 		const entityDesc = modelDesc[entityName];
@@ -255,15 +257,7 @@ export const useMainStore = defineStore('counter', () => {
 		// push new entity
 		localData.value[entityName].push(newItem);
 		
-		
-		console.log("CHECK after create", localData.value[entityName]);
-		
-		// push new entity id in the 'orders' prop of localData
-		
-		const entities = [null, "category", "folder", "link"];
-		const childEntityIdx = entities.findIndex(e => e === entityName);
-		const parentEntityName = entities[childEntityIdx - 1];
-		
+		// push new entity ID in the 'orders' prop of localData
 		if (entityName === "category") {
 			// we are creating a category
 			console.log("creating a CATEGORY");
@@ -286,7 +280,6 @@ export const useMainStore = defineStore('counter', () => {
 			console.log("creating a LINK");
 			console.log("pushing ID", newItem.id);
 			localData.value.orders.folder[newItem.folder].push(newItem.id);
-			
 		}
 		
 		itemInForm.value = newItem;
@@ -403,7 +396,7 @@ export const useMainStore = defineStore('counter', () => {
 		console.log("%c/reorderTriggeredBy/", "background: hotpink");
 		// console.log({entityName, item});
 		
-		activeFolderIdMemory.value = activeFolderId.value;
+		lastActiveFolderId.value = activeFolderId.value;
 		
 		const entities = [null, "category", "folder", "link"];
 		const childEntityIdx = entities.findIndex(e => e === entityName);
@@ -461,30 +454,28 @@ export const useMainStore = defineStore('counter', () => {
 		}
 	}
 	
-	// ----- TRANSFERT ---------------------------------------------------------------------------------------------------
+	// ----- TRANSFER ----------------------------------------------------------------------------------------------------
 	
-	const transferTriggeredBy = (entityName, item) => {
-		console.log("%c/transferTriggeredBy/", "background: purple");
+	const prepareTransfer = (entityName, item) => {
+		console.log("%c/prepareTransfer/", "background: purple");
 		
-		activeFolderIdMemory.value = activeFolderId.value;
+		// store active folder id to reopen it after operation
+		lastActiveFolderId.value = activeFolderId.value;
 		
-		const entities = [null, "category", "folder", "link"];
-		const childEntityIdx = entities.findIndex(e => e === entityName);
-		const parentEntityName = entities[childEntityIdx - 1];
-		
-		console.log("parentEntityName", parentEntityName);
+		// get parent entity name
+		const parentEntityName = getLinkedEntityName(entityName, "parent");
 		
 		// retrieve all items of parent entity
 		const availableParents = [...localData.value[parentEntityName]];
-		availableParents.sort((a, b) => a.name - b.name);
+		// sort parents by name ASC
+		availableParents.sort((a, b) => a.name.localeCompare(b.name));
 		
+		transferData.parentEntityName = parentEntityName;
 		transferData.availableParents = availableParents;
+		
 		transferData.startParentId = item[parentEntityName];
 		transferData.currentParentId = item[parentEntityName];
-		transferData.parentEntityName = parentEntityName;
 		transferData.itemToTransfer = item;
-		transferData.entityToTransferName = entityName;
-		
 	}
 	
 	
@@ -492,27 +483,34 @@ export const useMainStore = defineStore('counter', () => {
 		// ONLY FOR FOLDERS & LINKS
 		console.log("%c/executeTransfer/", "background: crimson");
 		
-		const {startParentId, currentParentId, parentEntityName, itemToTransfer, entityToTransferName} = transferData;
+		const {
+			parentEntityName,
+			startParentId,
+			currentParentId,
+			itemToTransfer,
+		} = transferData;
 		
-		console.log({startParentId, currentParentId, parentEntityName, itemToTransfer, entityToTransferName});
+		// console.log({startParentId, currentParentId, parentEntityName, itemToTransfer, entityToTransferName});
 		
-		// remove id from startParent collection
+		// 1) remove item ID from startParent collection
 		const startParentCollection = localData.value.orders[parentEntityName][startParentId];
 		const idxToRemove = startParentCollection.findIndex(el => el === itemToTransfer.id);
-		console.log("idxToRemove", idxToRemove);
 		startParentCollection.splice(idxToRemove, 1);
 		
-		// push id to currentParent collection
+		// 2) push item ID to currentParent collection
 		const newParentCollection = localData.value.orders[parentEntityName][currentParentId];
 		newParentCollection.push(itemToTransfer.id);
 		
-		// change item ref to parent
+		// get entity to transfer name computed from parent entity name
+		const entityToTransferName = getLinkedEntityName(parentEntityName, "child");
+		
+		// find the item that is being transferred
 		const idxToUpdate = localData.value[entityToTransferName].findIndex(el => el.id === itemToTransfer.id);
 		
+		// 3) update the parent ID in the item object
 		localData.value[entityToTransferName][idxToUpdate][parentEntityName] = currentParentId;
 		
 		console.log("updated object", localData.value[entityToTransferName][idxToUpdate]);
-		
 		console.log("...transfer DONE");
 	}
 	
@@ -520,7 +518,7 @@ export const useMainStore = defineStore('counter', () => {
 		// console.log("%c/prepareItemForColorize/", "background: blue");
 		// console.log(`######## item to colorize is ${entityName} with id ${item.id} and name ${item.name}`);
 		
-		activeFolderIdMemory.value = activeFolderId.value;
+		lastActiveFolderId.value = activeFolderId.value;
 		
 		colorizeData.itemEntityName = entityName;
 		colorizeData.itemToColorize = item;
@@ -557,7 +555,7 @@ export const useMainStore = defineStore('counter', () => {
 	// 	entityInFormDescription.value = modelDesc[entityName];
 	//
 	// 	const idToEdit = {
-	// 		1: activeCateg.value ? activeCateg.value.id : null,
+	// 		1: activeCategory.value ? activeCategory.value.id : null,
 	// 		2: activeFolder.value ? activeFolder.value.id : null,
 	// 	}[displayStep.value];
 	//
@@ -579,16 +577,15 @@ export const useMainStore = defineStore('counter', () => {
 		transferData,
 		colorizeData,
 		boardMode,
-		// categoryToggles,
 		folderToggles,
 		activeCategId,
 		activeFolderId,
 		itemInForm,
 		
 		editModeOn,
-		activeCateg,
+		activeCategory,
 		activeFolder,
-		activeFolderIdMemory,
+		lastActiveFolderId,
 		displayStep,
 		categoryContentItems,
 		folderContentItems,
@@ -596,8 +593,7 @@ export const useMainStore = defineStore('counter', () => {
 		entityInFormDescription,
 		
 		initOrders,
-		// initCategoryToggles,
-		// toggleCategory,
+		resetSelection,
 		initFolderToggles,
 		toggleFolder,
 		getChildren,
@@ -609,7 +605,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		reorderTriggeredBy,
 		updateOrder,
-		transferTriggeredBy,
+		prepareTransfer,
 		executeTransfer,
 		prepareItemForColorize,
 		colorizeItem,

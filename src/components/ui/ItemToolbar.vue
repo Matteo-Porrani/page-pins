@@ -84,7 +84,7 @@ const activeBtns = computed(() => {
 			icon: "arrow-to-right",
 			color: "emerald",
 			callback: () => {
-				$s.transferTriggeredBy($p.entity, {...$p.item});
+				$s.prepareTransfer($p.entity, {...$p.item});
 				$s.actionSpaceMode = "$transfer";
 				$s.showActionSpace = true;
 			},
