@@ -25,6 +25,10 @@ const items = [
 const setMode = (code) => {
 	$s.boardMode = code;
 	$s.showIE = (code === "$ie");
+	if (code === "$ie") {
+		$s.activeCategId = null;
+		$s.initFolderToggles();
+	}
 }
 
 </script>

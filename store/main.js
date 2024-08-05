@@ -131,10 +131,6 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// init the 'orders' key in localData if NEVER DONE BEFORE
 	const initOrders = () => {
-		
-		console.log("B - INIT ORDERS")
-		console.log(localData);
-		
 		// if 'orders' key already exists, no action
 		if (localData.value.orders) return;
 		
