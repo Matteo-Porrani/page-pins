@@ -30,16 +30,6 @@ const colors = [
 	"lime",
 ]
 
-
-
-const f = {
-	id: 19,
-	name: "Hello",
-	category: 1,
-	color: 3,
-}
-
-
 </script>
 
 <template>

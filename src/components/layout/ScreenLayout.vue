@@ -52,20 +52,9 @@ onKeyStroke(["a", "A"], (e) => {
 	<header class="relative bg-slate-100 py-4">
 		<slot name="header">
 
-<!--			<h1 class="text-slate-700 text-2xl font-bold flex gap-2 items-center">-->
-<!--				<span>Page</span>-->
-<!--				<box-icon-->
-<!--					type='solid'-->
-<!--					name='map-pin'-->
-<!--					size=""-->
-<!--					color="#dc2626"-->
-<!--				/>-->
-<!--				<span>Pins</span>-->
-<!--			</h1>-->
-
-
 			<h1
 				class="
+					flex gap-2 items-center
           text-2xl font-bold w-fit
           ps-8
           transition duration-300 ease-in

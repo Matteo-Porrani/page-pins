@@ -9,7 +9,7 @@ const showContent = ref(false);
 
 <template>
 <div
-	class="debug bg-yellow-200 shadow-lg text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg py-2 px-4"
+	class="debug bg-indigo-100 shadow-lg text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg py-2 px-4"
 >
 	<div
 		:class="{'hidden': !showContent}"
@@ -37,7 +37,7 @@ const showContent = ref(false);
 			<span class="me-2">
 				<box-icon
 					name="info-circle"
-					color="#71717a"
+					color="#334155"
 					class="pt-1"
 				/>
 			</span>
@@ -46,7 +46,17 @@ const showContent = ref(false);
 				v-model="showContent"
 				class="sr-only peer"
 			>
-			<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-800"></div>
+			<div
+				class="
+					relative w-11 h-6
+					bg-slate-300 rounded-full peer
+					peer-checked:after:translate-x-full
+					rtl:peer-checked:after:-translate-x-full
+					peer-checked:after:border-white after:content-['']
+					after:absolute after:top-[2px] after:start-[2px]
+					after:bg-white after:rounded-full after:h-5 after:w-5
+					after:transition-all
+					peer-checked:bg-slate-700"></div>
 		</label>
 	</div>
 
