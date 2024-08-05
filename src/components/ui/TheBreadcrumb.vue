@@ -15,8 +15,9 @@ const $s = useMainStore();
 			@click="$s.resetSelection(true, true)"
 		>
 			<box-icon
-				name="home-alt"
+				name="grid-alt"
 				color="#64748b"
+				type="solid"
 			/>
 		</button>
 
