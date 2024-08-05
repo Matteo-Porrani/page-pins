@@ -6,7 +6,7 @@ const $s = useMainStore();
 <template>
 	<div
 		v-if="$s.displayStep > 0"
-		class="flex items-center gap-4 text-slate-500 ms-10"
+		class="flex items-center gap-4 text-slate-500"
 	>
 
 		<!-- HOME BUTTON -->
@@ -25,7 +25,11 @@ const $s = useMainStore();
 			v-if="$s.activeCategId"
 			class="flex gap-4"
 		>
-			<span> > </span>
+<!--			<span> > </span>-->
+			<box-icon
+				name="chevron-right"
+				color="#64748b"
+			/>
 			<span
 				class="cursor-pointer"
 				@click="$s.resetSelection(false, true)"
@@ -39,7 +43,11 @@ const $s = useMainStore();
 			v-if="$s.activeFolderId"
 			class="flex gap-4"
 		>
-			<span> > </span>
+<!--			<span> > </span>-->
+			<box-icon
+				name="chevron-right"
+				color="#64748b"
+			/>
 			<span>{{ $s.activeFolder.name }}</span>
 		</div>
 	</div>

@@ -49,10 +49,29 @@ onKeyStroke(["a", "A"], (e) => {
 		</TheModal>
 	</Teleport>
 
-	<header class="bg-slate-100 py-4 px-8">
+	<header class="relative bg-slate-100 py-4">
 		<slot name="header">
 
-			<h1 class="text-slate-700 text-2xl font-bold flex gap-2 items-center">
+<!--			<h1 class="text-slate-700 text-2xl font-bold flex gap-2 items-center">-->
+<!--				<span>Page</span>-->
+<!--				<box-icon-->
+<!--					type='solid'-->
+<!--					name='map-pin'-->
+<!--					size=""-->
+<!--					color="#dc2626"-->
+<!--				/>-->
+<!--				<span>Pins</span>-->
+<!--			</h1>-->
+
+
+			<h1
+				class="
+          text-2xl font-bold w-fit
+          ps-8
+          transition duration-300 ease-in
+        "
+				:class="{'transform -translate-x-[100%]' : $s.displayStep > 0}"
+			>
 				<span>Page</span>
 				<box-icon
 					type='solid'
@@ -63,34 +82,52 @@ onKeyStroke(["a", "A"], (e) => {
 				<span>Pins</span>
 			</h1>
 
+			<div
+				class="
+          absolute start-0
+          w-fit
+          ps-8
+          transform
+          transition duration-300 ease-in
+          flex items-center gap-4 text-slate-500
+        "
+				:class="{
+          'translate-x-[100%]' : $s.displayStep === 0,
+          'translate-x-[0] opacity-1' : $s.displayStep > 0,
+          'opacity-0' : $s.displayStep === 0,
+        }"
+			>
 				<TheBreadcrumb/>
-
-			<!-- TODO -->
-<!--			<Teleport to="body">-->
-<!--				<div-->
-<!--					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"-->
-<!--				>-->
-
-<!--					<label class="inline-flex items-center cursor-pointer">-->
-<!--						<input type="checkbox" v-model="showTodo" class="sr-only peer">-->
-<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-800"></div>-->
-<!--						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>-->
-<!--					</label>-->
-
-<!--					<div :class="{'hidden': !showTodo}">-->
-<!--						<pre>- color tags</pre>-->
-<!--						<pre>- import/export office .txt</pre>-->
-<!--						<pre>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</pre>-->
-<!--						<pre>- transfert to other parent</pre>-->
-<!--						<pre>- handle favorites</pre>-->
-<!--						<pre>- smaller icons</pre>-->
-<!--					</div>-->
-
-<!--				</div>-->
-<!--			</Teleport>-->
+			</div>
 
 		</slot>
 	</header>
+
+
+
+	<!-- TODO -->
+	<!--			<Teleport to="body">-->
+	<!--				<div-->
+	<!--					class="debug bg-slate-300 text-sm font-mono absolute bottom-10 left-10 rounded-lg py-2 px-4 text-xs"-->
+	<!--				>-->
+
+	<!--					<label class="inline-flex items-center cursor-pointer">-->
+	<!--						<input type="checkbox" v-model="showTodo" class="sr-only peer">-->
+	<!--						<div class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-800"></div>-->
+	<!--						<span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">TODO</span>-->
+	<!--					</label>-->
+
+	<!--					<div :class="{'hidden': !showTodo}">-->
+	<!--						<pre>- color tags</pre>-->
+	<!--						<pre>- import/export office .txt</pre>-->
+	<!--						<pre>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</pre>-->
+	<!--						<pre>- transfert to other parent</pre>-->
+	<!--						<pre>- handle favorites</pre>-->
+	<!--						<pre>- smaller icons</pre>-->
+	<!--					</div>-->
+
+	<!--				</div>-->
+	<!--			</Teleport>-->
 
 <!--	<div class="absolute z-10 end-4 top-4 rounded-lg bg-orange-400 p-4">-->
 <!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
