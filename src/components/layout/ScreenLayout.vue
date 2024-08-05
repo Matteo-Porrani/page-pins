@@ -92,6 +92,12 @@ onKeyStroke(["a", "A"], (e) => {
 		</slot>
 	</header>
 
+<!--	<div class="absolute z-10 end-4 top-4 rounded-lg bg-orange-400 p-4">-->
+<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
+<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
+<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
+<!--	</div>-->
+
 	<main class="relative">
 
 		<ModeToggleBar

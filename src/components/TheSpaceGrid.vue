@@ -16,6 +16,11 @@ const enterCategory = id => {
 
 
 const orderedCategories = computed(() => {
+
+	console.log("A - orderedCategories")
+
+	if (!$s.localData) return [];
+
 	return $s.localData.category.sort((a, b) => {
 		return $s.localData.orders.root.indexOf(a.id) - $s.localData.orders.root.indexOf(b.id);
 	})

@@ -8,11 +8,21 @@ import {getLinkedEntityName} from "@/utils/utils";
 
 export const useMainStore = defineStore('counter', () => {
 	
-	// mapping to localStorage
 	const localData = useLocalStorage(
 		'pp_data',
-		localDataDefaults //
+		localDataDefaults
 	);
+	
+	// inject uploaded data
+	const injectData = newData => {
+		console.log("%c/injectData/", "background: blue");
+		// console.log("newData", newData);
+		
+		// reset localData
+		localData.value = null;
+		// inject new data
+		localData.value = newData;
+	};
 	
 	// STATE #############################################################################################################
 	
@@ -21,6 +31,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ----- UI state
 	const showModal = ref(false);
+	const showIE = ref(false);
 	const boardMode = ref("$view");
 	const showActionSpace = ref(false);
 	const actionSpaceMode = ref(null); // '$reorder' | '$transfer' | '$colorize'
@@ -120,6 +131,10 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// init the 'orders' key in localData if NEVER DONE BEFORE
 	const initOrders = () => {
+		
+		console.log("B - INIT ORDERS")
+		console.log(localData);
+		
 		// if 'orders' key already exists, no action
 		if (localData.value.orders) return;
 		
@@ -557,6 +572,7 @@ export const useMainStore = defineStore('counter', () => {
 	return {
 		localData,
 		showModal,
+		showIE,
 		showActionSpace,
 		actionSpaceMode,
 		reorderData,
@@ -578,7 +594,9 @@ export const useMainStore = defineStore('counter', () => {
 		creationCriteria,
 		entityInFormDescription,
 		
+		injectData,
 		initOrders,
+
 		resetSelection,
 		initFolderToggles,
 		toggleFolder,

@@ -1,14 +1,13 @@
 <script setup>
+import {onMounted} from "vue";
+import {useMainStore} from "../store/main";
 
 import ScreenLayout from "@/components/layout/ScreenLayout.vue";
 
-import {categories} from "@/mock/mock-categories";
-import {useMainStore} from "../store/main";
 import TheSpaceGrid from "@/components/TheSpaceGrid.vue";
 import TheFolders from "@/components/TheFolders.vue";
-import {onMounted} from "vue";
 import TheActionSpace from "@/components/TheActionSpace.vue";
-import FolderItem from "@/components/FolderItem.vue";
+import DataDeck from "@/components/action-space/DataDeck.vue";
 
 
 const $s = useMainStore();
@@ -72,9 +71,10 @@ const f = {
 
 
 		<Transition mode="out-in">
-			<TheSpaceGrid v-if="!$s.showActionSpace && !$s.activeCategId"/>
-			<TheFolders v-else-if="!$s.showActionSpace && $s.activeCategId"/>
-			<TheActionSpace v-else-if="$s.showActionSpace"/>
+			<TheSpaceGrid v-if="!$s.showActionSpace && !$s.showIE && !$s.activeCategId"/>
+			<TheFolders v-else-if="!$s.showActionSpace && !$s.showIE && $s.activeCategId"/>
+			<TheActionSpace v-else-if="!$s.showIE && $s.showActionSpace"/>
+			<DataDeck v-else-if="$s.showIE"/>
 		</Transition>
 
 	</template>
