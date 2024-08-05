@@ -32,7 +32,7 @@ const setMode = (code) => {
 
 <template>
 
-	<div class="mode-toggle-bar fixed left-8 bottom-[4vh] flex gap-2">
+	<div class="mode-toggle-bar z-10 fixed left-8 bottom-[4vh] flex gap-2">
 
 		<!-- MODE BUTTONS -->
 		<div class="w-60 grid grid-cols-3 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
@@ -47,7 +47,10 @@ const setMode = (code) => {
 		</div>
 
 		<!-- ADD ITEM BUTTON -->
-		<div class="bg-slate-100 hover:bg-slate-200 rounded-lg shadow-lg transition duration-300 ease-in p-2">
+		<div
+			v-if="!$s.showIE && $s.boardMode === '$view'"
+			class="bg-slate-100 hover:bg-slate-200 rounded-lg shadow-lg transition duration-300 ease-in p-2"
+		>
 			<button
 				class="flex justify-center items-center rounded-lg w-8 py-1 px-2"
 				@click="$s.addItem()"

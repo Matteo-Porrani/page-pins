@@ -52,12 +52,12 @@ onKeyStroke(["a", "A"], (e) => {
 	<header class="bg-slate-100 py-4 px-8">
 		<slot name="header">
 
-			<h1 class="text-slate-700 text-3xl font-bold flex gap-2 items-center">
+			<h1 class="text-slate-700 text-2xl font-bold flex gap-2 items-center">
 				<span>Page</span>
 				<box-icon
 					type='solid'
 					name='map-pin'
-					size="md"
+					size=""
 					color="#dc2626"
 				/>
 				<span>Pins</span>
