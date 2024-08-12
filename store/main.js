@@ -259,6 +259,7 @@ export const useMainStore = defineStore('counter', () => {
 		}
 		
 		itemInForm.value = newItem;
+		boardMode.value = "$edit";
 		showModal.value = true;
 	}
 	
