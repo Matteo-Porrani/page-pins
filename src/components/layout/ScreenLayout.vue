@@ -14,9 +14,21 @@ const showTodo = ref(true);
 import { onKeyStroke, useKeyModifier } from '@vueuse/core'
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 import TheBreadcrumb from "@/components/ui/TheBreadcrumb.vue";
+import TheSearchForm from "@/components/ui/TheSearchForm.vue";
 
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
+
+// handler on key stroke EDIT
+onKeyStroke(["k", "K"], (e) => {
+	if (!ctrlPressed.value) return;
+	e.preventDefault();
+
+	console.log("%c/show search/", "background: gold");
+
+	$s.showModal = true;
+
+});
 
 // handler on key stroke EDIT
 onKeyStroke(["e", "E"], (e) => {
@@ -28,6 +40,7 @@ onKeyStroke(["e", "E"], (e) => {
 // handler on key stroke ADD ITEM
 onKeyStroke(["a", "A"], (e) => {
 	if (!ctrlPressed.value) return;
+	if ($s.showModal) return;
 	e.preventDefault();
 	$s.addItem();
 });
@@ -44,7 +57,8 @@ onKeyStroke(["a", "A"], (e) => {
 				<span></span><!--	EMPTY HEADER-->
 			</template>
 			<template #body>
-				<TheEditForm/>
+				<TheEditForm v-if="$s.boardMode === '$edit'"/>
+				<TheSearchForm v-else/>
 			</template>
 		</TheModal>
 	</Teleport>

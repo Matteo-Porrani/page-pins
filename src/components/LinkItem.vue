@@ -15,14 +15,12 @@ defineProps({
 </script>
 
 <template>
-
-
 	<div class="link-wrapper grid grid-rows-1 gap-4 items-center">
 
 		<component :is="$s.editModeOn || link.url === '' ? 'div' : 'a'"
 							 :href="link.url"
 							 target="_blank"
-							 class="relative w-full border border-zinc-300 rounded-lg flex gap-4 items-center cursor-pointer hover:border-zinc-500 hover:shadow-xl p-2 transition-all duration-200 ease-in"
+							 class="relative w-full bg-white border border-zinc-300 rounded-lg flex gap-4 items-center cursor-pointer hover:border-zinc-500 hover:shadow-xl p-2 transition-all duration-200 ease-in"
 		>
 
 			<ItemToolbar
@@ -58,7 +56,6 @@ defineProps({
 		</button>
 
 	</div>
-
 </template>
 
 <style scoped>
