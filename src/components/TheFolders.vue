@@ -43,13 +43,12 @@ onMounted(() => {
 		>
 
 			<ItemToolbar
-				v-if="$s.editModeOn"
+				v-if="$s.editModeOn && $s.displayStep === 1"
 				entity="folder"
 				:item="fol"
 			/>
 
 			<h3 class="font-bold text-sm">
-<!--				<span>{{ fol.id }} - </span>-->
 				<span>{{ fol.name }}</span>
 				<span class="ms-3 font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>

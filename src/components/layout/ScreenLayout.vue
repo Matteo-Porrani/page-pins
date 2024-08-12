@@ -118,11 +118,12 @@ onKeyStroke(["a", "A"], (e) => {
 	<!--				</div>-->
 	<!--			</Teleport>-->
 
-<!--	<div class="absolute z-10 end-4 top-4 rounded-lg bg-orange-400 p-4">-->
-<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
-<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
-<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-<!--	</div>-->
+	<div class="absolute z-10 end-4 top-4 rounded-lg bg-orange-400 p-4">
+		<pre>displayStep: {{ $s.displayStep }}</pre>
+		<pre>boardMode: {{ $s.boardMode }}</pre>
+		<pre>showIE: {{ $s.showIE }}</pre>
+		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
+	</div>
 
 	<main class="relative">
 

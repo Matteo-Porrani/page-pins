@@ -52,7 +52,7 @@ const orderedCategories = computed(() => {
 			</p>
 
 			<ItemToolbar
-				v-if="$s.editModeOn"
+				v-if="$s.editModeOn && $s.displayStep === 0"
 				:item="c"
 				entity="category"
 			/>
@@ -65,7 +65,7 @@ const orderedCategories = computed(() => {
 			class="flex justify-center items-center cursor-pointer p-4"
 		>
 			<button
-				class="bg-white flex justify-center items-center rounded-full p-2"
+				class="bg-white hover:bg-slate-200 flex justify-center items-center rounded-full p-2"
 				@click="$s.addItem()"
 			>
 				<box-icon
