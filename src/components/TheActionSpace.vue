@@ -30,6 +30,7 @@ const actionTitle = computed(() => {
 });
 </script>
 
+
 <template>
 	<div class="relative the-reorder flex justify-center">
 
@@ -63,5 +64,6 @@ const actionTitle = computed(() => {
 
 	</div>
 </template>
+
 
 <style scoped></style>

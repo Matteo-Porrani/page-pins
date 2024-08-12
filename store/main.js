@@ -463,7 +463,21 @@ export const useMainStore = defineStore('counter', () => {
 		const parentEntityName = getLinkedEntityName(entityName, "parent");
 		
 		// retrieve all items of parent entity
-		const availableParents = [...localData.value[parentEntityName]];
+		let availableParents = [];
+		
+		for (let f of localData.value[parentEntityName]) {
+			const parentCategName = localData.value["category"].find(c => c.id === f.category).name;
+			
+			const o = {
+				id: f.id,
+				name: `${parentCategName} / ${f.name}`,
+				category: f.category
+			};
+			availableParents.push(o);
+		}
+		
+		console.log(availableParents);
+
 		// sort parents by name ASC
 		availableParents.sort((a, b) => a.name.localeCompare(b.name));
 		
@@ -478,7 +492,7 @@ export const useMainStore = defineStore('counter', () => {
 	
 	const executeTransfer = () => {
 		// ONLY FOR FOLDERS & LINKS
-		console.log("%c/executeTransfer/", "background: crimson");
+		console.log("%c/executeTransfer/", "background: crimson; color: white");
 		
 		const {
 			parentEntityName,
