@@ -22,6 +22,9 @@ const results = computed(() => {
 
 
 <template>
+
+	<p class="text-center text-slate-600 mb-2">Search</p>
+
 	<input
 		v-model="searchString"
 		id="input_search"
