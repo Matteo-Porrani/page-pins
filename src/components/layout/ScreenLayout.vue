@@ -116,7 +116,7 @@ onKeyStroke(["a", "A"], (e) => {
 				<button class="bg-white grid place-content-center rounded-md size-12">
 					<box-icon
 						name='search'
-						size="md"
+						size=""
 						color="#94a3b8"
 						@click="$s.showModal = true"
 					/>

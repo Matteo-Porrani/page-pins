@@ -18,6 +18,8 @@ const showContent = ref(false);
 		toggle edit mode</pre>
 		<pre>CTRL + A
 		add item</pre>
+		<pre>CTRL + K
+		search</pre>
 
 <!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
 <!--		<pre>actionSpaceMode: {{ $s.actionSpaceMode }}</pre>-->
