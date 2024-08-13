@@ -19,15 +19,18 @@ import TheSearchForm from "@/components/ui/TheSearchForm.vue";
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
 
+// handler on ESC
+onKeyStroke(["Escape"], (e) => {
+	e.preventDefault();
+	$s.showModal = false;
+});
+
 // handler on key stroke EDIT
 onKeyStroke(["k", "K"], (e) => {
 	if (!ctrlPressed.value) return;
 	e.preventDefault();
-
-	console.log("%c/show search/", "background: gold");
-
+	$s.boardMode = "$search";
 	$s.showModal = true;
-
 });
 
 // handler on key stroke EDIT
@@ -57,8 +60,8 @@ onKeyStroke(["a", "A"], (e) => {
 				<span></span><!--	EMPTY HEADER-->
 			</template>
 			<template #body>
-				<TheEditForm v-if="$s.boardMode === '$edit'"/>
-				<TheSearchForm v-else/>
+				<TheSearchForm v-if="$s.boardMode === '$search'"/>
+				<TheEditForm v-else/>
 			</template>
 		</TheModal>
 	</Teleport>
@@ -128,12 +131,12 @@ onKeyStroke(["a", "A"], (e) => {
 
 <!-- FIXME *********** DEBUG	-->
 
-<!--	<div class="absolute z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
-<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
-<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
-<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
-<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-<!--	</div>-->
+	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
+		<pre>displayStep: {{ $s.displayStep }}</pre>
+		<pre>boardMode: {{ $s.boardMode }}</pre>
+		<pre>showIE: {{ $s.showIE }}</pre>
+		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
+	</div>
 
 	<main class="relative">
 

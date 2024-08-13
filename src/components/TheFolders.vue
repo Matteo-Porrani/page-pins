@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted} from "vue";
+import { vOnLongPress } from '@vueuse/components';
 import {useMainStore} from "../../store/main";
 import {getColorName} from "../../data/baseColors";
 
@@ -18,6 +19,8 @@ onMounted(() => {
 	}
 
 });
+
+const longPressHandler = () => $s.boardMode = "$edit";
 </script>
 
 <template>
@@ -35,6 +38,7 @@ onMounted(() => {
 		<article
 			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
 			:key="fol.id"
+			v-on-long-press="longPressHandler"
 			class="relative bg-white h-16 flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
 			:class="{
 							'translate-x-[-10rem] opacity-25' : (Object.values($s.folderToggles).some(v => v) && !$s.folderToggles[fol.id]),

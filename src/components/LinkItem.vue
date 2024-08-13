@@ -1,4 +1,5 @@
 <script setup>
+import { vOnLongPress } from '@vueuse/components';
 import {useMainStore} from "../../store/main";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import {getColorName} from "../../data/baseColors";
@@ -11,16 +12,20 @@ defineProps({
 		type: Object,
 		required: true,
 	}
-})
+});
+
+const longPressHandler = () => $s.boardMode = "$edit";
 </script>
 
 <template>
 	<div class="link-wrapper grid grid-rows-1 gap-4 items-center">
 
-		<component :is="$s.editModeOn || link.url === '' ? 'div' : 'a'"
-							 :href="link.url"
-							 target="_blank"
-							 class="relative w-full bg-white border border-zinc-300 rounded-lg flex gap-4 items-center cursor-pointer hover:border-zinc-500 hover:shadow-xl p-2 transition-all duration-200 ease-in"
+		<component
+			:is="$s.editModeOn || link.url === '' ? 'div' : 'a'"
+			:href="link.url"
+			target="_blank"
+			class="relative w-full bg-white border border-zinc-300 rounded-lg flex gap-4 items-center cursor-pointer hover:border-zinc-500 hover:shadow-xl p-2 transition-all duration-200 ease-in"
+			v-on-long-press="longPressHandler"
 		>
 
 			<ItemToolbar

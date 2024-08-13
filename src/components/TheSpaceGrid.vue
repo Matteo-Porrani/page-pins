@@ -1,11 +1,10 @@
 <script setup>
 import { computed } from "vue";
-import {categories} from "@/mock/mock-categories";
+import { vOnLongPress } from '@vueuse/components';
 import {useMainStore} from "../../store/main";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
 import {getColorName} from "../../data/baseColors";
-
 
 const $s = useMainStore();
 
@@ -16,16 +15,14 @@ const enterCategory = id => {
 
 
 const orderedCategories = computed(() => {
-
-	console.log("A - orderedCategories")
-
 	if (!$s.localData) return [];
 
 	return $s.localData.category.sort((a, b) => {
 		return $s.localData.orders.root.indexOf(a.id) - $s.localData.orders.root.indexOf(b.id);
 	})
-})
+});
 
+const longPressHandler = () => $s.boardMode = "$edit";
 
 </script>
 
@@ -37,6 +34,7 @@ const orderedCategories = computed(() => {
 		<article
 			v-for="c in orderedCategories"
 			:key="c.id"
+			v-on-long-press="longPressHandler"
 			class="relative bg-white hover:bg-slate-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
 			@click="enterCategory(c.id)"
 		>

@@ -180,10 +180,7 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const getOrderedChildren = (childEntityName, parentEntityName, parentItemId) => {
-		if (!parentItemId) {
-			console.log("NO PARENT ID");
-			return;
-		}
+		if (!parentItemId) return;
 		
 		const childEntityItems = localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
@@ -259,7 +256,7 @@ export const useMainStore = defineStore('counter', () => {
 		}
 		
 		itemInForm.value = newItem;
-		boardMode.value = "$edit";
+		// boardMode.value = "$edit";
 		showModal.value = true;
 	}
 	
