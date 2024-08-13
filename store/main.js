@@ -425,15 +425,22 @@ export const useMainStore = defineStore('counter', () => {
 		// retrieve all items of parent entity
 		let availableParents = [];
 		
-		for (let f of localData.value[parentEntityName]) {
-			const parentCategName = localData.value["category"].find(c => c.id === f.category).name;
-			
-			const o = {
-				id: f.id,
-				name: `${parentCategName} / ${f.name}`,
-				category: f.category
-			};
-			availableParents.push(o);
+		if (parentEntityName === "folder") {
+			// create composite name (full path)
+			for (let f of localData.value[parentEntityName]) {
+				const parentCategName = localData.value["category"].find(c => c.id === f.category).name;
+				
+				const o = {
+					id: f.id,
+					name: `${parentCategName} / ${f.name}`,
+					category: f.category
+				};
+				availableParents.push(o);
+			}
+		} else {
+			for (let c of localData.value.category) {
+				availableParents.push(c);
+			}
 		}
 
 		// sort parents by name ASC
