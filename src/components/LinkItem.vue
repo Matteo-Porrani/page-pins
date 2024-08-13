@@ -1,13 +1,14 @@
 <script setup>
+import {ref} from "vue";
 import { vOnLongPress } from '@vueuse/components';
 import {useMainStore} from "../../store/main";
-import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import {getColorName} from "../../data/baseColors";
+import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
 
 const $s = useMainStore();
 
-defineProps({
+const $p = defineProps({
 	link: {
 		type: Object,
 		required: true,
@@ -15,6 +16,21 @@ defineProps({
 });
 
 const longPressHandler = () => $s.boardMode = "$edit";
+
+const copyConfirm = ref(false);
+
+const copyHandler = async () => {
+	try {
+		await navigator.clipboard.writeText($p.link.url);
+		console.log("Copied ✅");
+		copyConfirm.value = true;
+
+		setTimeout(() => copyConfirm.value = false, 1000);
+	} catch(err) {
+		console.error(err);
+	}
+};
+
 </script>
 
 <template>
@@ -52,10 +68,35 @@ const longPressHandler = () => $s.boardMode = "$edit";
 
 		</component>
 
-		<button class="bg-slate-100 hover:bg-slate-200 aspect-square rounded-lg">
+		<button
+			class="relative bg-slate-100 hover:bg-slate-200 aspect-square rounded-lg"
+			title="copy"
+			@click="copyHandler"
+		>
+
+			<span
+				class="
+					absolute
+					bg-slate-200 text-slate-400
+					-left-[210%]
+					rounded-md
+					flex items-center gap-1
+					opacity-0
+					transition duration-200
+					py-1 px-2
+				"
+				:class="{'opacity-100' : copyConfirm }"
+			>
+				Copied
+				<box-icon
+					name="check"
+					color="#94a3b8"
+				/>
+			</span>
+
 			<box-icon
 				class=""
-				name="copy"
+				name="clipboard"
 				color="#a1a1aa"
 			/>
 		</button>

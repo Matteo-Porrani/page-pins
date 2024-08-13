@@ -9,7 +9,7 @@ defineProps({
 
 <template>
 	<div
-		class="sample w-6 h-6 rounded-full"
+		class="sample size-5 rounded-md"
 		:class="`bg-${color}-400`"
 	></div>
 </template>

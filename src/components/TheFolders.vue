@@ -11,13 +11,10 @@ import ColorTag from "@/components/ui/ColorTag.vue";
 const $s = useMainStore();
 
 onMounted(() => {
-	console.log("%c/MOUNTED TheFolders.vue/", "background: teal");
-
 	if (!$s.lastActiveFolderId) {
 		// initialize toggles to false
 		$s.initFolderToggles();
 	}
-
 });
 
 const longPressHandler = () => $s.boardMode = "$edit";
