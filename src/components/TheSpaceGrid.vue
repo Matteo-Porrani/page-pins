@@ -5,6 +5,7 @@ import {useMainStore} from "../../store/main";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
 import {getColorName} from "../../data/baseColors";
+import CategoryItem from "@/components/CategoryItem.vue";
 
 const $s = useMainStore();
 
@@ -30,33 +31,50 @@ const longPressHandler = () => $s.boardMode = "$edit";
 	<div class="board-view grid grid-cols-3 grid-rows-4 md:grid-cols-4 md:grid-rows-4 lg:grid-cols-5 lg:grid-rows-5 gap-10">
 		<!-- Your content here -->
 
-		<!-- SPACES -->
-		<article
+		<!-- CATEGORIES -->
+		<CategoryItem
 			v-for="c in orderedCategories"
 			:key="c.id"
-			v-on-long-press="longPressHandler"
-			class="relative bg-white hover:bg-slate-500 rounded-xl text-lg flex justify-center items-center cursor-pointer transition duration-300 py-4 px-10"
-			@click="enterCategory(c.id)"
-		>
-			<div class="absolute text-sm text-slate-400 top-0 left-0 py-2 px-3">
-				<ColorTag
-					v-if="c.color > 0"
-					:color="getColorName(c.color)"
-				/>
-			</div>
+			:cat="c"
+		/>
 
-			<p class="absolute text-sm text-slate-400 bottom-0 right-0 py-2 px-3">
-				{{ $s.getChildren('folder', 'category', c.id).length > 0 ? $s.getChildren('folder', 'category', c.id).length : '' }}
-			</p>
+		<!-- SPACES -->
+<!--		<article-->
+<!--			v-for="c in orderedCategories"-->
+<!--			:key="c.id"-->
+<!--			v-on-long-press="longPressHandler"-->
+<!--			class="-->
+<!--				relative-->
+<!--				bg-white-->
+<!--				hover:bg-slate-500-->
+<!--				rounded-xl-->
+<!--				text-lg-->
+<!--				flex justify-center items-center-->
+<!--				cursor-pointer-->
+<!--				transition duration-300-->
+<!--				py-4 px-10-->
+<!--			"-->
+<!--			@click="enterCategory(c.id)"-->
+<!--		>-->
+<!--			<div class="absolute text-sm text-slate-400 top-0 left-0 py-2 px-3">-->
+<!--				<ColorTag-->
+<!--					v-if="c.color > 0"-->
+<!--					:color="getColorName(c.color)"-->
+<!--				/>-->
+<!--			</div>-->
 
-			<ItemToolbar
-				v-if="$s.editModeOn && $s.displayStep === 0"
-				:item="c"
-				entity="category"
-			/>
+<!--			<p class="absolute text-sm text-slate-400 bottom-0 right-0 py-2 px-3">-->
+<!--				{{ $s.getChildren('folder', 'category', c.id).length > 0 ? $s.getChildren('folder', 'category', c.id).length : '' }}-->
+<!--			</p>-->
 
-			<p class="transition duration-200">{{ c.name }}</p>
-		</article>
+<!--			<ItemToolbar-->
+<!--				v-if="$s.editModeOn && $s.displayStep === 0"-->
+<!--				:item="c"-->
+<!--				entity="category"-->
+<!--			/>-->
+
+<!--			<p class="transition duration-200">{{ c.name }}</p>-->
+<!--		</article>-->
 
 		<!-- ADD BUTTON -->
 		<article

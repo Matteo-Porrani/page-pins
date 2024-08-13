@@ -19,6 +19,11 @@ import TheSearchForm from "@/components/ui/TheSearchForm.vue";
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
 
+const toggleSearch = () => {
+	$s.boardMode = "$search";
+	$s.showModal = true;
+}
+
 // handler on ESC
 onKeyStroke(["Escape"], (e) => {
 	e.preventDefault();
@@ -30,8 +35,7 @@ onKeyStroke(["Escape"], (e) => {
 onKeyStroke(["k", "K"], (e) => {
 	if (!ctrlPressed.value) return;
 	e.preventDefault();
-	$s.boardMode = "$search";
-	$s.showModal = true;
+	toggleSearch();
 });
 
 // handler on key stroke EDIT
@@ -130,7 +134,7 @@ onKeyStroke(["a", "A"], (e) => {
 						name='search'
 						size=""
 						color="#94a3b8"
-						@click="$s.showModal = true"
+						@click="toggleSearch"
 					/>
 				</button>
 			</div>

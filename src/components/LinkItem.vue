@@ -25,7 +25,7 @@ const copyHandler = async () => {
 		console.log("Copied ✅");
 		copyConfirm.value = true;
 
-		setTimeout(() => copyConfirm.value = false, 1000);
+		setTimeout(() => copyConfirm.value = false, 600);
 	} catch(err) {
 		console.error(err);
 	}
@@ -82,10 +82,14 @@ const copyHandler = async () => {
 					rounded-md
 					flex items-center gap-1
 					opacity-0
+					transform
 					transition duration-200
 					py-1 px-2
 				"
-				:class="{'opacity-100' : copyConfirm }"
+				:class="{
+					'opacity-100 scale-100' : copyConfirm,
+					'scale-75' : !copyConfirm
+				}"
 			>
 				Copied
 				<box-icon
