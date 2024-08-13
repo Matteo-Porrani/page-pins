@@ -9,27 +9,22 @@ const showContent = ref(false);
 
 <template>
 <div
-	class="debug bg-indigo-100 shadow-lg text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg py-2 px-4"
+	class="debug bg-slate-200 shadow-lg text-xs font-mono absolute bottom-10 right-10 max-h-50 rounded-lg py-2 px-4"
 >
 	<div
 		:class="{'hidden': !showContent}"
 	>
+		<pre class="font-bold text-sm">PagePins 0.1.3
+
+		</pre>
 		<pre>CTRL + E
 		toggle edit mode</pre>
 		<pre>CTRL + A
 		add item</pre>
 		<pre>CTRL + K
 		search</pre>
-
-<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-<!--		<pre>actionSpaceMode: {{ $s.actionSpaceMode }}</pre>-->
-<!--		<pre>currentOrder: {{ $s.reorderData.currentOrder }}</pre>-->
-<!--		<pre v-if="$s.reorderData.itemsToReorder">currentOrder: {{ $s.reorderData.itemsToReorder.map(i => i.name) }}</pre>-->
-<!--		<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
-<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
-<!--		<pre>activeCategory: {{ $s.activeCategory }}</pre>-->
-<!--		<pre>activeFolder: {{ $s.activeFolder }}</pre>-->
-<!--		<pre>entityInFormDescription: {{ $s.entityInFormDescription }}</pre>-->
+		<pre>CTRL + D
+		return home</pre>
 	</div>
 
 	<div class="flex justify-end">

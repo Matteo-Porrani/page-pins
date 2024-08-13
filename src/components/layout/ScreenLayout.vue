@@ -23,6 +23,7 @@ const ctrlPressed = useKeyModifier("Control");
 onKeyStroke(["Escape"], (e) => {
 	e.preventDefault();
 	$s.showModal = false;
+	$s.boardMode = "$view";
 });
 
 // handler on key stroke EDIT
@@ -38,6 +39,14 @@ onKeyStroke(["e", "E"], (e) => {
 	if (!ctrlPressed.value) return;
 	e.preventDefault();
 	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
+});
+
+// handler on key stroke EDIT
+onKeyStroke(["d", "D"], (e) => {
+	if (!ctrlPressed.value) return;
+	e.preventDefault();
+	$s.boardMode = "$view";
+	$s.resetSelection(true, true);
 });
 
 // handler on key stroke ADD ITEM
@@ -131,12 +140,12 @@ onKeyStroke(["a", "A"], (e) => {
 
 <!-- FIXME *********** DEBUG	-->
 
-	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
-		<pre>displayStep: {{ $s.displayStep }}</pre>
-		<pre>boardMode: {{ $s.boardMode }}</pre>
-		<pre>showIE: {{ $s.showIE }}</pre>
-		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
-	</div>
+<!--	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
+<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
+<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
+<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
+<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
+<!--	</div>-->
 
 	<main class="relative">
 

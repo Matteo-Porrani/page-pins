@@ -15,7 +15,10 @@ onMounted(() => {
 
 const results = computed(() => {
 	if (searchString.value === "") return [];
-	return $s.localData.link.filter(l => l.name.includes(searchString.value) || l.url.includes(searchString.value));
+	return $s.localData.link.filter(l => {
+		return l.name.toLowerCase().includes(searchString.value.toLowerCase())
+			|| l.url.toLowerCase().includes(searchString.value.toLowerCase())
+	});
 });
 
 </script>
