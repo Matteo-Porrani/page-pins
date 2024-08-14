@@ -14,7 +14,7 @@ const showContent = ref(false);
 	<div
 		:class="{'hidden': !showContent}"
 	>
-		<pre class="font-bold text-sm">PagePins 0.2.0
+		<pre class="font-bold text-sm">PagePins 0.2.1
 
 		</pre>
 		<pre>CTRL + E

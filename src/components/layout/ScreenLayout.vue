@@ -121,20 +121,20 @@ onKeyStroke(["a", "A"], (e) => {
 				<TheBreadcrumb/>
 			</div>
 
-
-
 			<!-- SEARCH BUTTON -->
 			<div class="
 				absolute
 				top-4 end-4
 				bg-red-100
 			">
-				<button class="bg-white grid place-content-center rounded-md size-12">
+				<button
+					class="bg-white grid place-content-center rounded-md size-12"
+					@click="toggleSearch"
+				>
 					<box-icon
 						name='search'
 						size=""
 						color="#94a3b8"
-						@click="toggleSearch"
 					/>
 				</button>
 			</div>

@@ -17,7 +17,7 @@ const closeModal = () => {
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
-      <div class="modal-container">
+      <div class="modal-container bg-slate-100">
 
         <div class="modal-header">
           <slot name="header">default header</slot>
@@ -34,7 +34,7 @@ const closeModal = () => {
 							class="bg-slate-800 text-white rounded-lg min-w-24 py-2 px-6"
 							@click="closeModal"
 						>
-							OK {{ $s.boardMode }}
+							OK
 						</button>
 
           </slot>
@@ -61,7 +61,6 @@ const closeModal = () => {
   width: 60vw;
   margin: auto;
   padding: 20px 30px;
-  background-color: #f1f2f5;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;

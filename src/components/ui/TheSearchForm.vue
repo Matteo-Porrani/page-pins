@@ -33,15 +33,21 @@ const results = computed(() => {
 		id="input_search"
 		type="text"
 		autocomplete="off"
-		class="block w-full rounded-lg py-2 px-4 mb-4"
+		class="block w-[80%] rounded-lg py-2 px-4 mb-4 mx-auto"
 	>
 
-	<div class="h-[50vh] overflow-y-auto">
-		<LinkItem
+	<ul class="h-[50vh] overflow-y-auto">
+
+		<li
 			v-for="l in results"
 			:key="l.id"
-			:link="l"
-			class="mb-1"
-		/>
-	</div>
+		>
+			<small class="text-xs text-slate-400">Category / Folder</small>
+			<LinkItem
+				:link="l"
+				class="mb-1"
+			/>
+		</li>
+
+	</ul>
 </template>

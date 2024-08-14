@@ -51,12 +51,6 @@ const copyHandler = async () => {
 				:item="link"
 			/>
 
-<!--			<ItemToolbar-->
-<!--				v-if="$s.editModeOn"-->
-<!--				:item="link"-->
-<!--				entity="link"-->
-<!--			/>-->
-
 			<div class="flex-grow">
 				<p class="text-sm font-bold">{{ link.name }}</p>
 				<p class="url-paragraph font-mono text-xs text-purple-800">{{ link.url }}</p>
