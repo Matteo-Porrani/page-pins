@@ -119,8 +119,12 @@ export const useMainStore = defineStore('counter', () => {
 			folderId: activeFolder.value ? activeFolder.value.id : null,
 		}
 	});
+
 	
-	
+	const getItemNameById = (entityName, itemId) => {
+		const el = localData.value[entityName].find(el => el.id === itemId);
+		return el ? el.name : "";
+	};
 
 	
 	
@@ -525,6 +529,8 @@ export const useMainStore = defineStore('counter', () => {
 		displayStep,
 		creationCriteria,
 		entityInFormDescription,
+		
+		getItemNameById,
 		
 		injectData,
 		initOrders,

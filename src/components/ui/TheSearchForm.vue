@@ -21,6 +21,12 @@ const results = computed(() => {
 	});
 });
 
+const getFullPath = link => {
+	return ["category", "folder",]
+		.map(el => $s.getItemNameById(el, link[el]))
+		.join(" / ");
+};
+
 </script>
 
 
@@ -42,7 +48,9 @@ const results = computed(() => {
 			v-for="l in results"
 			:key="l.id"
 		>
-			<small class="text-xs text-slate-400">Category / Folder</small>
+			<small class="text-xs text-slate-400">
+				{{ getFullPath(l) }}
+			</small>
 			<LinkItem
 				:link="l"
 				class="mb-1"
