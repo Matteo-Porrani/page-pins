@@ -1,6 +1,12 @@
 <script setup>
 import {useMainStore} from "../../../store/main";
+
 const $s = useMainStore();
+
+const goHome = () => {
+	$s.boardMode = "$view";
+	$s.resetSelection(true, true);
+};
 </script>
 
 <template>
@@ -12,7 +18,7 @@ const $s = useMainStore();
 		<!-- HOME BUTTON -->
 		<button
 			class="text-2xl aspect-square w-8 rounded-lg flex justify-center items-center p-1"
-			@click="$s.resetSelection(true, true)"
+			@click="goHome"
 		>
 			<box-icon
 				name="grid-alt"
@@ -26,7 +32,7 @@ const $s = useMainStore();
 			v-if="$s.activeCategId"
 			class="flex gap-4"
 		>
-<!--			<span> > </span>-->
+			<!--			<span> > </span>-->
 			<box-icon
 				name="chevron-right"
 				color="#64748b"
@@ -44,7 +50,7 @@ const $s = useMainStore();
 			v-if="$s.activeFolderId"
 			class="flex gap-4"
 		>
-<!--			<span> > </span>-->
+			<!--			<span> > </span>-->
 			<box-icon
 				name="chevron-right"
 				color="#64748b"

@@ -7,6 +7,11 @@ const $s = useMainStore();
 defineProps({
 	show: Boolean
 });
+
+const closeModal = () => {
+	$s.boardMode = ($s.boardMode === "$search") ? "$view" : "$edit";
+	$s.showModal = false;
+}
 </script>
 
 <template>
@@ -27,9 +32,9 @@ defineProps({
 
 						<button
 							class="bg-slate-800 text-white rounded-lg min-w-24 py-2 px-6"
-							@click="$s.showModal=false"
+							@click="closeModal"
 						>
-							OK
+							OK {{ $s.boardMode }}
 						</button>
 
           </slot>

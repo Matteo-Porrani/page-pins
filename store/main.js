@@ -175,9 +175,6 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
-		console.log("%c/getChildren/", "background: aqua");
-		console.log(childEntityName, parentEntityName, parentItemId);
-		
 		return localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
 	}
