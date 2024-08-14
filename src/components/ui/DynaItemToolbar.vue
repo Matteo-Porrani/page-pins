@@ -2,43 +2,8 @@
 import {defineProps, ref, computed, onMounted, watch} from "vue";
 import {useMainStore} from "../../../store/main";
 
-// mock store
-// let $s = {
-// 	actionSpaceMode: null,
-// 	showActionSpace: false,
-//
-// 	getChildren: (childrenEntity, parentEntity, itemId) => {
-// 		console.log("/getChildren/", {childrenEntity, parentEntity, itemId})
-// 		if (parentEntity === "link") return true;
-// 		if (itemId === 1) return [1];
-// 		if (itemId === 31) return [];
-// 		if (itemId === 2) return [];
-// 	},
-//
-// 	editItem: (entity, item) => {
-// 		console.log("/EDIT/", entity, item);
-// 	},
-//
-// 	prepareItemForColorize: (entity, item) => {
-// 		console.log("/PREPARE COLORIZE/", entity, item);
-// 	},
-//
-// 	reorderTriggeredBy: (entity, item) => {
-// 		console.log("/REORDER TRIGGERED/", entity, item);
-// 	},
-//
-// 	prepareTransfer: (entity, item) => {
-// 		console.log("/PREPARE TRANSFER/", entity, item);
-// 	},
-//
-// 	deleteItem: (entity, item) => {
-// 		console.log("/DELETE/", entity, item);
-// 	},
-// };
-
 const $s = useMainStore();
 
-// props
 const $p = defineProps({
 	entity: String,
 	item: Object,
@@ -72,8 +37,6 @@ const initToolbar = () => {
 			action: actions[el]
 		}
 	});
-
-	// console.log("toolbarConfig.value", toolbarConfig.value);
 }
 
 
@@ -84,7 +47,7 @@ const step = ref("$E"); // "$E" | "$R" | "$C"
 watch(
 	step,
 	(newVal) => {
-		console.log("WATCH", newVal);
+		// console.log("WATCH", newVal);
 		initToolbar();
 	},
 	{
@@ -144,14 +107,11 @@ const btns = {
 }
 
 const actions = {
-	// OK
 	$edit: () => $s.editItem($p.entity, $p.item),
-	// OK
 	$colorize: () => {
 		$s.prepareItemForColorize($p.entity, {...$p.item});
 		openActionSpace("$colorize");
 	},
-	// OK
 	$reorder: () => {
 		$s.reorderTriggeredBy($p.entity, {...$p.item});
 		openActionSpace("$reorder");
@@ -168,6 +128,8 @@ const actions = {
 	$toggle2: () => step.value = "$E", // go back to $E mode
 
 	$discard: () => step.value = "$E", // discard remove & go back to $E mode
+
+	// DELETE
 	$confirm: () => $s.deleteItem($p.entity, $p.item), // confirm remove
 }
 
@@ -175,33 +137,33 @@ const actions = {
 
 
 <template>
-
 	<div
 		class="
 			toolbar
-			absolute -top-4 -right-2
+			absolute -top-2 -right-2
 			flex gap-1 justify-end items-center
 			rounded-md
 		"
 	>
-
     <span
 			v-if="step === '$C'"
 			class="text-gray-600 text-sm pe-2"
-		>Confirm ?</span>
-
+		>
+			Confirm ?
+		</span>
 		<button
 			v-for="b in toolbarConfig"
 			:key="b.id"
 			class="
-          w-8 flex justify-center items-center
+          w-8
+          flex justify-center items-center
           rounded-lg shadow-md
-          bg-white hover:bg-gray-100
           border
           py-1
         "
 			:class="{
-          'border-gray-300' : b.color === null,
+          'transform -translate-y-2' : entity === 'category',
+          'border-gray-300 bg-white hover:bg-gray-100' : b.color === null,
           'bg-red-100 hover:bg-red-200 border-red-300' : b.color === 'red',
           'bg-green-100 hover:bg-green-200 border-green-300' : b.color === 'green',
         }"
@@ -215,10 +177,4 @@ const actions = {
 			/>
 		</button>
 	</div>
-
-	<!-- DEBUG -->
-	<!--  <div class="bg-sky-100 mt-8">-->
-	<!--    <pre>{{ step }}</pre>-->
-	<!--  </div>-->
-
 </template>

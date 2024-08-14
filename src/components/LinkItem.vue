@@ -5,6 +5,7 @@ import {useMainStore} from "../../store/main";
 import {getColorName} from "../../data/baseColors";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
+import DynaItemToolbar from "@/components/ui/DynaItemToolbar.vue";
 
 const $s = useMainStore();
 
@@ -44,11 +45,17 @@ const copyHandler = async () => {
 			v-on-long-press="longPressHandler"
 		>
 
-			<ItemToolbar
+			<DynaItemToolbar
 				v-if="$s.editModeOn"
-				:item="link"
 				entity="link"
+				:item="link"
 			/>
+
+<!--			<ItemToolbar-->
+<!--				v-if="$s.editModeOn"-->
+<!--				:item="link"-->
+<!--				entity="link"-->
+<!--			/>-->
 
 			<div class="flex-grow">
 				<p class="text-sm font-bold">{{ link.name }}</p>
@@ -88,7 +95,7 @@ const copyHandler = async () => {
 				"
 				:class="{
 					'opacity-100 scale-100' : copyConfirm,
-					'scale-75' : !copyConfirm
+					'hidden scale-75' : !copyConfirm
 				}"
 			>
 				Copied

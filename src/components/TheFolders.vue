@@ -7,6 +7,7 @@ import {getColorName} from "../../data/baseColors";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import TheDrawer from "@/components/TheDrawer.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
+import DynaItemToolbar from "@/components/ui/DynaItemToolbar.vue";
 
 const $s = useMainStore();
 
@@ -36,18 +37,34 @@ const longPressHandler = () => $s.boardMode = "$edit";
 			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
 			:key="fol.id"
 			v-on-long-press="longPressHandler"
-			class="relative bg-white h-16 flex justify-between items-center rounded-lg text-center cursor-pointer hover:border-zinc-300 p-2 mb-4 transition duration-300"
+			class="
+				relative
+				cursor-pointer
+				bg-white
+				border-2 border-transparent
+				h-16 flex justify-between items-center rounded-lg
+				text-center
+				p-2 mb-4
+				transition duration-300
+			"
 			:class="{
+							'border-slate-300' : (Object.values($s.folderToggles).some(v => v) && $s.folderToggles[fol.id]),
 							'translate-x-[-10rem] opacity-25' : (Object.values($s.folderToggles).some(v => v) && !$s.folderToggles[fol.id]),
 						}"
 			@click="$s.toggleFolder(fol.id)"
 		>
 
-			<ItemToolbar
+			<DynaItemToolbar
 				v-if="$s.editModeOn && $s.displayStep === 1"
 				entity="folder"
 				:item="fol"
 			/>
+
+<!--			<ItemToolbar-->
+<!--				v-if="$s.editModeOn && $s.displayStep === 1"-->
+<!--				entity="folder"-->
+<!--				:item="fol"-->
+<!--			/>-->
 
 			<h3 class="font-bold text-sm">
 				<span>{{ fol.name }}</span>

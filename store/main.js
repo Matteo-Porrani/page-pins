@@ -264,7 +264,6 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const editItem = (entityName, item) => {
-		console.log("%c/editItem/", "background: gold");
 		entityInFormDescription.value = modelDesc[entityName];
 		itemInForm.value = localData.value[entityName].find(el => parseInt(el.id) === parseInt(item.id));
 		showModal.value = true;
@@ -272,8 +271,8 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// FIXME ****  use removeItem instead !!!!!!!
 	const deleteItem = (entityName, item) => {
-		console.log("%c/deleteItem/", "background: blue");
-		console.log(entityName, item);
+		// console.log("%c/deleteItem/", "background: orange");
+		// console.log(entityName, item);
 		
 		// removing corresponding orders key
 		if (entityName === "category") {
@@ -355,7 +354,7 @@ export const useMainStore = defineStore('counter', () => {
 		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
 		localData.value[entityName].splice(idxToRemove, 1);
 		
-		console.log(entityName, "with ID", item.id, "REMOVED")
+		console.log(entityName, "with ID", item.id, "REMOVED");
 	}
 	
 	// ----- REORDERING --------------------------------------------------------------------------------------------------
