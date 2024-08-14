@@ -319,6 +319,7 @@ const $s = useMainStore();
 
 		*** PURPLE
 
+		bg-purple-50
 		bg-purple-100
 		bg-purple-200
 		bg-purple-300
@@ -329,6 +330,38 @@ const $s = useMainStore();
 		bg-purple-800
 		bg-purple-900
 
+		hover:bg-purple-50
+		hover:bg-purple-100
+		hover:bg-purple-200
+		hover:bg-purple-300
+		hover:bg-purple-400
+		hover:bg-purple-500
+		hover:bg-purple-600
+		hover:bg-purple-700
+		hover:bg-purple-800
+		hover:bg-purple-900
+
+		border-purple-50
+		border-purple-100
+		border-purple-200
+		border-purple-300
+		border-purple-400
+		border-purple-500
+		border-purple-600
+		border-purple-700
+		border-purple-800
+		border-purple-900
+
+		hover:border-purple-50
+		hover:border-purple-100
+		hover:border-purple-200
+		hover:border-purple-300
+		hover:border-purple-400
+		hover:border-purple-500
+		hover:border-purple-600
+		hover:border-purple-700
+		hover:border-purple-800
+		hover:border-purple-900
 
 		*** PINK
 

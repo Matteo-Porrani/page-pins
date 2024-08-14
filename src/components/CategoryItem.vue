@@ -4,6 +4,7 @@ import {useMainStore} from "../../store/main";
 import { vOnLongPress } from '@vueuse/components';
 import {getColorName} from "../../data/baseColors";
 import ItemToolbar from "@/components/ui/ItemToolbar.vue";
+import DynaItemToolbar from "@/components/ui/DynaItemToolbar.vue";
 
 const $p = defineProps({
 	cat: {
@@ -14,6 +15,7 @@ const $p = defineProps({
 
 const $s = useMainStore();
 
+// FIXME -- UNUSED
 const bgClasses = computed(() => {
 	if (!$p.cat) return "";
 	return `hover:bg-${getColorName($p.cat.color)}-50`
@@ -75,11 +77,18 @@ const enterCategory = id => {
 			}}
 		</span>
 
-		<ItemToolbar
+		<DynaItemToolbar
 			v-if="$s.editModeOn && $s.displayStep === 0"
-			:item="cat"
 			entity="category"
+			:item="cat"
 		/>
+
+<!--		<ItemToolbar-->
+<!--			v-if="$s.editModeOn && $s.displayStep === 0"-->
+<!--			:item="cat"-->
+<!--			entity="category"-->
+<!--		/>-->
+
 	</div>
 </template>
 

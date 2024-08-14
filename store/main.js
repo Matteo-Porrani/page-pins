@@ -175,6 +175,9 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
+		console.log("%c/getChildren/", "background: aqua");
+		console.log(childEntityName, parentEntityName, parentItemId);
+		
 		return localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
 	}
@@ -261,6 +264,7 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const editItem = (entityName, item) => {
+		console.log("%c/editItem/", "background: gold");
 		entityInFormDescription.value = modelDesc[entityName];
 		itemInForm.value = localData.value[entityName].find(el => parseInt(el.id) === parseInt(item.id));
 		showModal.value = true;
