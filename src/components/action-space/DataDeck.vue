@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {useMainStore} from "../../../store/main";
 import Button from "primevue/button";
+import FileUpload from "primevue/fileupload";
 
 const $s = useMainStore();
 
@@ -36,6 +37,42 @@ const downloadJson = () => {
 	// Remove the link from the DOM
 	document.body.removeChild(link);
 }
+
+const customUploader = async (event) => {
+	const file = event.files[0];
+
+	const reader = new FileReader();
+
+	if (file) {
+		reader.onload = function (e) {
+			try {
+				const json = JSON.parse(e.target.result);
+
+				console.log("IMPORTING data", json);
+				$s.injectData(json);
+
+				// show OK button
+				importDone.value = true;
+
+			} catch(e) {
+				console.error(e);
+			}
+		};
+
+		reader.readAsText(file);
+	}
+
+	reader.readAsText(file);
+
+	// const reader = new FileReader();
+	// let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+	//
+	// reader.readAsDataURL(blob);
+
+	reader.onloadend = function () {
+		console.log("end");
+	};
+};
 
 const uploadJson = e => {
 	console.log("%c/uploadJson/", "background: cyan");
@@ -98,43 +135,13 @@ const navigateHome = () => {
 
 				<div class="spacer py-6"></div>
 
-				<button
-					class="
-            aspect-square
-            flex justify-center items-center
-            rounded-lg
-            bg-gray-700
-            hover:bg-gradient-to-r from-blue-950 to-indigo-500
-            p-2
-            mx-auto
-            mb-4
-          "
-					@click="downloadJson"
-				>
-					<box-icon
-						name="cloud-download"
-						color="#fff"
-						size="md"
+				<div class="flex justify-center">
+					<Button
+						label="download"
+						icon="pi pi-fw pi-download"
+						@click="downloadJson"
 					/>
-				</button>
-
-<!--				<button-->
-<!--					class="-->
-<!--            aspect-square-->
-<!--            flex justify-center items-center-->
-<!--            rounded-lg-->
-<!--            bg-gray-100-->
-<!--            hover:bg-gradient-to-l from-gray-100 to-indigo-400-->
-<!--            p-2 mb-4 mx-auto-->
-<!--          "-->
-<!--					@click="downloadJson"-->
-<!--				>-->
-<!--					<box-icon-->
-<!--						name="cloud-download"-->
-<!--						color="#1f2937"-->
-<!--						size="md"-->
-<!--					/>-->
-<!--				</button>-->
+				</div>
 
 			</div>
 
@@ -146,6 +153,15 @@ const navigateHome = () => {
 
 				<div class="spacer py-6"></div>
 
+<!--				<FileUpload-->
+<!--					v-if="!importDone"-->
+<!--					mode="basic"-->
+<!--					name="fileUpload"-->
+<!--					accept=".txt"-->
+<!--					customUpload-->
+<!--					@uploader="customUploader"-->
+<!--				/>-->
+
 				<input
 					v-if="!importDone"
 					type="file"
@@ -154,11 +170,11 @@ const navigateHome = () => {
           block w-fit
           file:cursor-pointer
           text-sm text-gray-500
-          file:mr-2 file:py-2 file:px-4
+          file:mr-2 file:py-3 file:px-4
           file:rounded-md file:border-0
           file:text-sm
-          file:bg-gray-700 file:text-white
-          hover:file:bg-gradient-to-r from-blue-950 to-indigo-500
+          file:bg-slate-500 file:text-white
+          hover:file:bg-slate-600
           mx-auto
         "
 					@change="uploadJson"
@@ -168,7 +184,7 @@ const navigateHome = () => {
 					<p class="w-fit text-emerald-700 bg-emerald-100 rounded-md py-1 px-4 mb-4 mx-auto">Import done !</p>
 
 					<button
-						class="block rounded-md bg-gray-700 text-white mx-auto hover:bg-gradient-to-r from-blue-950 to-indigo-500 py-2 px-5"
+						class="block rounded-md bg-slate-500 text-white mx-auto hover:bg-slate-600 py-2 px-5"
 						@click="navigateHome"
 					>
 						OK
