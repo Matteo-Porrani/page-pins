@@ -119,6 +119,86 @@ export const useMainStore = defineStore('counter', () => {
 			folderId: activeFolder.value ? activeFolder.value.id : null,
 		}
 	});
+	
+	// -----------------------------------------------------------------------------
+	// data as tree nodes
+	
+	const makeNode = (keyPrefix, keyIdx, label, iconName, selectable, children = [], data = null) => {
+		return {
+			key: `${keyPrefix}-${keyIdx}`,
+			label,
+			icon: `pi pi-fw ${iconName}`,
+			data: data ?? "",
+			selectable,
+			children,
+		}
+	}
+	
+	const getDataAsTreeNodes = computed(() => {
+		
+		const nodes = [];
+		
+		const categories = localData.value.category;
+		
+		if (categories) {
+			categories.forEach((c, idx) => {
+				console.log("processing category", c.id, c.name);
+				
+				let categChildren = [];
+				
+				if (localData.value.orders.category[c.id]) {
+					// creating children for category
+					// console.log("🟣 creating children for category", c.name);
+					
+					categChildren = localData.value.orders.category[c.id].map(folderId => {
+						
+						// console.log("🟡 creating children for folder", getItemNameById("folder", folderId));
+						let folderChildren = [];
+						
+						if (localData.value.orders.folder[folderId]) {
+							folderChildren = localData.value.orders.folder[folderId].map(linkId => {
+								return makeNode(
+									"L",
+									linkId,
+									getItemNameById("link", linkId) + ` k-${linkId}`,
+									"pi-link",
+									true,
+								)
+							})
+						}
+						
+						return makeNode(
+							"F",
+							folderId,
+							getItemNameById("folder", folderId) + ` k-${folderId}`,
+							"pi-folder",
+							false,
+							folderChildren
+						)
+					})
+					
+				}
+				
+				// create category node
+				nodes.push(makeNode(
+					"C",
+					c.id,
+					c.name,
+					"pi-inbox",
+					false,
+					categChildren
+				));
+				
+
+			});
+			
+			console.log(nodes)
+			
+			return nodes;
+		}
+		
+		return [];
+	});
 
 	
 	const getItemNameById = (entityName, itemId) => {
@@ -521,6 +601,8 @@ export const useMainStore = defineStore('counter', () => {
 		activeCategId,
 		activeFolderId,
 		itemInForm,
+		
+		getDataAsTreeNodes,
 		
 		editModeOn,
 		activeCategory,

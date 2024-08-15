@@ -15,6 +15,12 @@ const routes = [
 	},
 
 	{
+		path: "/organizer",
+		name: "organizer",
+		component: () => import(/* webpackChunkName: "organizer" */ "../views/OrganizerView.vue")
+	},
+
+	{
 		path: "/category/:id",
 		name: "category",
 		component: () => import(/* webpackChunkName: "category" */ "../views/CategoryView.vue")

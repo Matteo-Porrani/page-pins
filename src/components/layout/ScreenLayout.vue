@@ -22,6 +22,7 @@ const menuActions = ref({
 		$s.resetSelection(true, true);
 		$s.showIE = false;
 		$s.boardMode = "$view";
+		$router.push("/");
 	},
 	openOrganizer: () => $router.push("/organizer"),
 	openIE: () => {
@@ -30,12 +31,13 @@ const menuActions = ref({
 		$s.showIE = true;
 		$s.activeCategId = null;
 		$s.initFolderToggles();
+		$router.push("/");
 	},
 })
 const menuItems = [
 	[1, "Board", "pi-th-large", "openBoard"],
 	[2, "Import / Export", "pi-file-export", "openIE"],
-	[3, "Organizer", "pi-database", "openOrganizer"],
+	[3, "Organizer (Beta)", "pi-database", "openOrganizer"],
 	// [99, "Alpha", "pi-globe", "openAlpha"],
 ];
 
