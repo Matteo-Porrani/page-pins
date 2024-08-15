@@ -36,8 +36,8 @@ export const useMainStore = defineStore('counter', () => {
 	const activeCategId = ref(null);
 	const folderToggles = reactive({});
 	const lastActiveFolderId = ref(null);
-
-
+	
+	
 	// ----- computational state
 	const itemInForm = ref(null);
 	const entityInFormDescription = ref(null);
@@ -63,8 +63,6 @@ export const useMainStore = defineStore('counter', () => {
 		itemToColorize: null,
 		currColorId: null
 	});
-	
-
 	
 	
 	// GETTERS ###########################################################################################################
@@ -123,6 +121,7 @@ export const useMainStore = defineStore('counter', () => {
 	// -----------------------------------------------------------------------------
 	// data as tree nodes
 	
+	// UTILITY 1
 	const makeNode = (keyPrefix, keyIdx, label, iconName, selectable, children = [], data = null) => {
 		return {
 			key: `${keyPrefix}-${keyIdx}`,
@@ -132,80 +131,48 @@ export const useMainStore = defineStore('counter', () => {
 			selectable,
 			children,
 		}
+	};
+	
+	// UTILITY 2
+	const parseChildren = (parentEntityName, parentId, innerChildren = []) => {
+		
+		const {tgt, prefix, icon, selectable} = {
+			category: {tgt: "folder", prefix: "F", icon: "pi-folder", selectable: false},
+			folder: {tgt: "link", prefix: "L", icon: "pi-link", selectable: true},
+		}[parentEntityName];
+		
+		if (localData.value.orders[parentEntityName][parentId]) {
+			return localData.value.orders[parentEntityName][parentId].map(id => {
+				// recursive call to parse children for folders
+				if (parentEntityName === "category") innerChildren = parseChildren("folder", id);
+				return makeNode(prefix, id, getItemNameById(tgt, id), icon, selectable, innerChildren);
+			});
+		}
+		
+		return [];
 	}
 	
+	// PARSE METHOD
 	const getDataAsTreeNodes = computed(() => {
-		
-		const nodes = [];
-		
-		const categories = localData.value.category;
-		
-		if (categories) {
-			categories.forEach((c, idx) => {
-				console.log("processing category", c.id, c.name);
-				
-				let categChildren = [];
-				
-				if (localData.value.orders.category[c.id]) {
-					// creating children for category
-					// console.log("🟣 creating children for category", c.name);
-					
-					categChildren = localData.value.orders.category[c.id].map(folderId => {
-						
-						// console.log("🟡 creating children for folder", getItemNameById("folder", folderId));
-						let folderChildren = [];
-						
-						if (localData.value.orders.folder[folderId]) {
-							folderChildren = localData.value.orders.folder[folderId].map(linkId => {
-								return makeNode(
-									"L",
-									linkId,
-									getItemNameById("link", linkId) + ` k-${linkId}`,
-									"pi-link",
-									true,
-								)
-							})
-						}
-						
-						return makeNode(
-							"F",
-							folderId,
-							getItemNameById("folder", folderId) + ` k-${folderId}`,
-							"pi-folder",
-							false,
-							folderChildren
-						)
-					})
-					
-				}
-				
-				// create category node
-				nodes.push(makeNode(
-					"C",
-					c.id,
-					c.name,
-					"pi-inbox",
-					false,
-					categChildren
-				));
-				
-
-			});
-			
-			console.log(nodes)
-			
-			return nodes;
+		if (localData.value.category) {
+			return localData.value.category.map(c => makeNode(
+				"C",
+				c.id,
+				c.name,
+				"pi-inbox",
+				false,
+				parseChildren("category", c.id)
+			));
 		}
 		
 		return [];
 	});
-
+	
 	
 	const getItemNameById = (entityName, itemId) => {
 		const el = localData.value[entityName].find(el => el.id === itemId);
 		return el ? el.name : "";
 	};
-
 	
 	
 	// ACTIONS ###########################################################################################################
@@ -378,7 +345,7 @@ export const useMainStore = defineStore('counter', () => {
 			
 			// delete from orders.category
 			const parentCollection = localData.value.orders.category[item.category];
-
+			
 			if (parentCollection) {
 				const idxToRemove = parentCollection.findIndex(el => el === item.id);
 				parentCollection.splice(idxToRemove, 1);
@@ -526,7 +493,7 @@ export const useMainStore = defineStore('counter', () => {
 				availableParents.push(c);
 			}
 		}
-
+		
 		// sort parents by name ASC
 		availableParents.sort((a, b) => a.name.localeCompare(b.name));
 		
@@ -577,7 +544,7 @@ export const useMainStore = defineStore('counter', () => {
 	}
 	
 	const colorizeItem = () => {
-		const { itemEntityName, itemToColorize, currColorId } = colorizeData;
+		const {itemEntityName, itemToColorize, currColorId} = colorizeData;
 		
 		// update 'color' prop
 		const idxToUpdate = localData.value[itemEntityName].findIndex(el => el.id === itemToColorize.id);
@@ -616,7 +583,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		injectData,
 		initOrders,
-
+		
 		resetSelection,
 		initFolderToggles,
 		toggleFolder,

@@ -1,3 +1,8 @@
+https://tailwindcss.com/docs/customizing-colors
+
+https://primevue.org/icons/#list
+
+
 ### CHANGELOG ###
 
 0.1.2
