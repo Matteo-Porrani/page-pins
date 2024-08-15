@@ -74,3 +74,14 @@ orders
 
 
 
+PagePins is a simple wep application to store bookmarks to your favorite sites.
+
+It's built with Vue 3, Tailwind CSS and the Prime Vue UI Suite.
+
+The main workspace holds the categories, which are meant to be linked to general themes,
+like "Web Development", "Sports", "Movies" and so on.
+
+In each category you can create folders, to have a more specific organisation.
+
+
+

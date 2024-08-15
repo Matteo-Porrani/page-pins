@@ -23,7 +23,6 @@ const goHome = () => {
 			<box-icon
 				name="grid-alt"
 				color="#64748b"
-				type="solid"
 			/>
 		</button>
 

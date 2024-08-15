@@ -3,12 +3,15 @@ import {ref} from 'vue';
 import {useMainStore} from "../../../store/main";
 import { onKeyStroke, useKeyModifier } from '@vueuse/core'
 import Menu from 'primevue/menu';
+import Button from 'primevue/button';
 import TheModal from "@/components/ui/TheModal.vue";
 import TheEditForm from "@/components/ui/TheEditForm.vue";
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 import TheBreadcrumb from "@/components/ui/TheBreadcrumb.vue";
 import TheSearchForm from "@/components/ui/TheSearchForm.vue";
 import {useRouter} from "vue-router";
+import InfoKeymap from "@/components/info/InfoKeymap.vue";
+import InfoAbout from "@/components/info/InfoAbout.vue";
 
 const $router = useRouter();
 const $s = useMainStore();
@@ -33,13 +36,25 @@ const menuActions = ref({
 		$s.initFolderToggles();
 		$router.push("/");
 	},
+	showInfoShortcuts: () => {
+		console.log("/showInfoShortcuts/");
+
+		$s.showInfoModal = true;
+		$s.infoModalTheme = "$keymap";
+	},
+	showInfoAbout: () => {
+		console.log("/showInfoAbout/");
+
+		$s.showInfoModal = true;
+		$s.infoModalTheme = "$about";
+	}
 })
 const menuItems = [
 	[1, "Board", "pi-th-large", "openBoard"],
 	[2, "Import / Export", "pi-file-export", "openIE"],
-	[3, "Organizer (Beta)", "pi-database", "openOrganizer"],
-	[4, "Shortcuts", "pi-book", null],
-	[10, "About", "pi-user", null],
+	// [3, "Organizer (Beta)", "pi-database", "openOrganizer"],
+	[4, "Shortcuts", "pi-book", "showInfoShortcuts"],
+	[10, "About", "pi-user", "showInfoAbout"],
 	// [99, "Alpha", "pi-globe", "openAlpha"],
 ];
 
@@ -113,6 +128,33 @@ onKeyStroke(["a", "A"], (e) => {
 
 <template>
 
+	<!-- INFO MODAL -->
+	<Teleport to="body">
+		<TheModal
+			:show="$s.showInfoModal"
+		>
+			<template #header></template>
+
+			<template #body>
+				<div class="h-[60vh] overflow-y-auto">
+					<InfoKeymap v-if="$s.infoModalTheme === '$keymap'"/>
+					<InfoAbout v-if="$s.infoModalTheme === '$about'"/>
+				</div>
+			</template>
+
+			<template #footer>
+				<Button
+					label="OK"
+					@click="() => {
+						$s.infoModalTheme = null;
+						$s.showInfoModal = false;
+					}"
+				/>
+			</template>
+		</TheModal>
+	</Teleport>
+
+
 	<Teleport to="body">
 		<TheModal
 			:show="$s.showModal"
@@ -154,7 +196,12 @@ onKeyStroke(["a", "A"], (e) => {
 					name='pin'
 					size=""
 					color="#fff"
-					class="bg-gradient-to-r from-orange-500 to-red-600 size-8 rounded-md py-1"
+					class="
+						bg-gradient-to-r from-orange-500 to-red-600
+						size-8 rounded-md
+						transform rotate-45
+						py-1
+					"
 				/>
 				<span>PagePins</span>
 

@@ -23,11 +23,10 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// STATE #############################################################################################################
 	
-	// initialization of localData.orders
-	// const orders = reactive({});
-	
 	// ----- UI state
 	const showModal = ref(false);
+	const showInfoModal = ref(false);
+	const infoModalTheme = ref(null);
 	const showIE = ref(false);
 	const boardMode = ref("$view");
 	const showActionSpace = ref(false);
@@ -557,6 +556,8 @@ export const useMainStore = defineStore('counter', () => {
 	return {
 		localData,
 		showModal,
+		showInfoModal,
+		infoModalTheme,
 		showIE,
 		showActionSpace,
 		actionSpaceMode,

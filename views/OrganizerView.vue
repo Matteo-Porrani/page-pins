@@ -51,8 +51,7 @@ const collapseAll = () => {
 						icon="pi pi-angle-left"
 						as="router-link"
 						to="/"
-						severity="secondary"
-						text
+						outlined
 						class="mb-4"
 					/>
 				</div>

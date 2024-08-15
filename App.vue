@@ -1,26 +1,13 @@
 <script setup>
-import {useMainStore} from "./store/main";
-import DevDebugger from "@/components/DevDebugger.vue";
-const $s = useMainStore();
+// import {useMainStore} from "./store/main";
+// import DevDebugger from "@/components/DevDebugger.vue";
+// const $s = useMainStore();
 </script>
 
 <template>
 
-	<Teleport to="body">
-		<DevDebugger/>
-	</Teleport>
-
 <!--	<Teleport to="body">-->
-<!--		<div-->
-<!--			class="add-btn flex justify-center items-center text-sm font-mono absolute bottom-10 left-10"-->
-<!--		>-->
-<!--			<button-->
-<!--				class="w-16 h-16 flex justify-center items-center bg-white border-2 border-transparent cursor-pointer hover:border-zinc-400 rounded-lg transition-all duration-300 ease-in p-2"-->
-<!--				@click="$s.addItem()"-->
-<!--			>-->
-<!--				<box-icon name="plus" size="md" />-->
-<!--			</button>-->
-<!--		</div>-->
+<!--		<DevDebugger/>-->
 <!--	</Teleport>-->
 
 	<router-view/>

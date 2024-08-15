@@ -20,7 +20,7 @@ const closeModal = () => {
       <div class="modal-container bg-slate-100">
 
         <div class="modal-header">
-          <slot name="header">default header</slot>
+          <slot name="header"></slot>
         </div>
 
         <div class="modal-body">
