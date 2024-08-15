@@ -9,6 +9,12 @@ const routes = [
 	},
 
 	{
+		path: "/alpha",
+		name: "alpha",
+		component: () => import(/* webpackChunkName: "alpha" */ "../views/AlphaView.vue")
+	},
+
+	{
 		path: "/category/:id",
 		name: "category",
 		component: () => import(/* webpackChunkName: "category" */ "../views/CategoryView.vue")
