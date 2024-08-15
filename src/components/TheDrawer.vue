@@ -14,7 +14,7 @@ const orderedChildren = computed(() => {
 
 <template>
 	<!-- EXTERNAL WRAPPER -->
-	<section class="the-subspace grid overflow-y-hidden grid-rows-1">
+	<section class="the-drawer grid overflow-y-hidden grid-rows-1">
 
 		<!-- DRAWER -->
 		<div
@@ -51,7 +51,7 @@ const orderedChildren = computed(() => {
 </template>
 
 <style scoped>
-.the-subspace {
+.the-drawer {
 	height: 88vh;
 }
 

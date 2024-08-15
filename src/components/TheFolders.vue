@@ -4,7 +4,6 @@ import { vOnLongPress } from '@vueuse/components';
 import {useMainStore} from "../../store/main";
 import {getColorName} from "../../data/baseColors";
 
-import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import TheDrawer from "@/components/TheDrawer.vue";
 import ColorTag from "@/components/ui/ColorTag.vue";
 import DynaItemToolbar from "@/components/ui/DynaItemToolbar.vue";
@@ -22,7 +21,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 </script>
 
 <template>
-<div class="the-folders relative grid gap-6">
+<div class="relative grid grid-cols-6 gap-6">
 
 	<!-- LEFT 1/6 -->
 	<section class="text-slate-700">
@@ -73,13 +72,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 	</section>
 
 	<!-- RIGHT 5/6 -->
-	<TheDrawer/>
+	<TheDrawer class="col-span-5"/>
 
 </div>
 </template>
-
-<style scoped>
-.the-folders {
-	grid-template-columns: 1fr 5fr;
-}
-</style>
