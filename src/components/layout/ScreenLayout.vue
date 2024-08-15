@@ -128,7 +128,7 @@ onKeyStroke(["a", "A"], (e) => {
 				bg-red-100
 			">
 				<button
-					class="bg-white grid place-content-center rounded-md size-12"
+					class="flex gap-1 items-center bg-white rounded-md h-12 px-2"
 					@click="toggleSearch"
 				>
 					<box-icon
@@ -136,6 +136,13 @@ onKeyStroke(["a", "A"], (e) => {
 						size=""
 						color="#94a3b8"
 					/>
+
+					<span class="text-sm text-slate-400 me-8">Search</span>
+
+<!--					<kbd class="border rounded-md py-1 px-2">⌘</kbd>-->
+					<kbd class="border rounded-md text-xs text-slate-500 border-b-4 py-1 px-2">Ctrl</kbd>
+					<span class="text-slate-400">+</span>
+					<kbd class="border rounded-md text-xs text-slate-500 border-b-4 py-1 px-2">K</kbd>
 				</button>
 			</div>
 

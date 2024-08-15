@@ -32,7 +32,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 			class="absolute top-[50%] -translate-y-1/2 w-full text-center text-slate-400 text-xl"
 		>CTRL + A to add the first folder</p>
 
-		<!-- FOLDER BAR -->
+		<!-- FOLDER ITEMS -->
 		<article
 			v-for="fol in $s.getOrderedChildren('folder', 'category', $s.activeCategId)"
 			:key="fol.id"
@@ -42,7 +42,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 				cursor-pointer
 				bg-white
 				border-2 border-transparent
-				h-16 flex justify-between items-center rounded-lg
+				h-14 flex justify-between items-center rounded-lg
 				text-center
 				p-2 mb-4
 				transition duration-300
@@ -60,13 +60,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 				:item="fol"
 			/>
 
-<!--			<ItemToolbar-->
-<!--				v-if="$s.editModeOn && $s.displayStep === 1"-->
-<!--				entity="folder"-->
-<!--				:item="fol"-->
-<!--			/>-->
-
-			<h3 class="font-bold text-sm">
+			<h3 class="font-bold text-xs lg:text-sm">
 				<span>{{ fol.name }}</span>
 				<span class="ms-3 font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
 			</h3>
