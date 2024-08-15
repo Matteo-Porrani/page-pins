@@ -1,20 +1,56 @@
 <script setup>
 import {ref} from 'vue';
-// import TheSidebar from "@/components/layout/TheSidebar.vue";
-// import {TW} from "../../../const/twConst";
-import TheModal from "@/components/ui/TheModal.vue";
 import {useMainStore} from "../../../store/main";
-import TheEditForm from "@/components/ui/TheEditForm.vue";
-
-const $s = useMainStore();
-
-const searchString = ref("");
-const showTodo = ref(true);
-
 import { onKeyStroke, useKeyModifier } from '@vueuse/core'
+import Menu from 'primevue/menu';
+import TheModal from "@/components/ui/TheModal.vue";
+import TheEditForm from "@/components/ui/TheEditForm.vue";
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 import TheBreadcrumb from "@/components/ui/TheBreadcrumb.vue";
 import TheSearchForm from "@/components/ui/TheSearchForm.vue";
+import {useRouter} from "vue-router";
+
+const $router = useRouter();
+const $s = useMainStore();
+
+// -----------------------------------------------------------------------------
+
+const menu = ref();
+const menuActions = ref({
+	openAlpha: () => $router.push("/alpha"),
+	openBoard: () => {
+		$s.resetSelection(true, true);
+		$s.showIE = false;
+		$s.boardMode = "$view";
+	},
+	openOrganizer: () => $router.push("/organizer"),
+	openIE: () => {
+		console.log("open IE");
+		$s.boardMode = "$ie";
+		$s.showIE = true;
+		$s.activeCategId = null;
+		$s.initFolderToggles();
+	},
+})
+const menuItems = [
+	[1, "Board", "pi-th-large", "openBoard"],
+	[2, "Import / Export", "pi-file-export", "openIE"],
+	[3, "Organizer", "pi-database", "openOrganizer"],
+	// [99, "Alpha", "pi-globe", "openAlpha"],
+];
+
+const menuOptions = menuItems.map(item => ({
+	id: item[0],
+	label: item[1],
+	icon: `pi ${item[2]}`,
+	command: menuActions.value[item[3]],
+}));
+
+const toggleMenu = (event) => {
+	menu.value.toggle(event);
+};
+
+// -----------------------------------------------------------------------------
 
 // listen to modifier press
 const ctrlPressed = useKeyModifier("Control");
@@ -132,8 +168,7 @@ onKeyStroke(["a", "A"], (e) => {
 			<!-- SEARCH BUTTON -->
 			<div class="
 				absolute
-				top-4 end-4
-				bg-red-100
+				top-4 end-24
 			">
 				<button
 					class="flex gap-1 items-center bg-white rounded-md h-12 px-2"
@@ -154,20 +189,34 @@ onKeyStroke(["a", "A"], (e) => {
 				</button>
 			</div>
 
+			<!-- MENU -->
+			<div class="
+				absolute
+				top-4 end-8
+				bg-red-100
+			">
+				<button
+					class="bg-white rounded-md size-12 grid place-content-center px-2"
+					@click="toggleMenu"
+				>
+					<box-icon
+						name='menu'
+						color="#94a3b8"
+					/>
+
+				</button>
+				<Menu
+					ref="menu"
+					id="overlay_menu"
+					:model="menuOptions"
+					:popup="true"
+				/>
+			</div>
+
 		</slot>
 	</header>
 
-<!-- FIXME *********** DEBUG	-->
-
-<!--	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
-<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
-<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
-<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
-<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-<!--	</div>-->
-
 	<main class="relative">
-
 		<ModeToggleBar
 			v-if="!$s.showActionSpace"
 		/>
@@ -175,10 +224,20 @@ onKeyStroke(["a", "A"], (e) => {
 		<div class="content grid grid-cols-1 grid-rows-1 bg-slate-100 pt-4 p-8 overflow-hidden">
 			<slot name="content"></slot>
 		</div>
-
-<!--		<aside class="bg-slate-200">-->
-<!--			<TheSidebar/>-->
-<!--		</aside>-->
-
 	</main>
+
+	<!-- FIXME *********** DEBUG	-->
+
+	<!--	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
+	<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
+	<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
+	<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
+	<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
+	<!--	</div>-->
 </template>
+
+<style>
+#overlay_menu {
+	transform: translateY(6px) !important;
+}
+</style>
