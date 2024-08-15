@@ -54,7 +54,7 @@ const longPressHandler = () => $s.boardMode = "$edit";
 			>
 				<box-icon
 					name="plus"
-					size="md"
+					size=""
 					color="#71717a"
 				/>
 			</button>
