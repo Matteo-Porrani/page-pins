@@ -103,7 +103,7 @@ const btns = {
 	$toggle2: [7, "dots-horizontal-rounded", null],
 
 	$discard: [8, "x", "red"],
-	$confirm: [9, "check", "green"],
+	$confirm: [9, "check", "dark"],
 }
 
 const actions = {
@@ -163,9 +163,9 @@ const actions = {
         "
 			:class="{
           'transform -translate-y-2' : entity === 'category',
-          'border-gray-300 bg-white hover:bg-gray-100' : b.color === null,
+          'border-slate-300 bg-white hover:bg-slate-100' : b.color === null,
           'bg-red-100 hover:bg-red-200 border-red-300' : b.color === 'red',
-          'bg-green-100 hover:bg-green-200 border-green-300' : b.color === 'green',
+          'bg-slate-200 hover:bg-slate-300 border-slate-300' : b.color === 'dark',
         }"
 			@click="b.action"
 		>

@@ -41,7 +41,16 @@ const copyHandler = async () => {
 			:is="$s.editModeOn || link.url === '' ? 'div' : 'a'"
 			:href="link.url"
 			target="_blank"
-			class="relative w-full bg-white border border-zinc-300 rounded-lg flex gap-4 items-center cursor-pointer hover:border-zinc-500 hover:shadow-xl p-2 transition-all duration-200 ease-in"
+			class="
+				relative group
+				w-full rounded-lg
+				bg-white border border-slate-300 hover:border-slate-500
+				flex gap-4 items-center
+				cursor-pointer
+				hover:shadow-xl
+				p-2
+				transition-all duration-200 ease-in
+			"
 			v-on-long-press="longPressHandler"
 		>
 
@@ -52,8 +61,8 @@ const copyHandler = async () => {
 			/>
 
 			<div class="flex-grow">
-				<p class="text-sm font-bold">{{ link.name }}</p>
-				<p class="url-paragraph font-mono text-xs text-purple-800">{{ link.url }}</p>
+				<p class="text-sm font-bold group-hover:text-indigo-700">{{ link.name }}</p>
+				<p class="url-paragraph font-mono text-xs text-slate-400 group-hover:underline">{{ link.url }}</p>
 			</div>
 
 			<ColorTag
@@ -115,11 +124,11 @@ const copyHandler = async () => {
   grid-template-columns: 1fr auto auto;
 	align-items: stretch
 }
-
+/*
 a:hover .url-paragraph {
 	text-decoration: underline;
 }
-/*
+
 .url-paragraph {
 	white-space: nowrap;
 	overflow: hidden;

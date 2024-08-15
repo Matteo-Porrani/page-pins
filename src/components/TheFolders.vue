@@ -29,7 +29,9 @@ const longPressHandler = () => $s.boardMode = "$edit";
 		<p
 			v-if="$s.getOrderedChildren('folder', 'category', $s.activeCategId).length < 1"
 			class="absolute top-[50%] -translate-y-1/2 w-full text-center text-slate-400 text-xl"
-		>CTRL + A to add the first folder</p>
+		>
+			CTRL + A to add the first folder
+		</p>
 
 		<!-- FOLDER ITEMS -->
 		<article
@@ -61,7 +63,9 @@ const longPressHandler = () => $s.boardMode = "$edit";
 
 			<h3 class="font-bold text-xs lg:text-sm">
 				<span>{{ fol.name }}</span>
-				<span class="ms-3 font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded-full">{{ $s.getChildren('link', 'folder', fol.id).length }}</span>
+				<span class="ms-3 font-normal text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
+					{{ $s.getChildren('link', 'folder', fol.id).length }}
+				</span>
 			</h3>
 
 			<ColorTag

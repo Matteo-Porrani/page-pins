@@ -45,12 +45,20 @@ onKeyStroke(["e", "E"], (e) => {
 	$s.boardMode = $s.editModeOn ? "$view" : "$edit";
 });
 
-// handler on key stroke EDIT
+// handler on key stroke BACK HOME
 onKeyStroke(["d", "D"], (e) => {
 	if (!ctrlPressed.value) return;
 	e.preventDefault();
 	$s.boardMode = "$view";
 	$s.resetSelection(true, true);
+});
+
+// handler on key stroke EXIT FOLDER
+onKeyStroke(["r", "R"], (e) => {
+	if (!ctrlPressed.value) return;
+	e.preventDefault();
+	$s.boardMode = "$view";
+	$s.resetSelection(false, true);
 });
 
 // handler on key stroke ADD ITEM

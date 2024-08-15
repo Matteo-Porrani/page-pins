@@ -23,6 +23,8 @@ const showContent = ref(false);
 		add item</pre>
 		<pre>CTRL + K
 		search</pre>
+		<pre>CTRL + R
+		exit folder</pre>
 		<pre>CTRL + D
 		return home</pre>
 	</div>
