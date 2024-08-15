@@ -38,6 +38,8 @@ const menuItems = [
 	[1, "Board", "pi-th-large", "openBoard"],
 	[2, "Import / Export", "pi-file-export", "openIE"],
 	[3, "Organizer (Beta)", "pi-database", "openOrganizer"],
+	[4, "Shortcuts", "pi-book", null],
+	[10, "About", "pi-user", null],
 	// [99, "Alpha", "pi-globe", "openAlpha"],
 ];
 
@@ -132,20 +134,30 @@ onKeyStroke(["a", "A"], (e) => {
 			<h1
 				class="
 					flex gap-2 items-center
-          text-2xl font-bold w-fit
+          text-xl font-bold w-fit
           ps-8
           transition duration-300 ease-in
         "
 				:class="{'transform -translate-x-[100%]' : $s.displayStep > 0}"
 			>
-				<span>Page</span>
+<!--				<span>Page</span>-->
+<!--				<box-icon-->
+<!--					type='solid'-->
+<!--					name='map-pin'-->
+<!--					size=""-->
+<!--					color="#dc2626"-->
+<!--				/>-->
+<!--				<span>Pins</span>-->
+
 				<box-icon
 					type='solid'
-					name='map-pin'
+					name='pin'
 					size=""
-					color="#dc2626"
+					color="#fff"
+					class="bg-gradient-to-r from-orange-500 to-red-600 size-8 rounded-md py-1"
 				/>
-				<span>Pins</span>
+				<span>PagePins</span>
+
 			</h1>
 
 			<!-- BREADCRUMB -->
@@ -195,10 +207,17 @@ onKeyStroke(["a", "A"], (e) => {
 			<div class="
 				absolute
 				top-4 end-8
-				bg-red-100
 			">
 				<button
-					class="bg-white rounded-md size-12 grid place-content-center px-2"
+					class="
+						hover:bg-slate-200
+						rounded-md
+						size-12
+						grid
+						place-content-center
+						transition duration-300
+						px-2
+					"
 					@click="toggleMenu"
 				>
 					<box-icon

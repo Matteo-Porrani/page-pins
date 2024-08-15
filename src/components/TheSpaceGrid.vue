@@ -28,7 +28,13 @@ const longPressHandler = () => $s.boardMode = "$edit";
 </script>
 
 <template>
-	<div class="board-view grid grid-cols-3 grid-rows-4 md:grid-cols-4 md:grid-rows-4 lg:grid-cols-5 lg:grid-rows-5 gap-10">
+	<div class="
+		board-view
+		grid gap-8
+		grid-cols-3 grid-rows-4
+		md:grid-cols-3 md:grid-rows-4
+		lg:grid-cols-5 lg:grid-rows-6
+	">
 		<!-- Your content here -->
 
 		<!-- CATEGORIES -->

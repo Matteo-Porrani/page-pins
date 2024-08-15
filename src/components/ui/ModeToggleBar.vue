@@ -15,11 +15,11 @@ const items = [
 		code: "$edit",
 		label: "Edit",
 	},
-	{
-		id: 3,
-		code: "$ie",
-		label: "I/E",
-	},
+	// {
+	// 	id: 3,
+	// 	code: "$ie",
+	// 	label: "I/E",
+	// },
 ];
 
 const setMode = (code) => {
@@ -39,7 +39,7 @@ const setMode = (code) => {
 	<div class="mode-toggle-bar z-10 fixed left-8 bottom-[4vh] flex gap-2">
 
 		<!-- MODE BUTTONS -->
-		<div class="w-60 grid grid-cols-3 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
+		<div class="w-40 grid grid-cols-2 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
 			<button
 				v-for="item in items"
 				class="item text-center rounded-lg py-1 px-2 transition duration-300 ease-in"

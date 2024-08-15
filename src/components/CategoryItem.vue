@@ -3,7 +3,6 @@ import {computed} from "vue";
 import {useMainStore} from "../../store/main";
 import { vOnLongPress } from '@vueuse/components';
 import {getColorName} from "../../data/baseColors";
-import ItemToolbar from "@/components/ui/ItemToolbar.vue";
 import DynaItemToolbar from "@/components/ui/DynaItemToolbar.vue";
 
 const $p = defineProps({
@@ -59,7 +58,6 @@ const enterCategory = id => {
 	>
 		<p
 			class="
-				text-lg
         group-hover:transform
         group-hover:scale-[1.2]
         transition duration-200

@@ -19,6 +19,7 @@ const pinia = createPinia();
 app.use(router);
 app.use(pinia);
 app.use(PrimeVue, {
+	// unstyled: true
 	theme: {
 		preset: Aura,
 	}
