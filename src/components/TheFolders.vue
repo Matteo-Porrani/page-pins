@@ -17,7 +17,10 @@ onMounted(() => {
 	}
 });
 
-const longPressHandler = () => $s.boardMode = "$edit";
+const longPressHandler = () => {
+	if ($s.displayStep !== 1) return;
+	$s.boardMode = "$edit";
+};
 </script>
 
 <template>

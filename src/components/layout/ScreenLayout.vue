@@ -296,12 +296,12 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<!-- FIXME *********** DEBUG	-->
 
-	<!--	<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
-	<!--		<pre>displayStep: {{ $s.displayStep }}</pre>-->
-	<!--		<pre>boardMode: {{ $s.boardMode }}</pre>-->
-	<!--		<pre>showIE: {{ $s.showIE }}</pre>-->
-	<!--		<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-	<!--	</div>-->
+		<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
+			<pre>displayStep: {{ $s.displayStep }}</pre>
+			<pre>boardMode: {{ $s.boardMode }}</pre>
+			<pre>showIE: {{ $s.showIE }}</pre>
+			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
+		</div>
 </template>
 
 <style>

@@ -9,7 +9,7 @@ defineProps({
 });
 
 const closeModal = () => {
-	$s.boardMode = ($s.boardMode === "$search") ? "$view" : "$edit";
+	$s.boardMode = ($s.boardMode === "$search") ? "$view" : $s.boardMode;
 	$s.showModal = false;
 }
 </script>
