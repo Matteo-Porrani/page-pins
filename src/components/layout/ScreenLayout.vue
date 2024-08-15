@@ -9,10 +9,11 @@ import TheEditForm from "@/components/ui/TheEditForm.vue";
 import ModeToggleBar from "@/components/ui/ModeToggleBar.vue";
 import TheBreadcrumb from "@/components/ui/TheBreadcrumb.vue";
 import TheSearchForm from "@/components/ui/TheSearchForm.vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import InfoKeymap from "@/components/info/InfoKeymap.vue";
 import InfoAbout from "@/components/info/InfoAbout.vue";
 
+const $route = useRoute();
 const $router = useRouter();
 const $s = useMainStore();
 
@@ -197,7 +198,7 @@ onKeyStroke(["a", "A"], (e) => {
 					size=""
 					color="#fff"
 					class="
-						bg-gradient-to-r from-orange-500 to-red-600
+						bg-gradient-to-r from-sky-400 to-purple-600
 						size-8 rounded-md
 						transform rotate-45
 						py-1
@@ -237,13 +238,11 @@ onKeyStroke(["a", "A"], (e) => {
 				>
 					<box-icon
 						name='search'
-						size=""
 						color="#94a3b8"
 					/>
 
 					<span class="text-sm text-slate-400 me-8">Search</span>
 
-<!--					<kbd class="border rounded-md py-1 px-2">⌘</kbd>-->
 					<kbd class="border rounded-md text-xs text-slate-500 border-b-4 py-1 px-2">Ctrl</kbd>
 					<span class="text-slate-400">+</span>
 					<kbd class="border rounded-md text-xs text-slate-500 border-b-4 py-1 px-2">K</kbd>
@@ -286,7 +285,7 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<main class="relative">
 		<ModeToggleBar
-			v-if="!$s.showActionSpace"
+			v-if="$route.name === 'home' && !$s.showActionSpace && !$s.showIE"
 		/>
 
 		<div class="content grid grid-cols-1 grid-rows-1 bg-slate-100 pt-4 p-8 overflow-hidden">
@@ -296,12 +295,12 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<!-- FIXME *********** DEBUG	-->
 
-		<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
-			<pre>displayStep: {{ $s.displayStep }}</pre>
-			<pre>boardMode: {{ $s.boardMode }}</pre>
-			<pre>showIE: {{ $s.showIE }}</pre>
-			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
-		</div>
+<!--		<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
+<!--			<pre>displayStep: {{ $s.displayStep }}</pre>-->
+<!--			<pre>boardMode: {{ $s.boardMode }}</pre>-->
+<!--			<pre>showIE: {{ $s.showIE }}</pre>-->
+<!--			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
+<!--		</div>-->
 </template>
 
 <style>

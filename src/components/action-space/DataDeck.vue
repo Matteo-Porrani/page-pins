@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useMainStore} from "../../../store/main";
+import Button from "primevue/button";
 
 const $s = useMainStore();
 
@@ -72,6 +73,21 @@ const navigateHome = () => {
 <template>
 
 	<div class="w-2/3 mx-auto">
+
+		<div class="return">
+			<Button
+				label="Back"
+				size="small"
+				icon="pi pi-angle-left"
+				outlined
+				class="mb-4"
+				@click="() => {
+					$s.showIE = false;
+					$s.boardMode = '$view';
+				}"
+			/>
+		</div>
+
 		<div class="deck grid grid-cols-2 gap-8 rounded-md">
 
 			<div class="side-down bg-white rounded-md py-8">

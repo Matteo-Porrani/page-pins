@@ -61,7 +61,7 @@ const copyHandler = async () => {
 			/>
 
 			<div class="flex-grow">
-				<p class="text-sm font-bold group-hover:text-red-700 transition duration-200">{{ link.name }}</p>
+				<p class="text-sm font-bold group-hover:text-red-600 transition duration-200">{{ link.name }}</p>
 				<p class="url-paragraph font-mono text-xs text-slate-400 group-hover:underline">{{ link.url }}</p>
 			</div>
 
