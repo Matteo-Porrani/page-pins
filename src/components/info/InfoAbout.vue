@@ -15,7 +15,7 @@
 	<div class="bg-white rounded-md text-slate-600 w-[60%] flex flex-col gap-4 py-4 px-6 mx-auto">
 		<p>PagePins is a lightweight web app designed to <b>organize your favorite website bookmarks</b>, built with <b>Vue 3</b>, <b>Tailwind CSS</b>, and the <b>Prime Vue</b> UI Suite.</p>
 
-		<p>The main workspace features <b>categories</b> to help you group bookmarks by general themes like "Movies," "Programming," or "Sports".</p>
+		<p>The main workspace features <b>categories</b> to help you group bookmarks by general themes like "Movies", "Programming" or "Sports".</p>
 
 		<p>Within each category, you can create <b>folders</b> for more precise organization, allowing you to neatly store and access your favorite <b>links</b>.</p>
 

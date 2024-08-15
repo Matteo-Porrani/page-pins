@@ -52,7 +52,7 @@ const menuActions = ref({
 })
 const menuItems = [
 	[1, "Board", "pi-th-large", "openBoard"],
-	[2, "Import / Export", "pi-file-export", "openIE"],
+	[2, "Import / Export", "pi-database", "openIE"],
 	// [3, "Organizer (Beta)", "pi-database", "openOrganizer"],
 	[4, "Shortcuts", "pi-book", "showInfoShortcuts"],
 	[10, "About", "pi-user", "showInfoAbout"],
