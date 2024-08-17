@@ -32,10 +32,15 @@ const copyHandler = async () => {
 	}
 };
 
+const duplicateHandler = () => {
+	console.log("DUPLICATE", $p.link);
+	$s.addItem({...$p.link});
+}
+
 </script>
 
 <template>
-	<div class="link-wrapper grid grid-rows-1 gap-4 items-center">
+	<div class="link-wrapper grid grid-rows-1 gap-2 items-center">
 
 		<component
 			:is="$s.editModeOn || link.url === '' ? 'div' : 'a'"
@@ -49,7 +54,8 @@ const copyHandler = async () => {
 				cursor-pointer
 				hover:shadow-xl
 				transition-all duration-200 ease-in
-				p-2
+				h-14
+				px-2
 			"
 			v-on-long-press="longPressHandler"
 		>
@@ -61,21 +67,14 @@ const copyHandler = async () => {
 			/>
 
 			<ColorTag
-				v-if="link.color > 0"
 				:color="getColorName(link.color)"
-			/>
-
-			<ColorTag
-				v-else
-				neutral
+				:neutral="link.color === 0"
 			/>
 
 			<div class="flex-grow">
 				<p class="text-sm font-bold group-hover:text-red-600 transition duration-200">{{ link.name }}</p>
 				<p class="url-paragraph font-mono text-xs text-slate-400 group-hover:underline">{{ link.url }}</p>
 			</div>
-
-
 
 			<box-icon
 				class=""
@@ -86,7 +85,28 @@ const copyHandler = async () => {
 		</component>
 
 		<button
-			class="relative bg-slate-100 hover:bg-slate-200 aspect-square rounded-lg"
+			class="
+				relative
+				bg-slate-100 hover:bg-slate-200
+				min-w-14 aspect-square rounded-lg
+			"
+			title="copy"
+			@click="duplicateHandler"
+		>
+
+			<box-icon
+				class=""
+				name="copy"
+				color="#a1a1aa"
+			/>
+		</button>
+
+		<button
+			class="
+				relative
+				bg-slate-100 hover:bg-slate-200
+				min-w-14 aspect-square rounded-lg
+			"
 			title="copy"
 			@click="copyHandler"
 		>

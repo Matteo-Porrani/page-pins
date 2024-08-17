@@ -246,7 +246,9 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ----- CRUD --------------------------------------------------------------------------------------------------------
 	
-	const addItem = () => {
+	const addItem = (cloned = null) => {
+		// console.log("%c/addItem/", "background: gold");
+		
 		// get entity name based on display step
 		const entityName = {
 			0: "category",
@@ -273,9 +275,19 @@ export const useMainStore = defineStore('counter', () => {
 			color: 0
 		}
 		
+		// cloning is only for links so far
+		if (cloned) newItem.name = cloned.name + " copy";
+		
 		// add default value to extra props
 		if (extraProps.length > 0) {
-			extraProps.forEach(propName => newItem[propName] = propName === "url" ? "?" : "");
+			extraProps.forEach(propName => {
+				if (cloned) {
+					// cloning is only for links so far
+					newItem[propName] = cloned[propName];
+				} else {
+					newItem[propName] = propName === "url" ? "?" : "";
+				}
+			});
 		}
 		
 		// create 'category' key

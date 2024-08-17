@@ -46,8 +46,8 @@ const longPressHandler = () => {
 				cursor-pointer
 				bg-white
 				border-2 border-transparent
-				h-14 flex justify-between items-center rounded-lg
-				text-center
+				h-14 rounded-lg
+				flex gap-4 justify-between items-center
 				p-2 mb-4
 				transition duration-300
 			"
@@ -64,7 +64,7 @@ const longPressHandler = () => {
 				:item="fol"
 			/>
 
-			<h3 class="font-bold text-xs lg:text-sm">
+			<h3 class="font-bold text-xs lg:text-sm flex-grow flex items-center justify-between">
 				<span>{{ fol.name }}</span>
 				<span class="ms-3 font-normal text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded-full">
 					{{ $s.getChildren('link', 'folder', fol.id).length }}
@@ -72,8 +72,8 @@ const longPressHandler = () => {
 			</h3>
 
 			<ColorTag
-				v-if="fol.color > 0"
 				:color="getColorName(fol.color)"
+				:neutral="fol.color === 0"
 			/>
 		</article>
 	</section>

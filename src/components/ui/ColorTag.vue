@@ -19,7 +19,7 @@ const colorClass = computed(() => {
 
 <template>
 	<div
-		class="sample size-5 rounded-md"
+		class="sample h-10 w-2 rounded-md"
 		:class="colorClass"
 	></div>
 </template>
