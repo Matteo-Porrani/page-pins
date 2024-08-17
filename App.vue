@@ -1,15 +1,12 @@
 <script setup>
 import {useShortcuts} from "@/composables/shortcuts";
 
+// all keyboard shortcuts defined in composable & available globally
 useShortcuts();
 
 </script>
 
 <template>
-
-<!--	<Teleport to="body">-->
-<!--		<DevDebugger/>-->
-<!--	</Teleport>-->
 
 	<router-view/>
 
