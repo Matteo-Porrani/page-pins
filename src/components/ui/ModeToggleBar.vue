@@ -39,11 +39,11 @@ const setMode = (code) => {
 	<div class="mode-toggle-bar z-10 fixed left-8 bottom-[4vh] flex gap-2">
 
 		<!-- MODE BUTTONS -->
-		<div class="w-40 grid grid-cols-2 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
+		<div class="w-40 bg-white grid grid-cols-2 gap-2 bg-slate-100 rounded-lg shadow-lg p-2">
 			<button
 				v-for="item in items"
 				class="item text-center rounded-lg py-1 px-2 transition duration-300 ease-in"
-				:class="{'bg-slate-800 text-white':item.code === $s.boardMode}"
+				:class="{'bg-slate-600 text-white':item.code === $s.boardMode}"
 				@click="setMode(item.code)"
 			>
 				{{ item.label }}
@@ -53,7 +53,7 @@ const setMode = (code) => {
 		<!-- ADD ITEM BUTTON -->
 		<div
 			v-if="!$s.showIE && $s.boardMode === '$view'"
-			class="bg-slate-100 hover:bg-slate-200 rounded-lg shadow-lg transition duration-300 ease-in p-2"
+			class="bg-white hover:bg-slate-200 rounded-lg shadow-lg transition duration-300 ease-in p-2"
 		>
 			<button
 				class="flex justify-center items-center rounded-lg w-8 py-1 px-2"

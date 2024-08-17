@@ -170,7 +170,13 @@ onKeyStroke(["a", "A"], (e) => {
 		</TheModal>
 	</Teleport>
 
-	<header class="relative bg-slate-100 py-4">
+	<header
+		class="
+			relative
+			bg-slate-100
+			py-5
+		"
+	>
 		<slot name="header">
 
 			<!-- HERO TITLE -->
@@ -227,10 +233,10 @@ onKeyStroke(["a", "A"], (e) => {
 				<TheBreadcrumb/>
 			</div>
 
-			<!-- SEARCH BUTTON -->
+			<!-- SEARCH INPUT -->
 			<div class="
 				absolute
-				top-4 end-24
+				top-3 end-24
 			">
 				<button
 					class="flex gap-1 items-center bg-white rounded-md h-12 px-2"
@@ -252,7 +258,7 @@ onKeyStroke(["a", "A"], (e) => {
 			<!-- MENU -->
 			<div class="
 				absolute
-				top-4 end-8
+				top-3 end-8
 			">
 				<button
 					class="
@@ -288,7 +294,15 @@ onKeyStroke(["a", "A"], (e) => {
 			v-if="$route.name === 'home' && !$s.showActionSpace && !$s.showIE"
 		/>
 
-		<div class="content grid grid-cols-1 grid-rows-1 bg-slate-100 pt-4 p-8 overflow-hidden">
+		<div
+			class="
+				content
+				bg-slate-100
+				grid grid-cols-1 grid-rows-1
+				overflow-hidden
+				pt-4 p-8
+			"
+		>
 			<slot name="content"></slot>
 		</div>
 	</main>
@@ -304,7 +318,11 @@ onKeyStroke(["a", "A"], (e) => {
 </template>
 
 <style>
-#overlay_menu {
-	transform: translateY(6px) !important;
-}
+/*body {
+	background:
+		linear-gradient(45deg,#0000 18.75%,#e2e8f0 0 31.25%,#0000 0),
+		repeating-linear-gradient(-45deg,#e2e8f0 -6.25% 6.25%,#f1f5f9 0 18.75%);
+	background-size: 32px 32px;
+
+}*/
 </style>
