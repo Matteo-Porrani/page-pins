@@ -28,7 +28,7 @@ export const localDataDefaults = {
 			color: 0,
 		},
 		{
-			id: 2,
+			id: 3,
 			name: "DuckDuckGo",
 			url: "https://duckduckgo.com",
 			category: 1,

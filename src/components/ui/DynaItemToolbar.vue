@@ -91,7 +91,7 @@ const modes = {
 }
 
 const btns = {
-	$close: [1, "check", null],
+	$close: [1, "x", null],
 	$edit: [2, "pencil", null],
 	$colorize: [3, "purchase-tag", null],
 	$reorder: [4, "list-ul", null],
@@ -132,7 +132,7 @@ const actions = {
 	$discard: () => step.value = "$E", // discard remove & go back to $E mode
 
 	// DELETE
-	$confirm: () => $s.deleteItem($p.entity, $p.item), // confirm remove
+	$confirm: () => $s.removeItem($p.entity, $p.item), // confirm remove
 };
 
 const pickColor = id => {

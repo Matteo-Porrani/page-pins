@@ -72,7 +72,7 @@ const activeBtns = computed(() => {
 			icon: "trash-alt",
 			color: "red",
 			callback: () => {
-				$s.deleteItem($p.entity, $p.item);
+				$s.removeItem($p.entity, $p.item);
 			},
 		})
 	}

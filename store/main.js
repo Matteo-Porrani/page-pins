@@ -328,61 +328,6 @@ export const useMainStore = defineStore('counter', () => {
 		showModal.value = true;
 	}
 	
-	// FIXME ****  use removeItem instead !!!!!!!
-	const deleteItem = (entityName, item) => {
-		// console.log("%c/deleteItem/", "background: orange");
-		// console.log(entityName, item);
-		
-		// removing corresponding orders key
-		if (entityName === "category") {
-			console.log("DELETING category");
-			
-			// delete from orders.category
-			console.log("DELETING localData.value.orders.category[", item.id, "]");
-			delete localData.value.orders.category[item.id];
-			
-			// delete from orders.root
-			const parentCollection = localData.value.orders.root;
-			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el === item.id);
-				parentCollection.splice(idxToRemove, 1);
-			}
-			
-		} else if (entityName === "folder") {
-			console.log("DELETING folder ID", item.id);
-			// delete from orders.folder
-			console.log("DELETING localData.value.orders.folder[", item.id, "]");
-			delete localData.value.orders.folder[item.id];
-			
-			// delete from orders.category
-			const parentCollection = localData.value.orders.category[item.category];
-			
-			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el === item.id);
-				parentCollection.splice(idxToRemove, 1);
-			}
-			
-		} else if (entityName === "link") {
-			console.log("DELETING link ID", item.id);
-			
-			// find parent key
-			const parentCollection = localData.value.orders.folder[item.folder];
-			
-			if (parentCollection) {
-				const idxToRemove = parentCollection.findIndex(el => el === item.id);
-				parentCollection.splice(idxToRemove, 1);
-			}
-			
-		}
-		
-		// DELETION OF ACTUAL ITEM OBJECT
-		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
-		localData.value[entityName].splice(idxToRemove, 1);
-		
-		console.log(entityName, "with ID", item.id, "REMOVED")
-	}
-	
-	// FIXME -- same as deleteItem() mais more DRY
 	const removeItem = (entityName, item) => {
 		// get parent entity name
 		const entities = ["root", "category", "folder", "link"];
@@ -394,8 +339,6 @@ export const useMainStore = defineStore('counter', () => {
 		if (["category", "folder"].includes(entityName)) {
 			// additional step
 			delete localData.value.orders[entityName][item.id];
-			// 						'category'
-			// 						'folder'
 		}
 		
 		// get parent collection
@@ -405,15 +348,22 @@ export const useMainStore = defineStore('counter', () => {
 			parentCollection = localData.value.orders[parentEntityName][item[parentEntityName]];
 		}
 		
-		// remove item id from parent collection
+		// REMOVAL OF ITEM ID FROM PARENT COLLECTION
 		const idxToRemoveInOrders = parentCollection.findIndex(el => el === item.id);
 		parentCollection.splice(idxToRemoveInOrders, 1);
 		
-		// DELETION OF ACTUAL ITEM OBJECT
+		// REMOVAL OF ACTUAL ITEM OBJECT
 		const idxToRemove = localData.value[entityName].findIndex(el => parseInt(el.id) === parseInt(item.id));
 		localData.value[entityName].splice(idxToRemove, 1);
 		
-		console.log(entityName, "with ID", item.id, "REMOVED");
+		// console.log(entityName, "with ID", item.id, "REMOVED");
+		
+		if (entityName === "link" && parentCollection.length < 1) {
+			// exit current folder
+			resetSelection(false, true);
+			// go back to $view mode
+			boardMode.value = "$view";
+		}
 	}
 	
 	// ----- REORDERING --------------------------------------------------------------------------------------------------
@@ -605,7 +555,7 @@ export const useMainStore = defineStore('counter', () => {
 		
 		addItem,
 		editItem,
-		deleteItem,
+		removeItem,
 		
 		reorderTriggeredBy,
 		updateOrder,
