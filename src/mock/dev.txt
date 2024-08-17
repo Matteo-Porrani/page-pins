@@ -2,6 +2,7 @@ https://tailwindcss.com/docs/customizing-colors
 
 https://primevue.org/icons/#list
 
+https://github.com/qrohlf/trianglify/tree/master
 
 ### CHANGELOG ###
 
