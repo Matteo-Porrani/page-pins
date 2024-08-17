@@ -1,16 +1,26 @@
 <script setup>
-defineProps({
+import {computed} from "vue";
+const $p = defineProps({
 	color: {
 		type: String,
 		required: true
-	}
+	},
+	neutral: {
+		type: Boolean,
+		default: false
+	},
+})
+
+const colorClass = computed(() => {
+	if (!$p.neutral) return `bg-${$p.color}-400`;
+	return "bg-slate-100";
 })
 </script>
 
 <template>
 	<div
 		class="sample size-5 rounded-md"
-		:class="`bg-${color}-400`"
+		:class="colorClass"
 	></div>
 </template>
 

@@ -20,8 +20,8 @@ const initToolbar = () => {
 	const elements = modes[step.value];
 
 	// remove elements if needed
-	if (elements.includes("$toggle1") && !itemIsDeletable.value) elements.splice(4, 1); // remove "$toggle1"
-	if (elements.includes("$transfer") && $p.entity === "category") elements.splice(3, 1); // remove "$transfer"
+	if (elements.includes("$toggle1") && !itemIsDeletable.value) elements.splice(elements.indexOf("$toggle1"), 1); // remove "$toggle1"
+	if (elements.includes("$transfer") && $p.entity === "category") elements.splice(elements.indexOf("$transfer"), 1); // remove "$transfer"
 
 	// config is an array of btn config objects
 	toolbarConfig.value = elements.map(el => {
@@ -167,9 +167,7 @@ const pickColor = id => {
 			<div class="palette-wrapper grid gap-2 grid-cols-4 grid-rows-3">
 				<button
 					class="border border-slate-200 rounded-lg size-6 grid place-content-center"
-					@click="() => {
-						console.log('SELECT color ID ' + 0)
-					}"
+					@click="pickColor(0)"
 				>
 					<i v-if="item.color === 0" class="pi pi-check"></i>
 				</button>

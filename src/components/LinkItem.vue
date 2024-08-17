@@ -48,8 +48,8 @@ const copyHandler = async () => {
 				flex gap-4 items-center
 				cursor-pointer
 				hover:shadow-xl
-				p-2
 				transition-all duration-200 ease-in
+				p-2
 			"
 			v-on-long-press="longPressHandler"
 		>
@@ -60,15 +60,22 @@ const copyHandler = async () => {
 				:item="link"
 			/>
 
+			<ColorTag
+				v-if="link.color > 0"
+				:color="getColorName(link.color)"
+			/>
+
+			<ColorTag
+				v-else
+				neutral
+			/>
+
 			<div class="flex-grow">
 				<p class="text-sm font-bold group-hover:text-red-600 transition duration-200">{{ link.name }}</p>
 				<p class="url-paragraph font-mono text-xs text-slate-400 group-hover:underline">{{ link.url }}</p>
 			</div>
 
-			<ColorTag
-				v-if="link.color > 0"
-				:color="getColorName(link.color)"
-			/>
+
 
 			<box-icon
 				class=""
