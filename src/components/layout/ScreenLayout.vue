@@ -28,9 +28,7 @@ const $s = useMainStore();
 
 	<!-- INFO MODAL -->
 	<Teleport to="body">
-		<TheModal
-			:show="$s.showInfoModal"
-		>
+		<TheModal :show="$s.showInfoModal">
 			<template #header></template>
 
 			<template #body>
@@ -54,9 +52,7 @@ const $s = useMainStore();
 
 	<!-- FORM MODAL -->
 	<Teleport to="body">
-		<TheModal
-			:show="$s.showModal"
-		>
+		<TheModal :show="$s.showModal">
 			<template #header>
 				<span></span><!--	EMPTY HEADER-->
 			</template>
@@ -67,16 +63,16 @@ const $s = useMainStore();
 		</TheModal>
 	</Teleport>
 
+	<!-- HEADER -->
 	<header class="relative py-5">
 		<slot name="header">
 			<TheHeader/>
 		</slot>
 	</header>
 
+	<!-- MAIN -->
 	<main class="relative">
-		<ModeToggleBar
-			v-if="$route.name === 'home' && !$s.showActionSpace && !$s.showIE"
-		/>
+		<ModeToggleBar v-if="$route.name === 'home' && !$s.showActionSpace && !$s.showIE"/>
 
 		<div
 			class="
