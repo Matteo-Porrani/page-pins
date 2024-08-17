@@ -12,6 +12,11 @@ import {definePreset} from "@primevue/themes";
 // import Lara from '@primevue/themes/lara';
 // import Nora from '@primevue/themes/nora';
 
+import Tooltip from 'primevue/tooltip';
+
+
+
+
 import App from "./App.vue";
 import router from "./router";
 
@@ -44,5 +49,7 @@ app.use(PrimeVue, {
 		preset: MyPreset,
 	}
 });
+
+app.directive('tooltip', Tooltip);
 
 app.mount("#app");

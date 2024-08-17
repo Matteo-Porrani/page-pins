@@ -85,12 +85,12 @@ const duplicateHandler = () => {
 		</component>
 
 		<button
+			v-tooltip.top="'Duplicate'" type="text"
 			class="
 				relative
 				bg-slate-100 hover:bg-slate-200
 				min-w-14 aspect-square rounded-lg
 			"
-			title="copy"
 			@click="duplicateHandler"
 		>
 
@@ -102,12 +102,12 @@ const duplicateHandler = () => {
 		</button>
 
 		<button
+			v-tooltip.top="'Copy URL'" type="text"
 			class="
 				relative
 				bg-slate-100 hover:bg-slate-200
 				min-w-14 aspect-square rounded-lg
 			"
-			title="copy"
 			@click="copyHandler"
 		>
 
