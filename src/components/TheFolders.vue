@@ -24,10 +24,10 @@ const longPressHandler = () => {
 </script>
 
 <template>
-<div class="relative grid grid-cols-6 gap-6">
+<div class="relative grid grid-cols-4 gap-6">
 
 	<!-- LEFT 1/6 -->
-	<section class="text-slate-700">
+	<section class="col-span-1 text-slate-700">
 
 		<p
 			v-if="$s.getOrderedChildren('folder', 'category', $s.activeCategId).length < 1"
@@ -79,7 +79,7 @@ const longPressHandler = () => {
 	</section>
 
 	<!-- RIGHT 5/6 -->
-	<TheDrawer class="col-span-5"/>
+	<TheDrawer class="col-span-3"/>
 
 </div>
 </template>
