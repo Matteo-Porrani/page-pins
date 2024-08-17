@@ -1,7 +1,8 @@
 <script setup>
-// import {useMainStore} from "./store/main";
-// import DevDebugger from "@/components/DevDebugger.vue";
-// const $s = useMainStore();
+import {useShortcuts} from "@/composables/shortcuts";
+
+useShortcuts();
+
 </script>
 
 <template>
@@ -629,5 +630,12 @@
 body {
 	/*@apply bg-marine; CUSTOM COLOR in tailwind.config.js */
 	@apply bg-gradient-to-b from-slate-100 to-slate-300;
+
+/*
+	background:
+		linear-gradient(45deg,#0000 18.75%,#e2e8f0 0 31.25%,#0000 0),
+		repeating-linear-gradient(-45deg,#e2e8f0 -6.25% 6.25%,#f1f5f9 0 18.75%);
+	background-size: 32px 32px;
+	*/
 }
 </style>

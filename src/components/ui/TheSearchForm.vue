@@ -9,6 +9,7 @@ const searchString = ref("");
 
 
 onMounted(() => {
+	console.log("/MOUNTED TheSearchForm.vue/", new Date().getTime())
 	const inputRef = document.getElementById("input_search");
 	inputRef.focus();
 });

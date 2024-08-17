@@ -1,12 +1,17 @@
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onMounted} from "vue";
 import {useMainStore} from "../../../store/main";
 
 const $s = useMainStore();
 
 defineProps({
-	show: Boolean
+	show: Boolean,
+	required: true
 });
+
+onMounted(() => {
+	console.log("MODAL MOUNTED")
+})
 
 const closeModal = () => {
 	$s.boardMode = ($s.boardMode === "$search") ? "$view" : $s.boardMode;

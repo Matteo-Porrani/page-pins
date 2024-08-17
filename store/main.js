@@ -164,6 +164,11 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// ACTIONS ###########################################################################################################
 	
+	const toggleSearchModal = () => {
+		boardMode.value = "$search";
+		showModal.value = true;
+	}
+	
 	const getItemNameById = (entityName, itemId) => {
 		const el = localData.value[entityName].find(el => el.id === itemId);
 		return el ? el.name : "";
@@ -519,6 +524,7 @@ export const useMainStore = defineStore('counter', () => {
 		displayStep, // computed
 		creationCriteria, // computed
 		
+		toggleSearchModal,
 		getItemNameById,
 		
 		injectData,
