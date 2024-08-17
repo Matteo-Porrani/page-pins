@@ -174,7 +174,6 @@ onKeyStroke(["a", "A"], (e) => {
 	<header
 		class="
 			relative
-			bg-slate-100
 			py-5
 		"
 	>
@@ -190,14 +189,6 @@ onKeyStroke(["a", "A"], (e) => {
         "
 				:class="{'transform -translate-x-[100%]' : $s.displayStep > 0}"
 			>
-<!--				<span>Page</span>-->
-<!--				<box-icon-->
-<!--					type='solid'-->
-<!--					name='map-pin'-->
-<!--					size=""-->
-<!--					color="#dc2626"-->
-<!--				/>-->
-<!--				<span>Pins</span>-->
 
 				<box-icon
 					type='solid'
@@ -298,7 +289,6 @@ onKeyStroke(["a", "A"], (e) => {
 		<div
 			class="
 				content
-				bg-slate-100
 				grid grid-cols-1 grid-rows-1
 				overflow-hidden
 				pt-4 p-8
@@ -310,14 +300,14 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<!-- FIXME *********** DEBUG	-->
 
-		<div class="absolute z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
-			<pre>activeCategId: {{ $s.activeCategId }}</pre>
-			<pre>activeFolderId: {{ $s.activeFolderId }}</pre>
-			<pre>displayStep: {{ $s.displayStep }}</pre>
-			<pre>boardMode: {{ $s.boardMode }}</pre>
-			<pre>showIE: {{ $s.showIE }}</pre>
-			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
-		</div>
+<!--		<div class="absolute z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
+<!--			<pre>activeCategId: {{ $s.activeCategId }}</pre>-->
+<!--			<pre>activeFolderId: {{ $s.activeFolderId }}</pre>-->
+<!--			<pre>displayStep: {{ $s.displayStep }}</pre>-->
+<!--			<pre>boardMode: {{ $s.boardMode }}</pre>-->
+<!--			<pre>showIE: {{ $s.showIE }}</pre>-->
+<!--			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
+<!--		</div>-->
 </template>
 
 <style>

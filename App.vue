@@ -625,3 +625,9 @@
 </template>
 
 
+<style>
+body {
+	/*@apply bg-marine; CUSTOM COLOR in tailwind.config.js */
+	@apply bg-gradient-to-b from-slate-100 to-slate-300;
+}
+</style>

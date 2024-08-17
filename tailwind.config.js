@@ -7,7 +7,13 @@ module.exports = {
     "./views/**/*.{js,ts,jsx,tsx,vue}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'marine': '#0652DD',
+        'forest': '#009432',
+        'berry': '#B53471',
+      }
+    },
   },
   plugins: [],
 }
