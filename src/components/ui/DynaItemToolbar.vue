@@ -1,6 +1,7 @@
 <script setup>
 import {defineProps, ref, computed, onMounted, watch} from "vue";
 import {useMainStore} from "../../../store/main";
+import {baseColors} from "../../../data/baseColors";
 
 const $s = useMainStore();
 
@@ -10,9 +11,6 @@ const $p = defineProps({
 });
 
 onMounted(() => {
-	console.log("/MOUNTED/")
-	console.log($p);
-
 	initToolbar();
 });
 
@@ -46,8 +44,7 @@ const step = ref("$E"); // "$E" | "$R" | "$C"
 
 watch(
 	step,
-	(newVal) => {
-		// console.log("WATCH", newVal);
+	() => {
 		initToolbar();
 	},
 	{
@@ -87,30 +84,35 @@ const openActionSpace = mode => {
 const toolbarConfig = ref([]);
 
 const modes = {
-	$E: ["$edit", "$colorize", "$reorder", "$transfer", "$toggle1"],
+	$E: ["$close", "$edit", "$colorize", "$reorder", "$transfer", "$toggle1"],
 	$R: ["$remove", "$toggle2"],
 	$C: ["$discard", "$confirm"],
+	$P: [],
 }
 
 const btns = {
-	$edit: [1, "pencil", null],
-	$colorize: [2, "purchase-tag", null],
-	$reorder: [3, "list-ul", null],
-	$transfer: [4, "arrow-to-right", null],
-	$toggle1: [5, "dots-horizontal-rounded", null],
+	$close: [1, "check", null],
+	$edit: [2, "pencil", null],
+	$colorize: [3, "purchase-tag", null],
+	$reorder: [4, "list-ul", null],
+	$transfer: [5, "arrow-to-right", null],
+	$toggle1: [6, "dots-horizontal-rounded", null],
 
-	$remove: [6, "trash", "red"],
-	$toggle2: [7, "dots-horizontal-rounded", null],
+	$remove: [7, "trash", "red"],
+	$toggle2: [8, "dots-horizontal-rounded", null],
 
-	$discard: [8, "x", "red"],
-	$confirm: [9, "check", "dark"],
+	$discard: [9, "x", "red"],
+	$confirm: [10, "check", "dark"],
 }
 
 const actions = {
+	$close: () => {
+		setTimeout(() => $s.boardMode = "$view", 100);
+	},
 	$edit: () => $s.editItem($p.entity, $p.item),
 	$colorize: () => {
 		$s.prepareItemForColorize($p.entity, {...$p.item});
-		openActionSpace("$colorize");
+		step.value = "$P";
 	},
 	$reorder: () => {
 		$s.reorderTriggeredBy($p.entity, {...$p.item});
@@ -131,6 +133,12 @@ const actions = {
 
 	// DELETE
 	$confirm: () => $s.deleteItem($p.entity, $p.item), // confirm remove
+};
+
+const pickColor = id => {
+	$s.colorizeData.currColorId = id;
+	$s.colorizeItem();
+	step.value = '$E';
 }
 
 </script>
@@ -151,30 +159,63 @@ const actions = {
 		>
 			Confirm ?
 		</span>
-		<button
-			v-for="b in toolbarConfig"
-			:key="b.id"
-			class="
+
+		<div
+			v-if="step === '$P'"
+			class="z-50 border border-slate-300 bg-white shadow-md rounded-md p-1"
+		>
+			<div class="palette-wrapper grid gap-2 grid-cols-4 grid-rows-3">
+				<button
+					class="border border-slate-200 rounded-lg size-6 grid place-content-center"
+					@click="() => {
+						console.log('SELECT color ID ' + 0)
+					}"
+				>
+					<i v-if="item.color === 0" class="pi pi-check"></i>
+				</button>
+
+				<button
+					v-for="c in baseColors"
+					:key="c.id"
+					class="rounded-lg size-6 grid place-content-center"
+					:class="`bg-${c.name}-400`"
+					@click="pickColor(c.id)"
+				>
+					<i v-if="c.id === item.color" class="pi pi-check"></i>
+				</button>
+
+
+			</div>
+		</div>
+
+		<template v-if="step !== '$P'">
+			<button
+				v-for="b in toolbarConfig"
+				:key="b.id"
+				class="
           w-8
           flex justify-center items-center
           rounded-lg shadow-md
           border
           py-1
         "
-			:class="{
+				:class="{
           'transform -translate-y-2' : entity === 'category',
           'border-slate-300 bg-white hover:bg-slate-100' : b.color === null,
           'bg-red-100 hover:bg-red-200 border-red-300' : b.color === 'red',
           'bg-slate-200 hover:bg-slate-300 border-slate-300' : b.color === 'dark',
         }"
-			@click="b.action"
-		>
-			<box-icon
-				:name="b.icon"
-				color="#6b7280"
-				custom-size
-				:class="{'transform -rotate-90' : b.icon === 'purchase-tag' }"
-			/>
-		</button>
+				@click="b.action"
+			>
+				<box-icon
+					:name="b.icon"
+					color="#6b7280"
+					custom-size
+					:class="{'transform -rotate-90' : b.icon === 'purchase-tag' }"
+				/>
+			</button>
+		</template>
+
+
 	</div>
 </template>

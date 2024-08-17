@@ -9,7 +9,7 @@
 
 	<h2 class="flex items-center justify-center gap-2 mb-16">
 		<span class="text-lg font-bold text-slate-700">PagePins</span>
-		<pre class="text-sm bg-slate-800 text-white rounded-md py-1 px-4">v0.2.2</pre>
+		<pre class="text-sm bg-slate-800 text-white rounded-md py-1 px-4">v0.2.3</pre>
 	</h2>
 
 	<div class="bg-white rounded-md text-slate-600 w-[60%] flex flex-col gap-4 py-4 px-6 mx-auto">

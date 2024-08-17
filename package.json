@@ -1,6 +1,6 @@
 {
     "name": "page-pins",
-    "version": "0.2.0",
+    "version": "0.2.3",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
