@@ -24,20 +24,25 @@ export const useMainStore = defineStore('counter', () => {
 	// STATE #############################################################################################################
 	
 	// ----- UI state
+	const boardMode = ref("$view");
+	
 	const showModal = ref(false);
 	const showInfoModal = ref(false);
 	const infoModalTheme = ref(null);
+	
+	// FIXME -- IE should have its own route / view
 	const showIE = ref(false);
-	const boardMode = ref("$view");
+	
 	const showActionSpace = ref(false);
 	const actionSpaceMode = ref(null); // '$reorder' | '$transfer' | '$colorize'
 	
-	const activeCategId = ref(null);
-	const folderToggles = reactive({});
-	const lastActiveFolderId = ref(null);
-	
 	
 	// ----- computational state
+	const activeCategId = ref(null);
+	// const folderToggles = reactive({});
+	const activeFolderId = ref(null);
+	const lastActiveFolderId = ref(null);
+	
 	const itemInForm = ref(null);
 	const entityInFormDescription = ref(null);
 	
@@ -66,9 +71,6 @@ export const useMainStore = defineStore('counter', () => {
 	
 	// GETTERS ###########################################################################################################
 	
-	// returns boolean
-	const editModeOn = computed(() => boardMode.value === "$edit");
-	
 	// returns 0, 1, 2
 	const displayStep = computed(() => {
 		if (activeCategId.value) {
@@ -80,33 +82,23 @@ export const useMainStore = defineStore('counter', () => {
 		return 0;
 	});
 	
+	// returns boolean
+	const editModeOn = computed(() => boardMode.value === "$edit");
+	
 	// returns active category object
 	const activeCategory = computed(() => {
-		return activeCategId.value ?
-			localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeCategId.value))
-			: null;
+		return activeCategId.value
+			? localData.value.category.find(cat => parseInt(cat.id) === parseInt(activeCategId.value))
+			: null
+		;
 	});
 	
 	// returns active folder object (based on folderToggles)
 	const activeFolder = computed(() => {
-		return activeFolderId.value ?
-			localData.value.folder.find(fol => parseInt(fol.id) === parseInt(activeFolderId.value))
-			: null;
-	});
-	
-	// returns active folder id
-	const activeFolderId = computed(() => {
-		const entries = Object.entries(folderToggles);
-		
-		if (entries.length > 0) {
-			const active = entries.filter(e => e[1]);
-			
-			if (active.length > 0) {
-				return active[0][0];
-			}
-		}
-		
-		return null;
+		return activeFolderId.value
+			? localData.value.folder.find(fol => parseInt(fol.id) === parseInt(activeFolderId.value))
+			: null
+		;
 	});
 	
 	// criteria to know what item we are creating
@@ -117,7 +109,6 @@ export const useMainStore = defineStore('counter', () => {
 		}
 	});
 	
-	// -----------------------------------------------------------------------------
 	// data as tree nodes
 	
 	// UTILITY 1
@@ -168,13 +159,15 @@ export const useMainStore = defineStore('counter', () => {
 	});
 	
 	
+
+	
+	
+	// ACTIONS ###########################################################################################################
+	
 	const getItemNameById = (entityName, itemId) => {
 		const el = localData.value[entityName].find(el => el.id === itemId);
 		return el ? el.name : "";
 	};
-	
-	
-	// ACTIONS ###########################################################################################################
 	
 	// init the 'orders' key in localData if NEVER DONE BEFORE
 	const initOrders = () => {
@@ -201,28 +194,10 @@ export const useMainStore = defineStore('counter', () => {
 		localData.value.orders = orders;
 	}
 	
-	/**
-	 * @param { Boolean } category
-	 * @param { Boolean } folder
-	 */
 	const resetSelection = (category, folder) => {
 		if (category) activeCategId.value = null;
-		if (folder) initFolderToggles();
+		if (folder) activeFolderId.value = null;
 	};
-	
-	const initFolderToggles = () => {
-		localData.value.folder.forEach(f => folderToggles[f.id] = false);
-	};
-	
-	const toggleFolder = id => {
-		// no action if edit mode
-		if (editModeOn.value) return;
-		folderToggles[id] = !folderToggles[id];
-		
-		Object.keys(folderToggles)
-			.filter(key => parseInt(key) !== parseInt(id))
-			.forEach(key => folderToggles[key] = false);
-	}
 	
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
 		return localData.value[childEntityName]
@@ -527,20 +502,22 @@ export const useMainStore = defineStore('counter', () => {
 		transferData,
 		colorizeData,
 		boardMode,
-		folderToggles,
+		// folderToggles,
+		itemInForm,
+		entityInFormDescription,
+		
 		activeCategId,
 		activeFolderId,
-		itemInForm,
+		lastActiveFolderId,
+		
 		
 		getDataAsTreeNodes,
 		
 		editModeOn,
-		activeCategory,
-		activeFolder,
-		lastActiveFolderId,
-		displayStep,
-		creationCriteria,
-		entityInFormDescription,
+		activeCategory, // computed
+		activeFolder, // computed
+		displayStep, // computed
+		creationCriteria, // computed
 		
 		getItemNameById,
 		
@@ -548,8 +525,8 @@ export const useMainStore = defineStore('counter', () => {
 		initOrders,
 		
 		resetSelection,
-		initFolderToggles,
-		toggleFolder,
+		// initFolderToggles,
+		// toggleFolder,
 		getChildren,
 		getOrderedChildren,
 		

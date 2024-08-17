@@ -34,7 +34,8 @@ const menuActions = ref({
 		$s.boardMode = "$ie";
 		$s.showIE = true;
 		$s.activeCategId = null;
-		$s.initFolderToggles();
+		// $s.initFolderToggles();
+		$s.activeFolderId = null;
 		$router.push("/");
 	},
 	showInfoShortcuts: () => {
@@ -309,12 +310,14 @@ onKeyStroke(["a", "A"], (e) => {
 
 	<!-- FIXME *********** DEBUG	-->
 
-<!--		<div class="absolute text-xs z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">-->
-<!--			<pre>displayStep: {{ $s.displayStep }}</pre>-->
-<!--			<pre>boardMode: {{ $s.boardMode }}</pre>-->
-<!--			<pre>showIE: {{ $s.showIE }}</pre>-->
-<!--			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>-->
-<!--		</div>-->
+		<div class="absolute z-10 end-4 bottom-4 rounded-lg bg-orange-400 p-4">
+			<pre>activeCategId: {{ $s.activeCategId }}</pre>
+			<pre>activeFolderId: {{ $s.activeFolderId }}</pre>
+			<pre>displayStep: {{ $s.displayStep }}</pre>
+			<pre>boardMode: {{ $s.boardMode }}</pre>
+			<pre>showIE: {{ $s.showIE }}</pre>
+			<pre>showActionSpace: {{ $s.showActionSpace }}</pre>
+		</div>
 </template>
 
 <style>

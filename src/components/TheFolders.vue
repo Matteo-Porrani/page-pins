@@ -13,7 +13,8 @@ const $s = useMainStore();
 onMounted(() => {
 	if (!$s.lastActiveFolderId) {
 		// initialize toggles to false
-		$s.initFolderToggles();
+		// $s.initFolderToggles();
+		$s.activeFolderId = null;
 	}
 });
 
@@ -52,10 +53,15 @@ const longPressHandler = () => {
 				transition duration-300
 			"
 			:class="{
-							'border-slate-300' : (Object.values($s.folderToggles).some(v => v) && $s.folderToggles[fol.id]),
-							'translate-x-[-10rem] opacity-25' : (Object.values($s.folderToggles).some(v => v) && !$s.folderToggles[fol.id]),
+							'border-slate-300' : fol.id === $s.activeFolderId,
+							'translate-x-[-10rem] opacity-25' : $s.activeFolderId !== null && fol.id !== $s.activeFolderId,
 						}"
-			@click="$s.toggleFolder(fol.id)"
+			@click="() => {
+				if ($s.editModeOn) return;
+				// if condition to prevent toggle on 'hidden' folders
+				if ($s.activeFolderId !== null && $s.activeFolderId !== fol.id) return;
+				$s.activeFolderId = ($s.activeFolderId === null) ? fol.id : null;
+			}"
 		>
 
 			<DynaItemToolbar

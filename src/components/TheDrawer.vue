@@ -20,8 +20,8 @@ const orderedChildren = computed(() => {
 		<div
 			class="drawer relative grid grid-rows-1 bg-white-100 rounded-lg transition duration-500 p-4"
 			:class="{
-							'opacity-0 translate-y-1/2' : Object.values($s.folderToggles).every(v => !v),
-							'bg-white translate-y-0 opacity-1' : Object.values($s.folderToggles).some(v => v)
+							'opacity-0 translate-y-1/2' : $s.activeFolderId === null,
+							'bg-white translate-y-0 opacity-1' : $s.activeFolderId !== null
 						}"
 		>
 

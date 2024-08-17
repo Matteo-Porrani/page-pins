@@ -27,7 +27,8 @@ const setMode = (code) => {
 	$s.showIE = (code === "$ie");
 	if (code === "$ie") {
 		$s.activeCategId = null;
-		$s.initFolderToggles();
+		// $s.initFolderToggles();
+		$s.activeFolderId = null;
 	}
 }
 
