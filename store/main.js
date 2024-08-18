@@ -204,6 +204,11 @@ export const useMainStore = defineStore('counter', () => {
 		if (folder) activeFolderId.value = null;
 	};
 	
+	/**
+	 * FIXME ****
+	 * Use getLinkedEntityName() utility from utils.js
+	 * to avoid passing both childEntityName AND parentEntityName
+	 */
 	const getChildren = (childEntityName, parentEntityName, parentItemId) => {
 		return localData.value[childEntityName]
 			.filter(child => parseInt(child[parentEntityName]) === parseInt(parentItemId));
@@ -474,6 +479,14 @@ export const useMainStore = defineStore('counter', () => {
 		
 		// 3) update the parent ID in the item object
 		localData.value[entityToTransferName][idxToUpdate][parentEntityName] = currentParentId;
+		
+		// 4) ADDITIONAL for folders
+		if (entityToTransferName === "folder") {
+			// update 'category' key in children
+			const children = getChildren('link', 'folder', itemToTransfer.id);
+			// FIXME **** why do we store ref to category in links ? Additional work for update
+			children.forEach(c => c.category = currentParentId);
+		}
 	}
 	
 	const prepareItemForColorize = (entityName, item) => {
